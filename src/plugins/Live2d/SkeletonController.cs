@@ -2,10 +2,8 @@ using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ZoDream.Shared.Document;
 using ZoDream.Shared.Interfaces;
-using ZoDream.Shared.Models;
 
 namespace ZoDream.Plugin.Live2d
 {

@@ -3,9 +3,8 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using ZoDream.Shared.Document;
 using ZoDream.Shared.Interfaces;
-using ZoDream.Shared.IO;
-using ZoDream.Shared.Models;
 
 namespace ZoDream.Plugin.MonoGame
 {

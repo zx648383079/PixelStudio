@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using ZoDream.Shared.Document;
 using ZoDream.Shared.Interfaces;
-using ZoDream.Shared.IO;
 
 namespace ZoDream.Plugin.Godot
 {
@@ -21,7 +21,7 @@ namespace ZoDream.Plugin.Godot
         }
         public override IEnumerable<string>? Deserialize(string content, string fileName)
         {
-            var uid = ReaderHelper.MatchWithRange(content, "uid=\"", "\"");
+            var uid = ReadHelper.MatchWithRange(content, "uid=\"", "\"");
             return string.IsNullOrEmpty(uid) ? null : [uid];
         }
 

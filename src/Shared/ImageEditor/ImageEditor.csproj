@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<LangVersion>14</LangVersion>
+		<Nullable>enable</Nullable>
+		<Version>2.0</Version>
+		<Authors>zodream</Authors>
+		<Copyright>© 2026 zodream.cn</Copyright>
+		<BaseOutputPath>..\..\bin</BaseOutputPath>
+		<RootNamespace>ZoDream.Shared.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<AssemblyName>ZoDream.Shared.$(MSBuildProjectName)</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="BitmapToVector.SkiaSharp" Version="1.16.3" />
+	  <PackageReference Include="Svg.Skia" Version="4.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\ZoDream.Shared\ZoDream.Shared.csproj" />
+	  <ProjectReference Include="..\Document\Document.csproj" />
+	</ItemGroup>
+
+</Project>

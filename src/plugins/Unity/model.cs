@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using ZoDream.Shared.Models;
+using ZoDream.Shared.Document;
 
 namespace ZoDream.Plugin.Unity
 {

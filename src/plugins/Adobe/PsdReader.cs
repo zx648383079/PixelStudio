@@ -1,8 +1,7 @@
 ﻿using PsdParser;
 using System;
 using System.Threading.Tasks;
-using ZoDream.Shared.Interfaces;
-using ZoDream.Shared.Models;
+using ZoDream.Shared.Document;
 
 namespace ZoDream.Plugin.Adobe
 {

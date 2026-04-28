@@ -3,8 +3,8 @@ using System;
 using System.Linq;
 using System.Numerics;
 using ZoDream.Plugin.Spine.Models;
+using ZoDream.Shared.Document;
 using ZoDream.Shared.Interfaces;
-using ZoDream.Shared.Models;
 
 namespace ZoDream.Plugin.Spine
 {

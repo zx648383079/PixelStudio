@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZoDream.Plugin.Spine.Models;
+using ZoDream.Shared.Document;
 using ZoDream.Shared.Interfaces;
-using ZoDream.Shared.Models;
 
 namespace ZoDream.Plugin.Spine
 {

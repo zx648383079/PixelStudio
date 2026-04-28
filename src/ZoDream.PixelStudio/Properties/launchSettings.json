@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ZoDream.PixelStudio (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ZoDream.PixelStudio (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ZoDream.Shared.Document;
 using ZoDream.Shared.Interfaces;
-using ZoDream.Shared.IO;
-using ZoDream.Shared.Models;
 
 namespace ZoDream.Plugin.Unity
 {
@@ -46,16 +45,16 @@ namespace ZoDream.Plugin.Unity
                         switch (args[0])
                         {
                             case "x":
-                                res.Items[0].X = ReaderHelper.TryParseInt(args[1]); 
+                                res.Items[0].X = ReadHelper.TryParseInt(args[1]); 
                                 break;
                             case "y":
-                                res.Items[0].Y = -ReaderHelper.TryParseInt(args[1]);
+                                res.Items[0].Y = -ReadHelper.TryParseInt(args[1]);
                                 break;
                             case "width":
-                                res.Items[0].Width = ReaderHelper.TryParseInt(args[1]);
+                                res.Items[0].Width = ReadHelper.TryParseInt(args[1]);
                                 break;
                             case "height":
-                                res.Items[0].Height = ReaderHelper.TryParseInt(args[1]);
+                                res.Items[0].Height = ReadHelper.TryParseInt(args[1]);
                                 break;
                             default:
                                 break;
@@ -64,7 +63,7 @@ namespace ZoDream.Plugin.Unity
                 }
                 if (minCount > 0 && text.StartsWith("texture:"))
                 {
-                    res.Name = ReaderHelper.MatchWithRange(text, "guid:", ",");
+                    res.Name = ReadHelper.MatchWithRange(text, "guid:", ",");
                 }
                 if (minCount > 0 && text.StartsWith("textureRect:"))
                 {

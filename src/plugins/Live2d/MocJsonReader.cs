@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using ZoDream.Plugin.Live2d.Models;
+using ZoDream.Shared.Document;
 using ZoDream.Shared.Interfaces;
-using ZoDream.Shared.IO;
 
 namespace ZoDream.Plugin.Live2d
 {

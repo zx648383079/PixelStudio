@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using ZoDream.Shared.Document;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.IO;
-using ZoDream.Shared.Models;
 
 namespace ZoDream.Plugin.Godot
 {
@@ -157,8 +157,8 @@ namespace ZoDream.Plugin.Godot
                 return CreateImageImport(fileName, root);
             }
             var content = File.ReadAllText(fileName + ".import");
-            var uid = ReaderHelper.MatchWithRange(content, "uid=\"", "\"");
-            var relativeFile = ReaderHelper.MatchWithRange(content, "source_file=\"", "\"");
+            var uid = ReadHelper.MatchWithRange(content, "uid=\"", "\"");
+            var relativeFile = ReadHelper.MatchWithRange(content, "source_file=\"", "\"");
             return (uid, relativeFile);
         }
 

@@ -1,0 +1,200 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>ZoDream.PixelStudio</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x86;x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+    <UseWinUI>true</UseWinUI>
+    <WinUISDKReferences>false</WinUISDKReferences>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Controls\ImageCanvasShell.xaml" />
+    <None Remove="Dialogs\AboutDialog.xaml" />
+    <None Remove="Dialogs\ConfirmDialog.xaml" />
+    <None Remove="Dialogs\CreateCircleDialog.xaml" />
+    <None Remove="Dialogs\CreatePathDialog.xaml" />
+    <None Remove="Dialogs\CreateProjectDialog.xaml" />
+    <None Remove="Dialogs\CreateRectDialog.xaml" />
+    <None Remove="Dialogs\CreateTextDialog.xaml" />
+    <None Remove="Dialogs\ExportDialog.xaml" />
+    <None Remove="Dialogs\GroupDialog.xaml" />
+    <None Remove="Dialogs\LayerDialog.xaml" />
+    <None Remove="Dialogs\LayerPropertyDialog.xaml" />
+    <None Remove="Dialogs\OpenProjectDialog.xaml" />
+    <None Remove="Dialogs\PluginDialog.xaml" />
+    <None Remove="Dialogs\PropertyDialog.xaml" />
+    <None Remove="Dialogs\RenameDialog.xaml" />
+    <None Remove="Dialogs\SeparateDialog.xaml" />
+    <None Remove="Pages\StartupPage.xaml" />
+    <None Remove="Pages\WorkspacePage.xaml" />
+    <None Remove="Themes\BaseStyle.xaml" />
+    <None Remove="Themes\DarkTheme.xaml" />
+    <None Remove="Themes\FormStyle.xaml" />
+    <None Remove="Themes\Input.xaml" />
+    <None Remove="Themes\LightTheme.xaml" />
+    <None Remove="Themes\TitleBar.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <!--
+    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
+    Tools extension to be activated for this project even if the Windows App SDK Nuget
+    package has not yet been restored.
+  -->
+  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+    <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.ColorPicker" Version="8.2.251219" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1721" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260416003" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="3.0.1" />
+    <PackageReference Include="SkiaSharp" Version="3.119.2" />
+    <PackageReference Include="SkiaSharp.Views.WinUI" Version="3.119.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\plugins\Adobe\Adobe.csproj" />
+    <ProjectReference Include="..\plugins\Affinity\Affinity.csproj" />
+    <ProjectReference Include="..\plugins\Cocos\Cocos.csproj" />
+    <ProjectReference Include="..\plugins\DragonBones\DragonBones.csproj" />
+    <ProjectReference Include="..\plugins\Egret\Egret.csproj" />
+    <ProjectReference Include="..\plugins\Gimp\Gimp.csproj" />
+    <ProjectReference Include="..\plugins\Godot\Godot.csproj" />
+    <ProjectReference Include="..\plugins\Live2d\Live2d.csproj" />
+    <ProjectReference Include="..\plugins\MonoGame\MonoGame.csproj" />
+    <ProjectReference Include="..\plugins\Spine\Spine.csproj" />
+    <ProjectReference Include="..\plugins\TexturePacker\TexturePacker.csproj" />
+    <ProjectReference Include="..\plugins\Unity\Unity.csproj" />
+    <ProjectReference Include="..\Shared\Document\Document.csproj" />
+    <ProjectReference Include="..\Shared\Font\Font.csproj" />
+    <ProjectReference Include="..\Shared\ImageEditor\ImageEditor.csproj" />
+    <ProjectReference Include="..\Shared\OpenType\OpenType.csproj" />
+    <ProjectReference Include="..\Shared\PixelArt\PixelArt.csproj" />
+    <ProjectReference Include="..\Shared\UndoRedo\UndoRedo.csproj" />
+    <ProjectReference Include="..\Shared\WebType\WebType.csproj" />
+    <ProjectReference Include="..\ZoDream.Shared\ZoDream.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dialogs\AboutDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\ConfirmDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\CreateCircleDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\CreatePathDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\CreateProjectDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\CreateRectDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\CreateTextDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\ExportDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\GroupDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\LayerDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\LayerPropertyDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\OpenProjectDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\PluginDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\PropertyDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\RenameDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Dialogs\SeparateDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\ImageCanvasShell.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Themes\BaseStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\DarkTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\FormStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Input.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\LightTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\TitleBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\WorkspacePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\StartupPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <!--
+    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
+    Explorer "Package and Publish" context menu entry to be enabled for this project even if
+    the Windows App SDK Nuget package has not yet been restored.
+  -->
+  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+    <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+  </PropertyGroup>
+
+  <!-- Publish Properties -->
+  <PropertyGroup>
+    <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
+    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
+    <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
+    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+  </PropertyGroup>
+</Project>

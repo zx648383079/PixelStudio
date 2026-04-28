@@ -1,0 +1,41 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/plugins/">
+    <Project Path="plugins/Adobe/Adobe.csproj" Id="7c63e4f3-ef2c-4e75-8281-893e8fde3997" />
+    <Project Path="plugins/Affinity/Affinity.csproj" Id="1624435d-5291-4d1c-b0e1-2ade36c565d8" />
+    <Project Path="plugins/Cocos/Cocos.csproj" Id="97fd0762-9526-47a1-8793-9a90e219dc7b" />
+    <Project Path="plugins/DragonBones/DragonBones.csproj" Id="ca79535b-89d5-4e4e-b302-d5e966a37c3f" />
+    <Project Path="plugins/Egret/Egret.csproj" Id="df505ee6-f40b-4621-a81e-4c07a2fffaca" />
+    <Project Path="plugins/Gimp/Gimp.csproj" Id="a9ae4ac1-4011-4b67-94e5-d18f11b3e8d0" />
+    <Project Path="plugins/Godot/Godot.csproj" Id="8fb92c5d-45a7-4b2a-ad8a-9d26f6873272" />
+    <Project Path="plugins/Live2d/Live2d.csproj" Id="772e4c27-a405-4c32-9d1a-9604060a181b" />
+    <Project Path="plugins/MonoGame/MonoGame.csproj" Id="91ed405e-74c5-479e-9d97-a24e0118e4bc" />
+    <Project Path="plugins/Spine/Spine.csproj" Id="afa9bbfe-163c-42fb-b740-c260180ac001" />
+    <Project Path="plugins/TexturePacker/TexturePacker.csproj" Id="8b182742-7777-4ae9-92a1-3e8e1b2426c5" />
+    <Project Path="plugins/Unity/Unity.csproj" Id="2e7fc40b-d2c1-40d1-83ad-3518ee655dac" />
+  </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="Shared/Document/Document.csproj" Id="9f38cf8b-b961-4273-b40c-d62481f5ea5a" />
+    <Project Path="Shared/Drawing/Drawing.csproj" Id="a9bed75f-614c-4620-95d6-3b1824558a83" />
+    <Project Path="Shared/Font/Font.csproj" Id="05109cb3-f026-4210-91ec-3c1198585c0b" />
+    <Project Path="Shared/ImageEditor/ImageEditor.csproj" Id="b3ce01a6-bad9-4ace-b80e-6307df33f959" />
+    <Project Path="Shared/IO/IO.csproj" Id="dfb3a9c5-c7ec-4016-be6a-6185122c10fd" />
+    <Project Path="Shared/Numerics/Numerics.csproj" Id="ff71706a-e648-4cee-935f-21d84b600a2d" />
+    <Project Path="Shared/OpenType/OpenType.csproj" Id="e59f7aa8-bc39-4c2e-9e6a-cf3cd2e751b6" />
+    <Project Path="Shared/PixelArt/PixelArt.csproj" Id="ef9eab16-6078-4740-9c25-34fcfe8f70a5" />
+    <Project Path="Shared/UndoRedo/UndoRedo.csproj" Id="91fd967d-91ae-4309-9771-cd5c0d6a8150" />
+    <Project Path="Shared/WebType/WebType.csproj" Id="8a67a0eb-2d7d-479e-9088-ac9fda2e6d7a" />
+  </Folder>
+  <Project Path="ZoDream.PixelStudio/ZoDream.PixelStudio.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Deploy />
+  </Project>
+  <Project Path="ZoDream.Shared/ZoDream.Shared.csproj" Id="eb751967-ee9c-4021-a9da-223bca454314" />
+  <Project Path="ZoDream.Tests/ZoDream.Tests.csproj" Id="87611b61-1c04-4703-bbd0-80a4573b258f" />
+</Solution>

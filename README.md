@@ -1,4 +1,6 @@
-# ZoDream.TexturePacker
+# PixelStudio
+
+ 整合字体编辑和图片打包功能
 
  Texture2d pack and unpack
 

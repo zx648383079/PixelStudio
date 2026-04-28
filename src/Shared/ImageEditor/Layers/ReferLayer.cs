@@ -1,0 +1,81 @@
+﻿using SkiaSharp;
+using ZoDream.Shared.Interfaces;
+
+namespace ZoDream.Shared.ImageEditor.Layers
+{
+    /// <summary>
+    /// 参考图层
+    /// </summary>
+    public class ReferLayer : IImageSource, ICommandLayer
+    {
+        public ReferLayer(IImageEditor editor)
+        {
+            _editor = editor;
+            Invalidate();
+        }
+
+        private readonly IImageEditor _editor;
+        private readonly SKPaint _paint = new()
+        {
+            Color = SKColors.White,
+            IsAntialias = true
+        };
+        private float _opacity = 1;
+
+        public SKBitmap Source { get; set; }
+
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Scale { get; set; } = 1;
+
+        public float Opacity { get => _opacity;
+            set {
+                _opacity = value;
+                _paint.Color = SKColors.White.WithAlpha((byte)(255 * value));
+            }
+        }
+        public bool IsVisible { get; set; } = true;
+
+        public SKRect Bound => SKRect.Empty;
+
+        public void Resize(SKSize size)
+        {
+            Invalidate();
+        }
+
+        public void With(IImageLayer layer)
+        {
+        }
+        public void Invalidate()
+        {
+        }
+
+
+        public void Paint(IImageCanvas canvas)
+        {
+            if (Source is null)
+            {
+                return;
+            }
+            canvas.DrawBitmap(Source, 
+                SKRect.Create(X, Y, Source.Width * Scale, Source.Height * Scale),
+                _paint);
+        }
+
+        public bool Contains(SKPoint point)
+        {
+            return false;
+        }
+
+        public SKBitmap? CreateThumbnail(SKSize size)
+        {
+            return Source?.CreateThumbnail(size.ToSizeI());
+        }
+
+        public void Dispose()
+        {
+            _paint.Dispose();
+            Source?.Dispose();
+        }
+    }
+}

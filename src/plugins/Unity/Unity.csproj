@@ -1,18 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <TargetFramework>net10.0</TargetFramework>
-	  <LangVersion>13</LangVersion>
-	  <Nullable>enable</Nullable>
-	  <Version>1.0.0</Version>
-	  <EnableDynamicLoading>true</EnableDynamicLoading>
-	  <BaseOutputPath>..\..\bin</BaseOutputPath>
-	  <RootNamespace>ZoDream.Plugin.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-	  <AssemblyName>ZoDream.Plugin.$(MSBuildProjectName)</AssemblyName>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<LangVersion>14</LangVersion>
+		<Nullable>enable</Nullable>
+		<Version>2.0</Version>
+		<Authors>zodream</Authors>
+		<Copyright>© 2026 zodream.cn</Copyright>
+		<BaseOutputPath>..\..\bin</BaseOutputPath>
+		<RootNamespace>ZoDream.Plugin.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<AssemblyName>ZoDream.Plugin.$(MSBuildProjectName)</AssemblyName>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\ZoDream.Shared.IO\ZoDream.Shared.IO.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Shared\Document\Document.csproj" />
+	</ItemGroup>
 
 </Project>
