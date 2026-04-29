@@ -28,8 +28,6 @@ namespace ZoDream.Shared.Interfaces
 
         public void Touch(SKPoint point);
 
-
-
         public IImageLayer AddFolder(string name);
 
         public IImageBuffer Create(string name);
@@ -42,6 +40,8 @@ namespace ZoDream.Shared.Interfaces
         public IImageBuffer Decode(IImageLayer layer);
 
         public void Unselect();
+        public void Resize();
+        public void Resize(SKSize size);
 
         public void Paint(SKCanvas canvas, SKImageInfo info);
 

@@ -1,36 +1,46 @@
-﻿using ZoDream.Shared.Interfaces;
-using ZoDream.Shared.UndoRedo;
+﻿using System.Collections.ObjectModel;
+using ZoDream.Shared.ImageEditor.Layers;
+using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
     public partial class CreatorViewModel
     {
+
         private readonly AppViewModel _app = App.ViewModel;
 
-        public CommandManager UndoRedo { get; private set; } = new();
-        public IImageEditor? Instance { get; set; }
+        private string _selectedMode = "Move";
 
-
-        private bool _undoEnabled;
-
-        public bool UndoEnabled {
-            get => _undoEnabled;
-            set => SetProperty(ref _undoEnabled, value);
+        public string SelectedMode {
+            get => _selectedMode;
+            set {
+                SetProperty(ref _selectedMode, value);
+                OnPropertyChanged(nameof(SelectedModeIcon));
+            }
         }
 
-        private bool _redoEnabled;
+        public string SelectedModeIcon => SelectedMode switch
+        {
+            "Move" => "\uE8B0",
+            "Pen" => "\uEDFB",
+            "PenJoint" => "\uF003",
+            _ => "\uF271",
+        };
 
-        public bool RedoEnabled {
-            get => _redoEnabled;
-            set => SetProperty(ref _redoEnabled, value);
+        private ObservableCollection<GlyphGroupViewModel> _glyphItems = [];
+
+        public ObservableCollection<GlyphGroupViewModel> GlyphItems {
+            get => _glyphItems;
+            set => SetProperty(ref _glyphItems, value);
         }
 
-        private bool _isLoading;
+        private ObservableCollection<IImageLayer> _layerItems = [];
 
-        public bool IsLoading {
-            get => _isLoading;
-            set => SetProperty(ref _isLoading, value);
+        public ObservableCollection<IImageLayer> LayerItems {
+            get => _layerItems;
+            set => SetProperty(ref _layerItems, value);
         }
 
+        public bool IsSelectedLayer => SelectedLayer != null;
     }
 }

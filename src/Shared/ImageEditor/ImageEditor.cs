@@ -37,7 +37,10 @@ namespace ZoDream.Shared.ImageEditor
             _bottomLayers.Add(new TransparentLayer(this));
             _bottomLayers.Add(new GlyphLayoutLayer(this));
         }
+        public void Resize()
+        {
 
+        }
         public void Resize(SKSize size)
         {
             Size = size;

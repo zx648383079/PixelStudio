@@ -1,20 +1,15 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System;
+﻿using System;
 using ZoDream.Shared.ImageEditor;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
-    public partial class CreatorViewModel : ObservableObject, IDisposable
+    public partial class CreatorViewModel : BaseImageController, IDisposable
     {
         public CreatorViewModel()
+            : base()
         {
-            ExitCommand = new RelayCommand(TapExit);
-
-            UndoRedo.UndoStateChanged += UndoRedo_UndoStateChanged;
-            UndoRedo.ReverseUndoStateChanged += UndoRedo_ReverseUndoStateChanged;
-
+            
             PluginMenuItems = _app.Plugin.Get("import");
         }
 
@@ -22,15 +17,7 @@ namespace ZoDream.PixelStudio.ViewModels
         {
             Instance = new ImageEditor(shell, this, this);
         }
-        private void UndoRedo_ReverseUndoStateChanged(bool value)
-        {
-            RedoEnabled = value;
-        }
 
-        private void UndoRedo_UndoStateChanged(bool value)
-        {
-            UndoEnabled = value;
-        }
 
         public void Dispose()
         {

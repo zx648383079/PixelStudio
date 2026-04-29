@@ -1,7 +1,6 @@
 using Microsoft.UI.Xaml.Controls;
 using SkiaSharp;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -165,8 +164,12 @@ namespace ZoDream.PixelStudio.ViewModels
             }
             Instance?.Invalidate();
         }
-        private void OnDragImage(IEnumerable<IStorageItem> items)
+        protected override void OnDragFiles(IReadOnlyList<IStorageItem>? items)
         {
+            if (items is null)
+            {
+                return;
+            }
             OnDragImage(new FileLoader(items));
         }
         private async void OnDragImage(FileLoader loader)
