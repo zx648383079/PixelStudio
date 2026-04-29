@@ -1,14 +1,20 @@
 ﻿using SkiaSharp;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ZoDream.Shared.Drawing;
 
 namespace ZoDream.Shared.Interfaces
 {
     public interface IImageEditor: IDisposable
     {
         public IImageOptions Options { get; }
+
+        public ILayerController Layer { get; }
+        public IImageController Controller { get; }
+
+        public SKColor? BackgroundColor { get; set; }
+        /// <summary>
+        /// 当前计算的样式
+        /// </summary>
+        public IImageComputedStyler ComputedStyler { get; }
 
         public SKSize Size { get; }
 
@@ -22,69 +28,15 @@ namespace ZoDream.Shared.Interfaces
 
         public void Touch(SKPoint point);
 
-        public SKColor? BackgroundColor { get; set; }
 
-        public IImageLayerTree LayerItems { get; }
-        /// <summary>
-        /// 当前计算的样式
-        /// </summary>
-        public IImageComputedStyler ComputedStyler { get; }
-
-        public IImageLayer? Selected { get; }
-
-        public void GenerateLayerId(IImageLayer layer);
-
-        public IImageLayer? this[int id] { get; }
-
-        public IImageLayer? Get(int id);
-
-        public Task<IImageLayer?> AddImageAsync(string fileName);
-        public IImageLayer? AddImage(SKBitmap? image);
-        public IImageLayer? AddImage(IImageData? image);
-
-        public IImageLayer AddText(string text);
-
-        public IImageLayer AddText(string text, string fontFamily, int fontSize, SKColor color);
 
         public IImageLayer AddFolder(string name);
 
         public IImageBuffer Create(string name);
-        public IImageLayer Add(IImageSource source);
-
-        public void Add(IEnumerable<IImageLayer?> items);
-        public void Add(IEnumerable<IImageLayer?> items, IImageLayer parent);
-
- 
-
-        public void Add(IImageLayer layer);
-        public void Add(IImageLayer layer, IImageLayer? parent);
-        public void Add(IImageBuffer buffer, IImageLayer? parent);
-
-        public void InsertAfter(IEnumerable<IImageLayer> items, IImageLayer layer);
-        /// <summary>
-        /// 清除全部图层
-        /// </summary>
-        public void Clear();
-        /// <summary>
-        /// 移除图层并销毁
-        /// </summary>
-        /// <param name="id"></param>
-        public void Remove(int id);
-        /// <summary>
-        /// 移除图层并销毁
-        /// </summary>
-        /// <param name="layer"></param>
-        public void Remove(IImageLayer layer);
-
-        public void Resize();
-
-        public void Resize(float width, float height);
-
-        public void Tap(float x, float y);
-
-        public void Select(int id);
-
+        
         public void Select(IImageLayer? layer);
+
+        public void Select(SKRect rect);
 
         public IImagePixel Encode(IImageLayer layer);
         public IImageBuffer Decode(IImageLayer layer);

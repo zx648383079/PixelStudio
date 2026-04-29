@@ -19,14 +19,14 @@ namespace ZoDream.Shared.ImageEditor
 
         private int _zIndex = 0;
 
-        private readonly Dictionary<int, IImageComputedStyle> _cacheItems = [];
+        private readonly Dictionary<Guid, IImageComputedStyle> _cacheItems = [];
 
         private void Add(IImageLayer layer, IImageStyle style)
         {
             Add(layer.Id, style);
         }
 
-        private void Add(int id, IImageStyle style)
+        private void Add(Guid id, IImageStyle style)
         {
             var computed = style is IImageComputedStyle c ? c : new ImageComputedStyle(style);
             Width = Math.Max(Width, computed.ActualOuterWidth);

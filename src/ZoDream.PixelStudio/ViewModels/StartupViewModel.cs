@@ -1,10 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage.Pickers;
 using ZoDream.PixelStudio.Pages;
@@ -18,6 +14,7 @@ namespace ZoDream.PixelStudio.ViewModels
         {
             OpenCommand = new RelayCommand(TapOpen);
             CreateCommand = new RelayCommand(TapCreate);
+            CreateFontCommand = new RelayCommand(TapCreateFont);
             version = App.ViewModel.Version;
         }
 
@@ -31,6 +28,7 @@ namespace ZoDream.PixelStudio.ViewModels
         public ICommand OpenCommand { get; private set; }
 
         public ICommand CreateCommand { get; private set; }
+        public ICommand CreateFontCommand { get; private set; }
 
         private async void TapOpen()
         {
@@ -73,6 +71,11 @@ namespace ZoDream.PixelStudio.ViewModels
         private void TapCreate()
         {
             App.ViewModel.Navigate<WorkspacePage>();
+        }
+
+        private void TapCreateFont()
+        {
+            App.ViewModel.Navigate<FontCreatorPage>();
         }
     }
 }

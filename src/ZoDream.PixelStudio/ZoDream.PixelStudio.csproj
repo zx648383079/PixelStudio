@@ -31,6 +31,7 @@
     <None Remove="Dialogs\PropertyDialog.xaml" />
     <None Remove="Dialogs\RenameDialog.xaml" />
     <None Remove="Dialogs\SeparateDialog.xaml" />
+    <None Remove="Pages\FontCreatorPage.xaml" />
     <None Remove="Pages\StartupPage.xaml" />
     <None Remove="Pages\WorkspacePage.xaml" />
     <None Remove="Themes\BaseStyle.xaml" />
@@ -94,6 +95,11 @@
     <ProjectReference Include="..\Shared\UndoRedo\UndoRedo.csproj" />
     <ProjectReference Include="..\Shared\WebType\WebType.csproj" />
     <ProjectReference Include="..\ZoDream.Shared\ZoDream.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\FontCreatorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Dialogs\AboutDialog.xaml">

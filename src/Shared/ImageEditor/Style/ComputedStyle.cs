@@ -10,7 +10,7 @@ namespace ZoDream.Shared.ImageEditor
             
         }
 
-        public ImageComputedStyle(int layerId)
+        public ImageComputedStyle(Guid layerId)
         {
             LayerId = layerId;
         }
@@ -32,7 +32,7 @@ namespace ZoDream.Shared.ImageEditor
             Compute();
         }
 
-        public int LayerId { get; private set; }
+        public Guid LayerId { get; private set; }
 
         public float X { get; set; }
         public float Y { get; set; }

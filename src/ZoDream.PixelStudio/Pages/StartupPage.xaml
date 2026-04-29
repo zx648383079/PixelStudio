@@ -56,6 +56,16 @@
                     <FontIcon Glyph="&#xE710;" />
                 </win:SettingsCard.HeaderIcon>
             </win:SettingsCard>
+            <win:SettingsCard
+                Command="{Binding CreateFontCommand}"
+                Description="创建新的字体"
+                Header="创建字体"
+                IsActionIconVisible="False"
+                IsClickEnabled="True">
+                <win:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xF17F;" />
+                </win:SettingsCard.HeaderIcon>
+            </win:SettingsCard>
         </StackPanel>
     </Grid>
 </Page>

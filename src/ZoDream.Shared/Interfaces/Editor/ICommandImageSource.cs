@@ -13,7 +13,5 @@
         /// 依赖Editor尺寸的需要重绘
         /// </summary>
         public void Invalidate();
-
-        public void Paint(IImageCanvas canvas);
     }
 }

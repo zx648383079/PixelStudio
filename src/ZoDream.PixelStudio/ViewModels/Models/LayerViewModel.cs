@@ -9,7 +9,7 @@ namespace ZoDream.PixelStudio.ViewModels
     public class LayerViewModel : ObservableObject, IImageLayer
     {
 
-        public LayerViewModel(WorkspaceViewModel workspace, IImageSource source)
+        public LayerViewModel(IImageController workspace, IImageSource source)
         {
             Workspace = workspace;
             Source = source;
@@ -19,11 +19,11 @@ namespace ZoDream.PixelStudio.ViewModels
             }
         }
 
-        public WorkspaceViewModel Workspace { get; private set; }
+        public IImageController Workspace { get; private set; }
 
         public IImageLayer? Parent { get; set; }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         private string _name = string.Empty;
 

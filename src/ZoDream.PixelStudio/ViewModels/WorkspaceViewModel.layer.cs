@@ -15,9 +15,9 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return;
             }
-            Instance?.InsertAfter(layer.Children, layer);
+            Instance?.Layer.InsertAfter(layer.Children, layer);
             layer.Children.Clear();
-            Instance?.Remove(layer);
+            Instance?.Layer.Remove(layer);
         }
 
 
@@ -93,7 +93,7 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return;
             }
-            Instance?.Remove(layer);
+            Instance?.Layer.Remove(layer);
             if (SelectedLayer == layer)
             {
                 SelectedLayer = null;
@@ -421,7 +421,7 @@ namespace ZoDream.PixelStudio.ViewModels
             }
             
             layer.Parent.Children.Remove(layer);
-            Instance?.InsertAfter([layer], layer.Parent);
+            Instance?.Layer.InsertAfter([layer], layer.Parent);
         }
     }
 }

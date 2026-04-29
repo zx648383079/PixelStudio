@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZoDream.Shared.ImageEditor
+namespace ZoDream.Shared
 {
     [Flags]
     public enum PointerState : byte

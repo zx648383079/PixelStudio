@@ -37,7 +37,7 @@ namespace ZoDream.PixelStudio.ViewModels
             return false;
         }
 
-        public IImageLayer? Get(int id)
+        public IImageLayer? Get(Guid id)
         {
             return Get(item => item.Id == id);
         }

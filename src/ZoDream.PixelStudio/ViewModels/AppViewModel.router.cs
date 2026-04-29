@@ -21,14 +21,14 @@ namespace ZoDream.PixelStudio.ViewModels
             _rootFrame.Navigate(typeof(T), parameter);
         }
 
-        internal void BindMenu(WorkspaceViewModel viewModel)
+        internal void BindMenu(IMenuController controller)
         {
             if (_menuBar is null)
             {
                 return;
             }
             _menuBar.Visibility = Visibility.Visible;
-            _menuBar.DataContext = viewModel;
+            _menuBar.DataContext = controller;
         }
 
    

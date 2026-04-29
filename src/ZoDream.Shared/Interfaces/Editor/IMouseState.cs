@@ -1,4 +1,4 @@
-﻿namespace ZoDream.Shared.ImageEditor
+﻿namespace ZoDream.Shared.Interfaces
 {
     public interface IMouseState
     {

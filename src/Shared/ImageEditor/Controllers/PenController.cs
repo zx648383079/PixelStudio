@@ -70,7 +70,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
             }
             if (_layer is null)
             {
-                editor.Add(_layer = new PathImageSource(editor));
+                editor.Layer.Add(_layer = new PathImageSource(editor));
             }
             if (IsClosePath(_last))
             {

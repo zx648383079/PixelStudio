@@ -2,10 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Storage;
+using ZoDream.Shared.ImageEditor;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.ViewModels
@@ -80,6 +78,12 @@ namespace ZoDream.PixelStudio.ViewModels
             UndoRedo.ReverseUndoStateChanged += UndoRedo_ReverseUndoStateChanged;
 
             PluginMenuItems = _app.Plugin.Get("import");
+        }
+
+
+        public void Initialize(IImageShell shell)
+        {
+            Instance = new ImageEditor(shell, this, this);
         }
         private void UndoRedo_ReverseUndoStateChanged(bool value)
         {

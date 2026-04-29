@@ -1,13 +1,14 @@
 using Microsoft.UI.Xaml.Media.Imaging;
 using SkiaSharp;
 using SkiaSharp.Views.Windows;
+using System;
 using System.Linq;
 using ZoDream.Shared.ImageEditor;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
-    public partial class WorkspaceViewModel : IImageCommander
+    public partial class WorkspaceViewModel : ILayerController
     {
         private readonly SKSizeI _thumbnailSize = new(60, 60);
 
@@ -53,7 +54,7 @@ namespace ZoDream.PixelStudio.ViewModels
         }
 
         
-        public IImageLayer? GetLayer(int id)
+        public IImageLayer? GetLayer(Guid id)
         {
             return LayerItems.Get(id);
         }

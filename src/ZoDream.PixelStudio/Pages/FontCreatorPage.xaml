@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="ZoDream.PixelStudio.Pages.FontCreatorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bhv="using:ZoDream.PixelStudio.Behaviors"
+    xmlns:ctl="using:ZoDream.PixelStudio.Controls"
+    xmlns:cvt="using:ZoDream.PixelStudio.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dlg="using:ZoDream.PixelStudio.Dialogs"
+    xmlns:ivy="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:ZoDream.PixelStudio.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:ZoDream.PixelStudio.ViewModels"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <vm:CreatorViewModel />
+    </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="GlyphGroupTemplate" x:DataType="vm:GlyphGroupViewModel">
+                <TreeViewItem AutomationProperties.Name="{Binding Name}" ItemsSource="{Binding Items}">
+                    <TextBlock Text="{Binding Name}" />
+                </TreeViewItem>
+            </DataTemplate>
+            <DataTemplate x:Key="GlyphItemTemplate" x:DataType="vm:GlyphViewModel">
+                <TreeViewItem AutomationProperties.Name="{Binding Name}">
+                    <TreeViewItem.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem
+                                Command="{Binding Workspace.GlyphPropertyCommand}"
+                                CommandParameter="{Binding}"
+                                Text="图层属性" />
+                            <MenuFlyoutItem
+                                Command="{Binding Workspace.DeleteGlyphCommand}"
+                                CommandParameter="{Binding}"
+                                Text="删除" />
+                        </MenuFlyout>
+                    </TreeViewItem.ContextFlyout>
+                    <TextBlock Text="{Binding Name}" />
+                </TreeViewItem>
+            </DataTemplate>
+
+
+
+            <DataTemplate x:Key="LayerItemTemplate" x:DataType="vm:ImageLayerViewModel">
+                <Grid Height="60">
+                    <Grid.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem
+                                Command="{Binding Workspace.DeleteLayerCommand}"
+                                CommandParameter="{Binding}"
+                                Text="删除" />
+                        </MenuFlyout>
+                    </Grid.ContextFlyout>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="{Binding PreviewImage}" Stretch="UniformToFill" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding Name}" />
+                    <ctl:ToggleIcon
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Command="{Binding Workspace.LayerVisibleToggleCommand}"
+                        CommandParameter="{Binding}"
+                        IsOn="{Binding IsVisible, Mode=TwoWay}"
+                        OffIcon="&#xED1A;"
+                        OnIcon="&#xE7B3;" />
+                    <ctl:ToggleIcon
+                        Grid.Column="3"
+                        VerticalAlignment="Center"
+                        Command="{Binding Workspace.LayerLockToggleCommand}"
+                        CommandParameter="{Binding}"
+                        IsOn="{Binding IsLocked, Mode=TwoWay}"
+                        OffIcon="&#xE785;"
+                        OnIcon="&#xE72E;" />
+                </Grid>
+            </DataTemplate>
+
+            <ctl:GlyphItemTemplateSelector
+                x:Key="GlyphTemplateSelector"
+                GlyphTemplate="{StaticResource GlyphItemTemplate}"
+                GroupTemplate="{StaticResource GlyphGroupTemplate}" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <ProgressBar
+            VerticalAlignment="Top"
+            Background="Transparent"
+            IsIndeterminate="{Binding IsLoading}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button
+                    Command="{Binding UndoCommand}"
+                    Content="&#xE7A7;"
+                    IsEnabled="{Binding UndoEnabled}"
+                    Style="{StaticResource LargeIconBtn}"
+                    ToolTipService.ToolTip="撤销" />
+                <Button
+                    Command="{Binding RedoCommand}"
+                    Content="&#xE7A6;"
+                    IsEnabled="{Binding RedoEnabled}"
+                    Style="{StaticResource LargeIconBtn}"
+                    ToolTipService.ToolTip="重做" />
+                <AppBarSeparator />
+                <DropDownButton
+                    Background="Transparent"
+                    BorderThickness="0"
+                    ToolTipService.ToolTip="模式切换">
+                    <DropDownButton.Content>
+                        <FontIcon Glyph="{Binding SelectedModeIcon}" />
+                    </DropDownButton.Content>
+                    <DropDownButton.Flyout>
+                        <MenuFlyout Placement="Bottom">
+                            <MenuFlyoutItem
+                                Command="{Binding ModeCommand}"
+                                CommandParameter="View"
+                                Text="浏览模式">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xF271;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem
+                                Command="{Binding ModeCommand}"
+                                CommandParameter="Move"
+                                Text="移动模式">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE8B0;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem
+                                Command="{Binding ModeCommand}"
+                                CommandParameter="Pen"
+                                Text="钢笔工具">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xEDFB;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem
+                                Command="{Binding ModeCommand}"
+                                CommandParameter="PenJoint"
+                                Text="节点编辑">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xF003;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+                <ToggleButton
+                    Background="Transparent"
+                    BorderThickness="0"
+                    ToolTipService.ToolTip="吸附">
+                    <ToggleButton.Content>
+                        <FontIcon Glyph="&#xE8DC;" />
+                    </ToggleButton.Content>
+                </ToggleButton>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+
+            <TreeView
+                ItemTemplateSelector="{StaticResource GlyphTemplateSelector}"
+                ItemsSource="{Binding GlyphItems}"
+                SelectedItem="{Binding SelectedLayer, Mode=TwoWay}" />
+
+            <ctl:ImageCanvasShell
+                x:Name="CanvasShell"
+                Grid.Column="1"
+                AllowDrop="True">
+                <ivy:Interaction.Behaviors>
+                    <bhv:DragFileBehavior Command="{Binding DragImageCommand}" />
+                </ivy:Interaction.Behaviors>
+            </ctl:ImageCanvasShell>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <ctl:ImageCanvasShell />
+
+                <ListView
+                    Grid.Row="1"
+                    ItemTemplate="{StaticResource LayerItemTemplate}"
+                    ItemsSource="{Binding LayerItems}" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

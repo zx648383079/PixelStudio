@@ -13,7 +13,7 @@ namespace ZoDream.Shared.Interfaces
         public void AddFirst(IImageLayer layer);
         public void AddRange(IEnumerable<IImageLayer> items);
         public bool RemoveIfKid(IImageLayer layer);
-        public IImageLayer? Get(int id);
+        public IImageLayer? Get(Guid id);
 
         public IImageLayer? Get(Func<IImageLayer, bool> checkFn);
 

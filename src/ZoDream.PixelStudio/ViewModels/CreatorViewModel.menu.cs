@@ -1,9 +1,15 @@
-﻿using System.Windows.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
+using System.Windows.Input;
+using ZoDream.Shared.ImageEditor;
+using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
-    public partial class WorkspaceViewModel : IMenuController
+    public partial class CreatorViewModel : IMenuController
     {
+
+
         private PluginMenuItem[] _pluginMenuItems = [];
 
         public PluginMenuItem[] PluginMenuItems {
@@ -17,6 +23,5 @@ namespace ZoDream.PixelStudio.ViewModels
         {
             App.Current.Exit();
         }
-
     }
 }

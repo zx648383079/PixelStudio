@@ -7,7 +7,7 @@ namespace ZoDream.Shared.Interfaces
 
         public IImageLayer? Parent { get; set; }
 
-        public int Id { get; set; }
+        public Guid Id { get; }
 
         public string Name { get; set; }
 

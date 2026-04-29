@@ -1,9 +1,10 @@
 using SkiaSharp;
+using System;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.Shared.ImageEditor
 {
-    public class ImageComputedVertexStyle(int layerId) : 
+    public class ImageComputedVertexStyle(Guid layerId) : 
         ImageComputedStyle(layerId), IImageComputedVertexStyle
     {
         /// <summary>

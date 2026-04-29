@@ -1,6 +1,6 @@
 ﻿using SkiaSharp;
 
-namespace ZoDream.Shared.ImageEditor
+namespace ZoDream.Shared.Interfaces
 {
     public interface IMouseRoutedArgs
     {
