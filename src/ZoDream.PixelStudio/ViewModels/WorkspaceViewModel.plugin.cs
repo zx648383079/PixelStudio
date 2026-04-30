@@ -7,8 +7,12 @@ namespace ZoDream.PixelStudio.ViewModels
 {
     public partial class WorkspaceViewModel
     {
-        private void TapPlugin(PluginMenuItem plugin)
+        protected override void TapPlugin(PluginMenuItem? plugin)
         {
+            if (plugin is null)
+            {
+                return;
+            }
             switch (plugin.Group)
             {
                 case PluginMenuItem.ImportName:

@@ -28,7 +28,6 @@ namespace ZoDream.PixelStudio.ViewModels
         public ICommand LayerApplyCommand { get; private set; }
 
 
-        public ICommand LayerPropertyCommand { get; private set; }
         public ICommand LayerRotateCommand { get; private set; }
         public ICommand LayerScaleCommand { get; private set; }
         public ICommand LayerScaleXCommand { get; private set; }
@@ -47,7 +46,7 @@ namespace ZoDream.PixelStudio.ViewModels
         public ICommand LayerMoveParentCommand { get; private set; }
 
 
-        private async void TapAddLayer(string? cmd)
+        protected override async void TapAddLayer(string? cmd)
         {
             ContentDialog dialog = cmd switch
             {
@@ -77,11 +76,11 @@ namespace ZoDream.PixelStudio.ViewModels
             Instance?.AddFolder(dialog.ViewModel.Name);
         }
 
-        
 
 
 
-        private void TapNew()
+
+        protected override void TapNew()
         {
             LayerItems.Clear();
             Instance?.Unselect();
@@ -89,24 +88,19 @@ namespace ZoDream.PixelStudio.ViewModels
             
         }
 
-        private void TapOpen()
+        protected override void TapOpen()
         {
             TapNew();
             TapImportFile();
         }
 
 
-        
-        private async void TapProperty()
+
+        protected override async void TapProperty()
         {
             var dialog = new PropertyDialog();
-            dialog.ViewModel.Load(Instance);
+            dialog.ViewModel.Load(Instance!);
             await App.ViewModel.OpenDialogAsync(dialog);
-        }
-        private void TapUnselect()
-        {
-            Instance!.Unselect();
-            SelectedLayer = null;
         }
         private void TapOrder(object? arg)
         {
@@ -203,7 +197,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
 
 
-        private void TapSelectTop()
+        protected override void TapSelectTop()
         {
             if (LayerItems.Count == 0)
             {
@@ -220,7 +214,7 @@ namespace ZoDream.PixelStudio.ViewModels
             Instance?.Select(SelectedLayer);
         }
 
-        private void TapSelectBottom()
+        protected override void TapSelectBottom()
         {
             if (LayerItems.Count == 0)
             {
@@ -253,7 +247,7 @@ namespace ZoDream.PixelStudio.ViewModels
             Instance?.Select(layer);
         }
 
-        private void TapSelectPrevious()
+        protected override void TapSelectPrevious()
         {
             if (LayerItems.Count == 0 || SelectedLayer is null)
             {
@@ -269,7 +263,7 @@ namespace ZoDream.PixelStudio.ViewModels
             }
         }
 
-        private void TapSelectNext()
+        protected override void TapSelectNext()
         {
             if (LayerItems.Count == 0 || SelectedLayer is null)
             {

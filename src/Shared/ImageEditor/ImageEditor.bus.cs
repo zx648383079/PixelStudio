@@ -12,7 +12,7 @@ namespace ZoDream.Shared.ImageEditor
 
         public void OnSizeChanged(SKSize size)
         {
-            Size = size;
+            Resize(size);
         }
 
         public void OnTapped(SKPoint point)

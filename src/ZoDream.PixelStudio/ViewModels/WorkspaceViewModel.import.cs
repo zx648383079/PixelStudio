@@ -34,7 +34,7 @@ namespace ZoDream.PixelStudio.ViewModels
                 }
                 var kidLayer = new BitmapImageSource(
                     kid
-                    , Instance)
+                    , Instance!)
                 {
                     X = (int)bound.Left,
                     Y = (int)bound.Top
@@ -125,7 +125,7 @@ namespace ZoDream.PixelStudio.ViewModels
             OnDragImage(new FileLoader(items));
         }
 
-        private async void TapImport()
+        protected override async void TapImport()
         {
             var picker = _app.CreatePickPlugin(PluginMenuItem.ImportName);
             if (await _app.OpenDialogAsync(picker) != ContentDialogResult.Primary)

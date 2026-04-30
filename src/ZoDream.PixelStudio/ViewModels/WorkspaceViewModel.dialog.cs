@@ -6,7 +6,7 @@ namespace ZoDream.PixelStudio.ViewModels
 {
     public partial class WorkspaceViewModel
     {
-        private async void TapLayerRename(object? arg)
+        protected override async void TapLayerRename(object? arg)
         {
             var layer = arg is LayerViewModel o ? o : SelectedLayer;
             if (layer is null)
@@ -23,7 +23,7 @@ namespace ZoDream.PixelStudio.ViewModels
             layer.Name = dialog.ViewModel.Name;
         }
 
-        private async void TapLayerProperty(object? arg)
+        protected override async void TapLayerProperty(object? arg)
         {
             var layer = arg is LayerViewModel o ? o : SelectedLayer;
             if (layer is null)

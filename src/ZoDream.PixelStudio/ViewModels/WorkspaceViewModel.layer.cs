@@ -86,7 +86,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         }
 
-        private void TapDeleteLayer(object? arg)
+        protected override void TapDeleteLayer(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -102,7 +102,7 @@ namespace ZoDream.PixelStudio.ViewModels
             Instance?.Invalidate();
         }
 
-        private void TapLayerVisible(object? arg)
+        protected override void TapLayerVisible(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -113,7 +113,7 @@ namespace ZoDream.PixelStudio.ViewModels
             Instance?.Invalidate();
         }
 
-        private void TapLayerHidden(object? arg)
+        protected override void TapLayerHidden(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -124,7 +124,7 @@ namespace ZoDream.PixelStudio.ViewModels
             Instance?.Invalidate();
         }
 
-        private void TapAllVisible()
+        protected override void TapAllVisible()
         {
             LayerItems.Get(item => {
                 item.IsVisible = true;
@@ -133,7 +133,7 @@ namespace ZoDream.PixelStudio.ViewModels
             Instance?.Invalidate();
         }
 
-        private void TapOtherHidden(object? arg)
+        protected override void TapOtherHidden(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -151,7 +151,7 @@ namespace ZoDream.PixelStudio.ViewModels
             Instance?.Invalidate();
         }
 
-        private void TapOtherVisible(object? arg)
+        protected override void TapOtherVisible(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -169,7 +169,7 @@ namespace ZoDream.PixelStudio.ViewModels
             Instance?.Invalidate();
         }
 
-        private void TapLayerVisibleToggle(object? arg)
+        protected override void TapLayerVisibleToggle(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -180,7 +180,7 @@ namespace ZoDream.PixelStudio.ViewModels
             Instance?.Invalidate();
         }
 
-        private void TapLayerLockToggle(object? arg)
+        protected override void TapLayerLockToggle(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -190,7 +190,7 @@ namespace ZoDream.PixelStudio.ViewModels
             layer.IsLocked = !layer.IsLocked;
         }
 
-        private void TapLayerLock(object? arg)
+        protected override void TapLayerLock(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -200,7 +200,7 @@ namespace ZoDream.PixelStudio.ViewModels
             layer.IsLocked = true;
         }
 
-        private void TapLayerUnlock(object? arg)
+        protected override void TapLayerUnlock(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -210,7 +210,7 @@ namespace ZoDream.PixelStudio.ViewModels
             layer.IsLocked = false;
         }
 
-        private void TapAllUnlock()
+        protected override void TapAllUnlock()
         {
             LayerItems.Get(item => {
                 item.IsLocked = false;
@@ -268,7 +268,7 @@ namespace ZoDream.PixelStudio.ViewModels
                 y += s.Y;
                 parent = parent.Parent;
             }
-            var size = Instance.Size;
+            var size = Instance!.Size;
             return (size.Width - x, size.Height - y);
         }
 
@@ -357,7 +357,7 @@ namespace ZoDream.PixelStudio.ViewModels
             
         }
 
-        private void TapLayerMoveTop(object? arg)
+        protected override void TapLayerMoveTop(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -368,7 +368,7 @@ namespace ZoDream.PixelStudio.ViewModels
             items.MoveToFirst(items.IndexOf(layer));
         }
 
-        private void TapLayerMoveUp(object? arg)
+        protected override void TapLayerMoveUp(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -379,7 +379,7 @@ namespace ZoDream.PixelStudio.ViewModels
             items.MoveUp(items.IndexOf(layer));
         }
 
-        private void TapLayerMoveDown(object? arg)
+        protected override void TapLayerMoveDown(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)
@@ -389,7 +389,7 @@ namespace ZoDream.PixelStudio.ViewModels
             var items = layer.Parent is null ? LayerItems : layer.Parent.Children;
             items.MoveDown(items.IndexOf(layer));
         }
-        private void TapLayerMoveBottom(object? arg)
+        protected override void TapLayerMoveBottom(object? arg)
         {
             var layer = arg is IImageLayer o ? o : SelectedLayer;
             if (layer is null)

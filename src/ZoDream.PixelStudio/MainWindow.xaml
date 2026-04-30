@@ -135,6 +135,29 @@
                             CommandParameter="BinaryTree"
                             Text="二叉树布局" />
                     </MenuFlyoutSubItem>
+
+                    <MenuFlyoutSubItem Text="模式">
+                        <RadioMenuFlyoutItem
+                            Command="{Binding ModeCommand}"
+                            CommandParameter="View"
+                            IsChecked="{Binding SelectedMode, Converter={StaticResource ToggleCvt}, ConverterParameter='View'}"
+                            Text="浏览模式" />
+                        <RadioMenuFlyoutItem
+                            Command="{Binding ModeCommand}"
+                            CommandParameter="Move"
+                            IsChecked="{Binding SelectedMode, Converter={StaticResource ToggleCvt}, ConverterParameter='Move'}"
+                            Text="移动模式" />
+                        <RadioMenuFlyoutItem
+                            Command="{Binding ModeCommand}"
+                            CommandParameter="Pen"
+                            IsChecked="{Binding SelectedMode, Converter={StaticResource ToggleCvt}, ConverterParameter='Pen'}"
+                            Text="钢笔工具" />
+                        <RadioMenuFlyoutItem
+                            Command="{Binding ModeCommand}"
+                            CommandParameter="PenJoint"
+                            IsChecked="{Binding SelectedMode, Converter={StaticResource ToggleCvt}, ConverterParameter='PenJoint'}"
+                            Text="节点编辑" />
+                    </MenuFlyoutSubItem>
                 </MenuBarItem>
                 <MenuBarItem Title="图层">
                     <MenuFlyoutSubItem Text="新建图层">

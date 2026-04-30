@@ -10,16 +10,11 @@ namespace ZoDream.PixelStudio.ViewModels
 {
     public partial class WorkspaceViewModel
     {
-
-        private void TapSave()
+        protected override void TapSaveAs(string fileName)
         {
 
         }
-        private void TapSaveAs()
-        {
-
-        }
-        private async void TapExport()
+        protected override async void TapExport()
         {
             var dialog = new ExportDialog();
             if (await App.ViewModel.OpenDialogAsync(dialog) != ContentDialogResult.Primary)
@@ -59,7 +54,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private ISpriteSection Serialize(string fileName)
         {
-            var size = Instance.Size;
+            var size = Instance!.Size;
             var res = new SpriteLayerSection()
             {
                 FileName = fileName,

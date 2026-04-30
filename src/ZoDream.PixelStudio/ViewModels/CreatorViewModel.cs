@@ -16,6 +16,7 @@ namespace ZoDream.PixelStudio.ViewModels
         public void Initialize(IImageShell shell)
         {
             Instance = new ImageEditor(shell, this, this);
+            Instance.Initialize();
         }
 
 

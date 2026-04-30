@@ -19,6 +19,10 @@ namespace ZoDream.Shared.Interfaces
         public SKSize Size { get; }
 
         public IImageLayer? Current { get; }
+
+
+        public void Initialize();
+
         /// <summary>
         /// 切换模式
         /// </summary>

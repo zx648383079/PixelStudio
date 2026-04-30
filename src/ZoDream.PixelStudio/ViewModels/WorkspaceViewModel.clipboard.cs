@@ -7,13 +7,13 @@ namespace ZoDream.PixelStudio.ViewModels
 {
     public partial class WorkspaceViewModel
     {
-        private void TapCut()
+        protected override void TapCut()
         {
         }
-        private void TapCopy()
+        protected override void TapCopy()
         {
         }
-        private async void TapPaste()
+        protected override async void TapPaste()
         {
             var package = Clipboard.GetContent();
             if (package.Contains(StandardDataFormats.StorageItems))
