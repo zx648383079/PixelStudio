@@ -7,12 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using ZoDream.PixelStudio.Plugins;
+using ZoDream.Shared.Document;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.ImageEditor;
-using ZoDream.Shared.Interfaces;
-using ZoDream.PixelStudio.Plugins;
 using ZoDream.Shared.ImageEditor.Sources;
-using ZoDream.Shared.Document;
+using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
@@ -25,7 +25,7 @@ namespace ZoDream.PixelStudio.ViewModels
         private async void SeparateImage(IImageLayer layer, IEnumerable<SKPath> items)
         {
             var image = (BitmapImageSource)layer.Source;
-            Instance!.Add(items.Select(path => {
+            Add(items.Select(path => {
                 var bound = path.Bounds;
                 var kid = image.Source.Clip(path);
                 if (kid is null)
@@ -40,7 +40,7 @@ namespace ZoDream.PixelStudio.ViewModels
                     Y = (int)bound.Top
                 };
                 return Create(kidLayer);
-            }), layer);
+            }).Where(i => i is not null).Select(i => i!), layer);
             layer.IsVisible = false;
         }
         /// <summary>
@@ -141,7 +141,11 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return null;
             }
-            var layer = await Instance!.AddImageAsync(fileName);
+            var layer = AddImage(await ReaderFactory.LoadImageAsync(fileName));
+            if (layer is not null)
+            {
+                layer.Name = Path.GetFileNameWithoutExtension(fileName);
+            }
             if (layer is null)
             {
                 return null;
@@ -150,27 +154,19 @@ namespace ZoDream.PixelStudio.ViewModels
             return layer;
         }
 
-        public void DragFileAsync(IEnumerable<IStorageItem> items)
+        public override void DragFiles(IEnumerable<IStorageItem> items)
         {
             OnDragImage(new FileLoader(items));
         }
 
-        private void AddImage(IImageData data)
+        private IImageLayer? AddImage(IImageData data)
         {
-            var layer = Instance?.AddImage(data);
+            var layer = data.TryParse(Instance!);
             if (layer is null)
             {
-                return;
+                return null;
             }
-            Instance?.Invalidate();
-        }
-        protected override void OnDragFiles(IReadOnlyList<IStorageItem>? items)
-        {
-            if (items is null)
-            {
-                return;
-            }
-            OnDragImage(new FileLoader(items));
+            return Add(layer);
         }
         private async void OnDragImage(FileLoader loader)
         {
@@ -182,7 +178,7 @@ namespace ZoDream.PixelStudio.ViewModels
             }
             await foreach (var item in loader.EnumerateImage())
             {
-                var layer = Instance!.AddImage(item.Source);
+                var layer = AddImage(item.Source);
                 if (layer is not null)
                 {
                     layer.Name = Path.GetFileNameWithoutExtension(item.FileName);
@@ -240,7 +236,7 @@ namespace ZoDream.PixelStudio.ViewModels
                 {
                     continue;
                 }
-                Instance!.Add(Create(kidLayer, kid.Name), parentLayer);
+                Add(Create(kidLayer, kid.Name), parentLayer);
             }
             parentLayer.IsVisible = false;
         }

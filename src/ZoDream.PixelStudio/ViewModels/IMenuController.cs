@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ZoDream.PixelStudio.ViewModels
+﻿namespace ZoDream.PixelStudio.ViewModels
 {
     public interface IMenuController
     {

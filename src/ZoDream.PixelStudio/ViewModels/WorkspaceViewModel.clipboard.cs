@@ -2,7 +2,6 @@
 using System.IO;
 using Windows.ApplicationModel.DataTransfer;
 using ZoDream.Shared.Drawing;
-using ZoDream.Shared.ImageEditor;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
@@ -19,7 +18,7 @@ namespace ZoDream.PixelStudio.ViewModels
             var package = Clipboard.GetContent();
             if (package.Contains(StandardDataFormats.StorageItems))
             {
-                OnDragImage(await package.GetStorageItemsAsync());
+                DragFiles(await package.GetStorageItemsAsync());
             } else if (package.Contains(StandardDataFormats.Bitmap)) 
             {
                 var img = await package.GetBitmapAsync();

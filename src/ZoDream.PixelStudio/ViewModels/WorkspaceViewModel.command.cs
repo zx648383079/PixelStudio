@@ -2,11 +2,11 @@
 using System;
 using System.Linq;
 using System.Windows.Input;
-using ZoDream.Shared.Drawing;
 using ZoDream.PixelStudio.Dialogs;
 using ZoDream.PixelStudio.Plugins;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.ImageEditor.Sources;
+using SkiaSharp;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
@@ -84,7 +84,6 @@ namespace ZoDream.PixelStudio.ViewModels
         private void TapNew()
         {
             LayerItems.Clear();
-            Instance?.Clear();
             Instance?.Unselect();
             Instance?.Invalidate();
             
@@ -115,8 +114,8 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 // TODO 层级问题
                 var size = new CssSprites(res)
-                    .Compute([.. Instance!.LayerItems.Select(i => (IImageBound)i.Source)]);
-                Instance!.Resize(size.X, size.Y);
+                    .Compute([.. LayerItems.Select(i => (IImageBound)i.Source)]);
+                Instance!.Resize(new SKSize(size));
                 Instance.Invalidate();
             }
         }

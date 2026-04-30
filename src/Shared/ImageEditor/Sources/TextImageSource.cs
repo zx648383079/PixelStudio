@@ -5,9 +5,8 @@ using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
-    public class TextImageSource(string text) : IImageSource
+    public class TextImageSource(string text, IImageEditor editor) : BaseImageSource(editor)
     {
-        private readonly BitmapBuilder _thumbnail = new();
         private readonly SKPaint _paint = new()
         {
             Color = SKColors.Black,
@@ -15,25 +14,16 @@ namespace ZoDream.Shared.ImageEditor.Sources
             IsStroke = false
         };
 
-        public float X { get; set; }
-        public float Y { get; set; }
-        public float Width { get; private set; }
-        public float Height { get; private set; }
         public string Text { get; set; } = text;
 
+        public SKColor Color { get; set; }
         public SKTypeface? FontFamily { get; set; }
 
         public int FontSize { get; set; } = 16;
-        public SKRect Bound => SKRect.Create(X, Y, Width, Height);
 
-        public bool Contains(SKPoint point)
+        public override SKBitmap? CreateThumbnail(SKSize size)
         {
-            return Bound.Contains(point);
-        }
-
-        public SKBitmap? CreateThumbnail(SKSize size)
-        {
-            return _thumbnail.Mutate(size, canvas => 
+            return Thumbnail.Mutate(size, canvas => 
             {
                 Paint(canvas);
             });
@@ -41,7 +31,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
 
 
-        public void Paint(IImageCanvas canvas)
+        public override void Paint(IImageCanvas canvas)
         {
             using var font = new SKFont(FontFamily ?? SKTypeface.Default, FontSize);
             if (!font.ContainsGlyphs(Text))
@@ -53,6 +43,11 @@ namespace ZoDream.Shared.ImageEditor.Sources
             Width = bound.Width;
             Height = bound.Height + 3;
             canvas.DrawText(Text, new SKPoint(X, Y), SKTextAlign.Left, font, _paint);
+        }
+
+        public override void Paint(IImageCanvas canvas, IImageStyle computedStyle)
+        {
+            Paint(canvas);
         }
 
         public IEnumerable<PathBuilder> GetPath()
@@ -67,10 +62,12 @@ namespace ZoDream.Shared.ImageEditor.Sources
             }
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             _paint.Dispose();
-            _thumbnail.Dispose();
+            base.Dispose();
         }
+
+ 
     }
 }

@@ -63,7 +63,7 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return false;
             }
-            editor.Add(new PathImageSource(SKPath.ParseSvgPathData(Text), editor)
+            editor.Layer.Add(new PathImageSource(SKPath.ParseSvgPathData(Text), editor)
             {
                 StrokeColor = StrokeColor.ToSKColor(),
                 StrokeWidth = StrokeWidth,

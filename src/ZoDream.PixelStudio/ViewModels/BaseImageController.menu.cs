@@ -235,7 +235,16 @@ namespace ZoDream.PixelStudio.ViewModels
         {
 
         }
-        protected virtual void OnDragFiles(IReadOnlyList<IStorageItem>? items)
+        private void OnDragFiles(IReadOnlyList<IStorageItem>? items)
+        {
+            if (items is null)
+            {
+                return;
+            }
+            DragFiles(items);
+        }
+
+        public virtual void DragFiles(IEnumerable<IStorageItem> items)
         {
 
         }

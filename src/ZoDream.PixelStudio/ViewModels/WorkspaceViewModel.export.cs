@@ -66,7 +66,7 @@ namespace ZoDream.PixelStudio.ViewModels
                 Width = size.Width,
                 Height = size.Height,
             };
-            foreach (var item in Instance.LayerItems)
+            foreach (var item in LayerItems)
             {
                 if (string.IsNullOrEmpty(res.Name))
                 {
@@ -101,7 +101,7 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return;
             }
-            var layer = Instance?.Get(SelectedLayer.Id);
+            var layer = LayerItems.Get(SelectedLayer.Id);
             if (layer == null) 
             {
                 return;

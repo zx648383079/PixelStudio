@@ -9,7 +9,7 @@ namespace ZoDream.PixelStudio.ViewModels
     public class LayerViewModel : ObservableObject, IImageLayer
     {
 
-        public LayerViewModel(IImageController workspace, IImageSource source)
+        public LayerViewModel(ILayerController workspace, IImageSource source)
         {
             Workspace = workspace;
             Source = source;
@@ -19,7 +19,7 @@ namespace ZoDream.PixelStudio.ViewModels
             }
         }
 
-        public IImageController Workspace { get; private set; }
+        public ILayerController Workspace { get; private set; }
 
         public IImageLayer? Parent { get; set; }
 
@@ -78,7 +78,11 @@ namespace ZoDream.PixelStudio.ViewModels
 
         public void Resample()
         {
-            PreviewImage = Workspace.CreateThumbnail(Source);
+            if (Workspace is BaseImageController b)
+            {
+                PreviewImage = b.CreateThumbnail(Source);
+            }
+            
         }
 
         public void Paint(IImageCanvas canvas)

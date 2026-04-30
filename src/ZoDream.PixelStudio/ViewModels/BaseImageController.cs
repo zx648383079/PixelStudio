@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Media.Imaging;
+using SkiaSharp;
+using SkiaSharp.Views.Windows;
 using System.Collections.Generic;
 using Windows.Storage;
 using ZoDream.Shared.Interfaces;
@@ -58,7 +61,7 @@ namespace ZoDream.PixelStudio.ViewModels
             UndoRedo.ReverseUndoStateChanged += UndoRedo_ReverseUndoStateChanged;
         }
 
-
+        private readonly SKSize _thumbnailSize = new(60, 60);
         public CommandManager UndoRedo { get; private set; } = new();
         public IImageEditor? Instance { get; set; }
 
@@ -94,6 +97,11 @@ namespace ZoDream.PixelStudio.ViewModels
         private void UndoRedo_UndoStateChanged(bool value)
         {
             UndoEnabled = value;
+        }
+
+        public BitmapSource? CreateThumbnail(IImageSource source)
+        {
+            return source?.CreateThumbnail(_thumbnailSize)?.ToWriteableBitmap();
         }
     }
 }

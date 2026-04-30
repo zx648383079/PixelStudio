@@ -28,7 +28,7 @@ namespace ZoDream.PixelStudio.Pages
             ViewModel.Initialize(CanvasShell);
             if (e.Parameter is IEnumerable<IStorageItem> items)
             {
-                ViewModel.DragFileAsync(items);
+                ViewModel.DragFiles(items);
             }
         }
 

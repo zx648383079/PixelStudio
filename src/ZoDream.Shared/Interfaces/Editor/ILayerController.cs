@@ -7,9 +7,9 @@ namespace ZoDream.Shared.Interfaces
     {
         public IImageLayer? Current { get; }
 
-        public void Add(IEnumerable<IImageLayer> items, IImageLayer? parent);
+        public void Add(IEnumerable<IImageLayer> items, IImageLayer? parent = null);
 
-        public void Add(IImageLayer layer, IImageLayer? parent);
+        public void Add(IImageLayer layer, IImageLayer? parent = null);
         public IImageLayer Add(IImageSource source);
 
         public void InsertAfter(IEnumerable<IImageLayer> items, IImageLayer layer);

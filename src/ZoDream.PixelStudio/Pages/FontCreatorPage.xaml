@@ -43,7 +43,7 @@
 
 
 
-            <DataTemplate x:Key="LayerItemTemplate" x:DataType="vm:ImageLayerViewModel">
+            <DataTemplate x:Key="LayerItemTemplate" x:DataType="vm:LayerViewModel">
                 <Grid Height="60">
                     <Grid.ContextFlyout>
                         <MenuFlyout>

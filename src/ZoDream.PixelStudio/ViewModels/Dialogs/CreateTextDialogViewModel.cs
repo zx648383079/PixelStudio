@@ -6,6 +6,7 @@ using SkiaSharp.Views.Windows;
 using System.Linq;
 using System.Windows.Input;
 using Windows.UI;
+using ZoDream.Shared.ImageEditor.Sources;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.ViewModels
@@ -72,7 +73,12 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return false;
             }
-            editor.AddText(Text, FamilyName, Size, Foreground.ToSKColor());
+            editor.Layer.Add(new TextImageSource(Text, editor)
+            {
+                FontFamily = SKFontManager.Default.MatchFamily(FamilyName),
+                FontSize = Size,
+                Color = Foreground.ToSKColor()
+            });
             return true;
         }
     }

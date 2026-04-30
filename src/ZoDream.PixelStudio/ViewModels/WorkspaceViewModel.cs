@@ -42,7 +42,6 @@ namespace ZoDream.PixelStudio.ViewModels
             LayerMoveParentCommand = new RelayCommand<object?>(TapLayerMoveParent);
             LayerSelectedCommand = new RelayCommand<IImageLayer>(OnLayerSelected);
             EditorSelectedCommand = new RelayCommand<IImageLayer>(OnEditorSelected);
-            DragImageCommand = new RelayCommand<IReadOnlyList<IStorageItem>>(OnDragImage);
             UndoRedo.UndoStateChanged += UndoRedo_UndoStateChanged;
             UndoRedo.ReverseUndoStateChanged += UndoRedo_ReverseUndoStateChanged;
             PluginMenuItems = _app.Plugin.Get("import");

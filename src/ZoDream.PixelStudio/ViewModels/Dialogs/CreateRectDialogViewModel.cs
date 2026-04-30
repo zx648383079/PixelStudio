@@ -91,7 +91,7 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return false;
             }
-            editor.Add(new RectImageSource(editor)
+            editor.Layer.Add(new RectImageSource(editor)
             {
                 X = X,
                 Y = Y,

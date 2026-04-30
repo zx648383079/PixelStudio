@@ -34,13 +34,7 @@ namespace ZoDream.PixelStudio.ViewModels
             set => SetProperty(ref _glyphItems, value);
         }
 
-        private ObservableCollection<IImageLayer> _layerItems = [];
 
-        public ObservableCollection<IImageLayer> LayerItems {
-            get => _layerItems;
-            set => SetProperty(ref _layerItems, value);
-        }
-
-        public bool IsSelectedLayer => SelectedLayer != null;
+        public bool IsSelectedLayer => false;
     }
 }
