@@ -1,6 +1,6 @@
-using SkiaSharp;
 using System.Collections.Generic;
 using System.Numerics;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Document
 {
@@ -13,7 +13,7 @@ namespace ZoDream.Shared.Document
         /// <summary>
         /// 实际绘制的顶点
         /// </summary>
-        public IList<SKPoint> PointItems { get; set; } = [];
+        public IList<Point> PointItems { get; set; } = [];
     }
 
 }

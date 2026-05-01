@@ -1,4 +1,6 @@
 ﻿using SkiaSharp;
+using ZoDream.Shared.Drawing;
+using ZoDream.Shared.ImageEditor.Sources;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.Shared.ImageEditor
@@ -9,6 +11,8 @@ namespace ZoDream.Shared.ImageEditor
 
         public IImageComputedStyler ComputedStyler { get; private set; }
 
+
+
         public IImageLayer Add(IImageBuffer buffer, IImageLayer? parent)
         {
             throw new System.NotImplementedException();
@@ -16,31 +20,69 @@ namespace ZoDream.Shared.ImageEditor
 
         public IImageLayer AddFolder(string name)
         {
-            throw new System.NotImplementedException();
+            return Layer.Add(new FolderImageSource(this), name);
         }
         public IImageBuffer Create(string name)
         {
-            throw new System.NotImplementedException();
+            return new ImageBuffer();
         }
 
         public IImageBuffer Decode(IImageLayer layer)
         {
-            throw new System.NotImplementedException();
+            return new ImageBuffer();
         }
 
         public IImagePixel Encode(IImageLayer layer)
         {
-            throw new System.NotImplementedException();
+            return new ImagePixel(layer);
         }
 
         public void SaveAs(string fileName)
         {
-            throw new System.NotImplementedException();
+            var styler = Compute();
+            using var bitmap = new SKBitmap((int)styler.ActualWidth, (int)styler.ActualHeight);
+            using var canvas = new SKCanvas(bitmap);
+            var c = new ImageStyleCanvas(canvas, styler);
+            styler.Paint(Layer.Items, c);
+            bitmap.SaveAs(fileName);
         }
 
         public void SaveAs(IImageLayer layer, string fileName)
         {
-            throw new System.NotImplementedException();
+            if (layer is null)
+            {
+                return;
+            }
+            var styler = new ImageComputedStyler(Controller.RealStyler);
+            styler.Compute(layer);
+            var bitmap = new SKBitmap((int)styler.ActualWidth, (int)styler.ActualHeight);
+            using (var surface = new SKCanvas(bitmap))
+            {
+                var c = new ImageStyleCanvas(surface, styler);
+                layer.Paint(c);
+            }
+            bitmap.SaveAs(fileName);
+        }
+
+        /// <summary>
+        /// 先计算
+        /// </summary>
+        /// <returns></returns>
+        private IImageComputedStyler Compute()
+        {
+            var source = Controller.Styler;
+            var styler = source is IImageComputedStyler s ?
+               s : new ImageComputedStyler(source);
+            styler.Clear();
+            styler.Compute(Layer.Items);
+            if ((styler.ActualWidth == 0
+                || styler.ActualHeight == 0)
+                && styler is IImageSize c)
+            {
+                c.Width = Size.Width;
+                c.Height = Size.Height;
+            }
+            return styler;
         }
 
     }

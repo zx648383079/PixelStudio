@@ -1,5 +1,5 @@
-﻿using SkiaSharp;
-using System.Numerics;
+﻿using System.Numerics;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
@@ -29,7 +29,7 @@ namespace ZoDream.Shared.Interfaces
         /// <summary>
         /// 实际绘制的顶点
         /// </summary>
-        public SKPoint[] PointItems { get; }
+        public Point[] PointItems { get; }
     }
 
     public interface IImageComputedVertexStyle
@@ -37,11 +37,11 @@ namespace ZoDream.Shared.Interfaces
         /// <summary>
         /// 原图上的顶点
         /// </summary>
-        public SKPoint[] SourceItems { get; }
+        public Point[] SourceItems { get; }
         /// <summary>
         /// 实际绘制的顶点
         /// </summary>
-        public SKPoint[] PointItems { get; }
+        public Point[] PointItems { get; }
     }
 
     public interface IImageComputedStyle : IImageStyle, IReadOnlyStyle

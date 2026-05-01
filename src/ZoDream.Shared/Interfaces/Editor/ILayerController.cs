@@ -1,5 +1,5 @@
-﻿using SkiaSharp;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
@@ -7,10 +7,13 @@ namespace ZoDream.Shared.Interfaces
     {
         public IImageLayer? Current { get; }
 
+        public IImageLayerTree Items { get; }
+
         public void Add(IEnumerable<IImageLayer> items, IImageLayer? parent = null);
 
         public void Add(IImageLayer layer, IImageLayer? parent = null);
         public IImageLayer Add(IImageSource source);
+        public IImageLayer Add(IImageSource source, string name);
 
         public void InsertAfter(IEnumerable<IImageLayer> items, IImageLayer layer);
 
@@ -24,9 +27,9 @@ namespace ZoDream.Shared.Interfaces
         /// 清除全部图层
         /// </summary>
         public void Clear();
-        public bool TryGet(SKPoint point, out IImageLayer? layer);
+        public bool TryGet(Point point, out IImageLayer? layer);
 
-        public IEnumerable<IImageLayer> Get(SKRect rect);
+        public IEnumerable<IImageLayer> Get(Rect rect);
 
         public void Paint(IImageCanvas canvas);
     }

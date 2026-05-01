@@ -1,5 +1,5 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
@@ -7,7 +7,7 @@ namespace ZoDream.Shared.Interfaces
     {
         public bool IsVisible { get; set; }
 
-        public void Resize(SKSize size);
+        public void Resize(Size size);
         /// <summary>
         /// 设置面向的图层
         /// </summary>

@@ -1,20 +1,22 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
     public interface IImageOptions : IDisposable
     {
-        public SKPaint JointStrokePaint { get; }
-        public SKPaint JointPaint { get; }
-        public SKPaint JointHoveredPaint { get; }
+        public IImagePaint JointStrokePaint { get; }
+        public IImagePaint JointPaint { get; }
+        public IImagePaint JointHoveredPaint { get; }
         public float JointSize { get; }
 
-        public SKColor Hovered {  get; }
-        public SKColor Activated {  get; }
-        public SKColor Background {  get; }
-        public SKPaint BackgroundPaint {  get; }
-        public SKColor Foreground {  get; }
-        public SKPaint ForegroundPaint {  get; }
+        public Color Hovered {  get; }
+        public Color Activated {  get; }
+        public Color Background {  get; }
+        public IImagePaint BackgroundPaint {  get; }
+        public Color Foreground {  get; }
+        public IImagePaint ForegroundPaint {  get; }
+        public IImagePaint TitlePaint {  get; }
+        public IImagePaint TextPaint {  get; }
     }
 }

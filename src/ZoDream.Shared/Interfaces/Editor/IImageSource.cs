@@ -1,20 +1,20 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
     public interface IImageSource: IDisposable
     {
-        public SKRect Bound { get; }
+        public Rect Bound { get; }
 
-        public bool Contains(SKPoint point);
+        public bool Contains(Point point);
 
         /// <summary>
         /// 生成预览图
         /// </summary>
         /// <param name="size"></param>
         /// <returns></returns>
-        public SKBitmap? CreateThumbnail(SKSize size);
+        public object? CreateThumbnail(Size size);
 
 
         public void Paint(IImageCanvas canvas);

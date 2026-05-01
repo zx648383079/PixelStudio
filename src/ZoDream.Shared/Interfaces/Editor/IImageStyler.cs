@@ -1,7 +1,7 @@
-using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
@@ -34,14 +34,14 @@ namespace ZoDream.Shared.Interfaces
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public IEnumerable<IImageLayer> Where(IImageLayerTree items, SKPoint point);
+        public IEnumerable<IImageLayer> Where(IImageLayerTree items, Point point);
         /// <summary>
         /// 根据选区获取图层
         /// </summary>
         /// <param name="items"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        public IEnumerable<IImageLayer> Where(IImageLayerTree items, SKRect rect);
+        public IEnumerable<IImageLayer> Where(IImageLayerTree items, Rect rect);
         public void Clear();
         
     }

@@ -13,10 +13,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="SkiaSharp" Version="3.119.2" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\IO\IO.csproj" />
+	  <ProjectReference Include="..\Numerics\Numerics.csproj" />
 	</ItemGroup>
 </Project>

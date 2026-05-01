@@ -1,4 +1,4 @@
-﻿using SkiaSharp;
+﻿using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
@@ -8,8 +8,8 @@ namespace ZoDream.Shared.Interfaces
 
         public int Height { get; }
 
-        public SKColor Foreground { get; }
-        public SKColor Background { get; }
+        public Color Foreground { get; }
+        public Color Background { get; }
 
         public int StrokeWidth { get; }
     }

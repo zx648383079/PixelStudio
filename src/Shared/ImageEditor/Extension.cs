@@ -7,6 +7,7 @@ using ZoDream.Shared.Document;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.ImageEditor.Sources;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
@@ -199,6 +200,34 @@ namespace ZoDream.Shared.ImageEditor
             IImageSize bound)
         {
             return items.Select(i => matrix.MapPoint(i.X * bound.Width, i.Y * bound.Height)).ToArray();
+        }
+        public static SKColor ToColor(this Color source)
+        {
+            return new SKColor(source.R, source.G, source.B, source.A);
+        }
+
+        public static Color ToColor(this SKColor source)
+        {
+            return new Color(source.Red, source.Green, source.Blue, source.Alpha);
+        }
+        public static SKPoint ToPoint(this Point source)
+        {
+            return new SKPoint(source.X, source.Y);
+        }
+
+        public static SKSize ToSize(this Size source)
+        {
+            return new SKSize(source.Width, source.Height);
+        }
+
+        public static SKRect ToRect(this Rect source)
+        {
+            return new SKRect(source.X, source.Y, source.Width, source.Height);
+        }
+
+        public static Size ToSize(this Rect source)
+        {
+            return new Size(source.Width, source.Height);
         }
     }
 }

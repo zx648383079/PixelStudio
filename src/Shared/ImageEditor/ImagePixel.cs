@@ -1,17 +1,17 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 using System.IO;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
     public class ImagePixel(IImageLayer layer) : IImagePixel
     {
-        public SKSize Size => layer.Source.Bound.Size;
+        public Size Size => layer.Source.Bound.ToSize();
 
-        public SKImage Picture => throw new NotImplementedException();
+        public object Picture => throw new NotImplementedException();
 
-        
+
 
         public void SaveAs(Stream output)
         {

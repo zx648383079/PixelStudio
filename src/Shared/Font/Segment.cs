@@ -1,5 +1,4 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 using System.Numerics;
 
 namespace ZoDream.Shared.Font
@@ -9,13 +8,13 @@ namespace ZoDream.Shared.Font
 
     }
 
-    public class LinearSegment(SKPoint point) : IGlyphSegment
+    public class LinearSegment(Vector2 point) : IGlyphSegment
     {
-        public SKPoint Point { get; set; } = point;
+        public Vector2 Point { get; set; } = point;
 
         
 
-        public static explicit operator LinearSegment(SKPoint point)
+        public static explicit operator LinearSegment(Vector2 point)
         {
             return new LinearSegment(point);
         }
@@ -26,10 +25,10 @@ namespace ZoDream.Shared.Font
         }
     }
 
-    public class QuadraticBezierSegment(SKPoint controlPoint, SKPoint toPoint) : IGlyphSegment
+    public class QuadraticBezierSegment(Vector2 controlPoint, Vector2 toPoint) : IGlyphSegment
     {
-        public SKPoint ControlPoint { get; set; } = controlPoint;
-        public SKPoint ToPoint { get; set; } = toPoint;
+        public Vector2 ControlPoint { get; set; } = controlPoint;
+        public Vector2 ToPoint { get; set; } = toPoint;
 
         public object Clone()
         {
@@ -39,15 +38,15 @@ namespace ZoDream.Shared.Font
         public static explicit operator QuadraticBezierSegment(Vector4 rect)
         {
             return new QuadraticBezierSegment(
-                new SKPoint(rect.X, rect.Y), 
-                new SKPoint(rect.Z, rect.W));
+                new Vector2(rect.X, rect.Y), 
+                new Vector2(rect.Z, rect.W));
         }
     }
-    public class CubicBezierSegment(SKPoint controlPoint1, SKPoint controlPoint2, SKPoint toPoint) : IGlyphSegment
+    public class CubicBezierSegment(Vector2 controlPoint1, Vector2 controlPoint2, Vector2 toPoint) : IGlyphSegment
     {
-        public SKPoint ControlPoint1 { get; set; } = controlPoint1;
-        public SKPoint ControlPoint2 { get; set; } = controlPoint2;
-        public SKPoint ToPoint { get; set; } = toPoint;
+        public Vector2 ControlPoint1 { get; set; } = controlPoint1;
+        public Vector2 ControlPoint2 { get; set; } = controlPoint2;
+        public Vector2 ToPoint { get; set; } = toPoint;
 
         public object Clone()
         {

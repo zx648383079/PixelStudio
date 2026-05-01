@@ -19,7 +19,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         public IImageStyler RealStyler => _styleManager.Real;
 
-        public IImageLayerTree Source => LayerItems;
+        public IImageLayerTree Items => LayerItems;
 
 
         public bool LayerMode {
@@ -136,6 +136,13 @@ namespace ZoDream.PixelStudio.ViewModels
         public IImageLayer Add(IImageSource source)
         {
             var layer = Create(source);
+            Add(layer);
+            return layer;
+        }
+
+        public IImageLayer Add(IImageSource source, string name)
+        {
+            var layer = Create(source, name);
             Add(layer);
             return layer;
         }

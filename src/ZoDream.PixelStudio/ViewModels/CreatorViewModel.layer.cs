@@ -24,14 +24,16 @@ namespace ZoDream.PixelStudio.ViewModels
         }
 
 
-        private ObservableCollection<IImageLayer> _layerItems = [];
+        private LayerTree _layerItems = [];
 
-        public ObservableCollection<IImageLayer> LayerItems {
+        public LayerTree LayerItems {
             get => _layerItems;
             set => SetProperty(ref _layerItems, value);
         }
 
         public IImageLayer? Current => SelectedLayer;
+
+        public IImageLayerTree Items => LayerItems;
 
         public void Add(IEnumerable<IImageLayer> items, IImageLayer? parent = null)
         {
@@ -55,6 +57,7 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 v.PreviewImage = CreateThumbnail(v.Source);
             }
+            Initialize(layer);
             LayerItems.Add(layer);
         }
 
@@ -68,6 +71,16 @@ namespace ZoDream.PixelStudio.ViewModels
             return layer;
         }
 
+        public IImageLayer Add(IImageSource source, string name)
+        {
+            var layer = new LayerViewModel(this, source)
+            {
+                PreviewImage = CreateThumbnail(source),
+                Name = name
+            };
+            Add(layer, null);
+            return layer;
+        }
 
 
         public void Clear()

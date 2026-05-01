@@ -1,6 +1,7 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Font
 {
@@ -8,9 +9,9 @@ namespace ZoDream.Shared.Font
     {
         public float AdvanceWidth { get; set; }
 
-        public SKRect BoundingBox { get; set; }
+        public Rect BoundingBox { get; set; }
 
-        public SKPoint SideBearings { get; set; }
+        public Vector2 SideBearings { get; set; }
 
         public IList<GlyphContour> Contours { get; set; } = [];
 

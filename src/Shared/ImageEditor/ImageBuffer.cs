@@ -1,5 +1,5 @@
-﻿using SkiaSharp;
-using ZoDream.Shared.Interfaces;
+﻿using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
@@ -10,62 +10,42 @@ namespace ZoDream.Shared.ImageEditor
     {
         public void Clear()
         {
-            throw new System.NotImplementedException();
         }
 
-        public void Clear(SKColor color)
+        public void Clear(Color color)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void Draw(SKBitmap source, float x, float y)
+        public void Draw(IImagePixel source, Point point)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void Draw(SKSurface? surface, float x, float y)
+        public void Draw(string text, Point point, IImagePaint paint)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void Draw(SKPicture? picture, float x, float y)
+        public void Draw(IPathBuffer path, IImagePaint paint)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void Draw(string text, float x, float y, SKTextAlign textAlign, SKFont font, SKPaint paint)
+        public void Draw(IImagePixel source, Point[] sourceVertices, Point[] vertices)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void Draw(SKPath path, SKPaint paint)
+        public void DrawCircle(Point point, float radius, IImagePaint paint)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void Draw(SKBitmap source, SKPoint[] sourceVertices, SKPoint[] vertices)
+        public void DrawOval(Point point, float xRadius, float yRadius, IImagePaint paint)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void DrawCircle(float x, float y, float radius, SKPaint paint)
+        public void DrawRect(Rect rect, IImagePaint paint)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void DrawOval(float x, float y, float xRadius, float yRadius, SKPaint paint)
+        public void DrawRect(RoundRect rect, IImagePaint paint)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void DrawRect(SKRect rect, SKPaint paint)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void DrawRect(SKRoundRect rect, SKPaint paint)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

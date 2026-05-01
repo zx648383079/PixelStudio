@@ -1,13 +1,13 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace ZoDream.Shared.Font
 {
     public class GlyphContour : ICloneable
     {
-        public SKPoint Offset { get; set; }
-        public SKPoint Position { get; set; }
+        public Vector2 Offset { get; set; }
+        public Vector2 Position { get; set; }
 
         public IList<IGlyphSegment> Segments { get; set; } = [];
 

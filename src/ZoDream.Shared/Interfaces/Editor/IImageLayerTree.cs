@@ -1,6 +1,6 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
@@ -17,7 +17,7 @@ namespace ZoDream.Shared.Interfaces
 
         public IImageLayer? Get(Func<IImageLayer, bool> checkFn);
 
-        public IImageLayer? Get(SKPoint point);
+        public IImageLayer? Get(Point point);
 
         public void Paint(IImageCanvas canvas);
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using ZoDream.Shared.ImageEditor;
+using ZoDream.Shared.ImageEditor.Layers;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.ViewModels
@@ -17,6 +18,7 @@ namespace ZoDream.PixelStudio.ViewModels
         {
             Instance = new ImageEditor(shell, this, this);
             Instance.Initialize();
+            Instance.BackBar.Add(new GlyphLayoutLayer(Instance));
         }
 
 

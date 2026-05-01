@@ -1,10 +1,10 @@
-﻿using SkiaSharp;
+﻿using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
     public interface IMouseRoutedArgs
     {
-        public SKPoint Position { get; }
+        public Point Position { get; }
 
         public PointerState State { get; }
         public bool IsLeftButtonPressed { get; }

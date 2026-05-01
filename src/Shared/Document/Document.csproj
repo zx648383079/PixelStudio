@@ -14,8 +14,8 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\ZoDream.Shared\ZoDream.Shared.csproj" />
-	  <ProjectReference Include="..\Drawing\Drawing.csproj" />
 	  <ProjectReference Include="..\IO\IO.csproj" />
+	  <ProjectReference Include="..\Numerics\Numerics.csproj" />
 	</ItemGroup>
 
 </Project>

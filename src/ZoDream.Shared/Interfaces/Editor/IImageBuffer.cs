@@ -1,4 +1,4 @@
-﻿using SkiaSharp;
+﻿using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
@@ -12,33 +12,31 @@ namespace ZoDream.Shared.Interfaces
         /// 以指定颜色作为背景
         /// </summary>
         /// <param name="color"></param>
-        public void Clear(SKColor color);
+        public void Clear(Color color);
 
-        public void Draw(SKBitmap source, float x, float y);
-        public void Draw(SKSurface? surface, float x, float y);
-        public void Draw(SKPicture? picture, float x, float y);
-        public void Draw(string text, float x, float y, SKTextAlign textAlign, SKFont font, SKPaint paint);
+        public void Draw(IImagePixel source, Point point);
+        public void Draw(string text, Point point, IImagePaint paint);
 
-        public void Draw(SKPath path, SKPaint paint);
+        public void Draw(IPathBuffer path, IImagePaint paint);
         /// <summary>
         /// 绘制纹理
         /// </summary>
         /// <param name="source">纹理图片</param>
         /// <param name="sourceVertices">纹理上的顶点</param>
         /// <param name="vertices">顶点对于的位置</param>
-        public void Draw(SKBitmap source, SKPoint[] sourceVertices, SKPoint[] vertices);
+        public void Draw(IImagePixel source, Point[] sourceVertices, Point[] vertices);
         /// <summary>
         /// 画矩形
         /// </summary>
         /// <param name="rect"></param>
         /// <param name="paint"></param>
-        public void DrawRect(SKRect rect, SKPaint paint);
+        public void DrawRect(Rect rect, IImagePaint paint);
         /// <summary>
         /// 画圆角矩形
         /// </summary>
         /// <param name="rect"></param>
         /// <param name="paint"></param>
-        public void DrawRect(SKRoundRect rect, SKPaint paint);
+        public void DrawRect(RoundRect rect, IImagePaint paint);
         /// <summary>
         /// 画圆
         /// </summary>
@@ -46,7 +44,7 @@ namespace ZoDream.Shared.Interfaces
         /// <param name="y"></param>
         /// <param name="radius"></param>
         /// <param name="paint"></param>
-        public void DrawCircle(float x, float y, float radius, SKPaint paint);
+        public void DrawCircle(Point point, float radius, IImagePaint paint);
         /// <summary>
         /// 画椭圆
         /// </summary>
@@ -55,6 +53,6 @@ namespace ZoDream.Shared.Interfaces
         /// <param name="xRadius"></param>
         /// <param name="yRadius"></param>
         /// <param name="paint"></param>
-        public void DrawOval(float x, float y, float xRadius, float yRadius, SKPaint paint);
+        public void DrawOval(Point point, float xRadius, float yRadius, IImagePaint paint);
     }
 }

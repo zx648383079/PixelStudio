@@ -20,8 +20,8 @@ namespace ZoDream.Shared.ImageEditor
         }
 
         private readonly IImageShell _shell;
-        private readonly IList<ICommandLayer> _bottomLayers = [];
-        private readonly IList<ICommandLayer> _topLayers = [];
+        public IList<ICommandLayer> BackBar { get; } = [];
+        public IList<ICommandLayer> FrontBar { get; } = [];
         public ILayerController Layer { get; private set; }
         public IImageController Controller { get; private set; }
         public ICommandController? Commander { get; private set; }
@@ -30,13 +30,15 @@ namespace ZoDream.Shared.ImageEditor
 
         public SKSize Size { get; private set; } = SKSize.Empty;
 
+        public SKRect Padding { get; set; } = SKRect.Empty;
+
         public IImageLayer? Current => Layer?.Current;
 
         public void Initialize()
         {
-            _bottomLayers.Add(new TransparentLayer(this));
-            _bottomLayers.Add(new GlyphLayoutLayer(this));
+            BackBar.Add(new TransparentLayer(this));
         }
+
         public void Resize()
         {
 
@@ -45,11 +47,11 @@ namespace ZoDream.Shared.ImageEditor
         {
             Size = size;
             _shell.Resize(size);
-            foreach (var layer in _bottomLayers)
+            foreach (var layer in BackBar)
             {
                 layer.Invalidate();
             }
-            foreach (var layer in _topLayers)
+            foreach (var layer in FrontBar)
             {
                 layer.Invalidate();
             }
@@ -76,7 +78,7 @@ namespace ZoDream.Shared.ImageEditor
         {
             canvas.Clear(SKColors.Transparent);
             var c = new ImageCanvas(canvas);
-            foreach (var layer in _bottomLayers)
+            foreach (var layer in BackBar)
             {
                 if (!layer.IsVisible)
                 {
@@ -86,7 +88,7 @@ namespace ZoDream.Shared.ImageEditor
             }
             Layer?.Paint(c);
             Commander?.Paint(c);
-            foreach (var layer in _topLayers)
+            foreach (var layer in FrontBar)
             {
                 if (!layer.IsVisible)
                 {
@@ -123,11 +125,11 @@ namespace ZoDream.Shared.ImageEditor
         public void Dispose()
         {
             Commander?.Dispose();
-            foreach (var layer in _bottomLayers)
+            foreach (var layer in BackBar)
             {
                 layer.Dispose();
             }
-            foreach (var layer in _topLayers)
+            foreach (var layer in FrontBar)
             {
                 layer.Dispose();
             }

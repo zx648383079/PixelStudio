@@ -20,6 +20,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\ZoDream.Shared\ZoDream.Shared.csproj" />
 	  <ProjectReference Include="..\Document\Document.csproj" />
+	  <ProjectReference Include="..\Drawing\Drawing.csproj" />
 	</ItemGroup>
 
 </Project>

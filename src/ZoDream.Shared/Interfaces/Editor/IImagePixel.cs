@@ -1,7 +1,6 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 using System.IO;
-using System.Numerics;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
@@ -10,9 +9,12 @@ namespace ZoDream.Shared.Interfaces
     /// </summary>
     public interface IImagePixel : IDisposable
     {
-        public SKSize Size { get; }
+        public Size Size { get; }
 
-        public SKImage Picture { get; }
+        /// <summary>
+        /// 实际转换为 SKPicture
+        /// </summary>
+        public object Picture { get; }
 
         public void SaveAs(Stream output);
         public void SaveAs(string fileName);

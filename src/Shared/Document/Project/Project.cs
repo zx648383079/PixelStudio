@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.Shared.Document
@@ -15,7 +14,7 @@ namespace ZoDream.Shared.Document
 
         public List<ProjectImageLayer> LayerItems { get; set; } = [];
 
-        public List<IImageData> ResourceItems { get; set; } = [];
+        public List<IImagePixel> ResourceItems { get; set; } = [];
 
         public List<SpriteLayerSection> SpriteItems { get; set; } = [];
         public List<SkeletonSection> SkeletonItems { get; set; } = [];
