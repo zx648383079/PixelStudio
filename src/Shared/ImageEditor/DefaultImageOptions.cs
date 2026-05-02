@@ -1,15 +1,18 @@
 ﻿using SkiaSharp;
+using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
     public class DefaultImageOptions : IImageOptions
     {
 
-        private readonly SKColor _background = SKColors.White;
-        private readonly SKColor _foreground = SKColors.Black;
-        private readonly SKColor _hovered = SKColors.Blue.WithAlpha(50);
-        private readonly SKColor _activated = SKColors.Blue;
+        private readonly Color _background = SKColors.White.ToColor();
+        private readonly Color _foreground = SKColors.Black.ToColor();
+        private readonly Color _hovered = SKColors.Blue.WithAlpha(50).ToColor();
+        private readonly Color _activated = SKColors.Blue.ToColor();
+        private readonly SKFont _font = new(SKTypeface.Default, 16);
 
         private readonly SKPaint _jointStrokePaint = new()
         {
@@ -43,27 +46,32 @@ namespace ZoDream.Shared.ImageEditor
             ColorF = SKColors.Black,
             IsAntialias = true,
         };
-        public SKPaint JointStrokePaint => _jointStrokePaint;
+        public IImagePaint JointStrokePaint => new ImagePaint(_jointStrokePaint);
 
-        public SKPaint JointPaint => _jointPaint;
+        public IImagePaint JointPaint => new ImagePaint(_jointPaint);
 
-        public SKPaint JointHoveredPaint => _jointHoveredPaint;
+        public IImagePaint JointHoveredPaint => new ImagePaint(_jointHoveredPaint);
 
         public float JointSize => 16;
 
-        public SKColor Hovered => _hovered;
-        public SKColor Activated => _activated;
+        public Color Hovered => _hovered;
+        public Color Activated => _activated;
 
-        public SKColor Background => _background;
+        public Color Background => _background;
 
-        public SKPaint BackgroundPaint => _backgroundPaint;
+        public IImagePaint BackgroundPaint => new ImagePaint(_backgroundPaint);
 
-        public SKColor Foreground => _foreground;
+        public Color Foreground => _foreground;
 
-        public SKPaint ForegroundPaint => _foregroundPaint;
+        public IImagePaint ForegroundPaint => new ImagePaint(_foregroundPaint);
+
+        public IImagePaint TitlePaint => new FontImagePaint(_font, SKTextAlign.Left, _foregroundPaint);
+
+        public IImagePaint TextPaint => new FontImagePaint(_font, SKTextAlign.Left, _foregroundPaint);
 
         public void Dispose()
         {
+            _font.Dispose();
             _jointPaint.Dispose();
             _jointHoveredPaint.Dispose();
             _jointStrokePaint.Dispose();

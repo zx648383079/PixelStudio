@@ -1,21 +1,21 @@
-﻿using SkiaSharp;
-using ZoDream.Shared.Interfaces;
+﻿using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
     public partial class ImageEditor : IImageShellEventBus
     {
-        public void OnPainting(SKCanvas canvas, SKImageInfo info)
+        public void OnPainting(ICanvasShell canvas)
         {
-            Paint(canvas, info);
+            Paint(canvas);
         }
 
-        public void OnSizeChanged(SKSize size)
+        public void OnSizeChanged(Size size)
         {
             Resize(size);
         }
 
-        public void OnTapped(SKPoint point)
+        public void OnTapped(Point point)
         {
             Touch(point);
         }

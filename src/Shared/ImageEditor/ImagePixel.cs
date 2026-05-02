@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 

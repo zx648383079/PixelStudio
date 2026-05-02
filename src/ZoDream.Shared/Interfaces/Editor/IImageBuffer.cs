@@ -1,4 +1,5 @@
-﻿using ZoDream.Shared.Numerics;
+﻿using System.Numerics;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
@@ -48,11 +49,9 @@ namespace ZoDream.Shared.Interfaces
         /// <summary>
         /// 画椭圆
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="xRadius"></param>
-        /// <param name="yRadius"></param>
+        /// <param name="point"></param>
+        /// <param name="radius"></param>
         /// <param name="paint"></param>
-        public void DrawOval(Point point, float xRadius, float yRadius, IImagePaint paint);
+        public void DrawOval(Point point, Vector2 radius, IImagePaint paint);
     }
 }

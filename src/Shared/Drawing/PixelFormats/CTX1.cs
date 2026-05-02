@@ -1,9 +1,5 @@
-﻿using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Drawing
 {
@@ -15,14 +11,14 @@ namespace ZoDream.Shared.Drawing
             int xBlocks = width / 4;
             int yBlocks = height / 4;
 
-            var vectors = new RGBAColor[4];
+            var vectors = new Color[4];
             for (int i = 0; i < yBlocks; i++)
             {
                 for (int j = 0; j < xBlocks; j++)
                 {
                     int srcIndex = (i * xBlocks + j) * 8;
-                    vectors[0] = new RGBAColor(data[srcIndex + 1], data[srcIndex + 0], 0, 0);
-                    vectors[1] = new RGBAColor(data[srcIndex + 3], data[srcIndex + 2], 0, 0);
+                    vectors[0] = new Color(data[srcIndex + 1], data[srcIndex + 0], 0, 0);
+                    vectors[1] = new Color(data[srcIndex + 3], data[srcIndex + 2], 0, 0);
                     vectors[2].R = (byte)((2 * vectors[0].R + vectors[1].R + 1) / 3);
                     vectors[2].G = (byte)((2 * vectors[0].G + vectors[1].G + 1) / 3);
                     vectors[3].R = (byte)((vectors[0].R + 2 * vectors[1].R + 1) / 3);
@@ -36,9 +32,9 @@ namespace ZoDream.Shared.Drawing
                         {
                             int destIndex = ((width * ((i * 4) + k)) * 4) + (((j * 4) + m) * 4);
 
-                            RGBAColor vector = vectors[(int)(code & 3)];
+                            Color vector = vectors[(int)(code & 3)];
 
-                            RGBAColor color;
+                            Color color;
                             color.R = vector.R;
                             color.G = vector.G;
                             color.B = computeZ ? CalculateNormalZ(vector.R, vector.G) : (byte)0;

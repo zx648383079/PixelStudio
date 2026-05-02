@@ -1,6 +1,7 @@
 ﻿using SkiaSharp;
 using System;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
@@ -32,7 +33,7 @@ namespace ZoDream.Shared.ImageEditor
                 var scale = Math.Min((float)size.Width / source.Width, (float)size.Height / source.Height);
                 var w = source.Width * scale;
                 var h = source.Height * scale;
-                canvas.DrawBitmap(source, SKRect.Create((size.Width - w) / 2, (size.Height - h) / 2, w, h));
+                canvas.DrawBitmap(source, new Rect((size.Width - w) / 2, (size.Height - h) / 2, w, h));
             });
         }
 

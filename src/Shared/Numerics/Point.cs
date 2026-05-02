@@ -47,6 +47,16 @@ namespace ZoDream.Shared.Numerics
             return !(left == right);
         }
 
+        public static Point operator -(Point left, Point right)
+        {
+            return new(left.X - right.X, left.Y - right.Y);
+        }
+
+        public static Point operator +(Point left, Point right)
+        {
+            return new(left.X + right.X, left.Y + right.Y);
+        }
+
         public static explicit operator Point(Vector2 vec)
         {
             return new(vec.X, vec.Y);

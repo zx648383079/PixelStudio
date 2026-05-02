@@ -1,10 +1,10 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using SkiaSharp;
 using System.Windows.Input;
 using ZoDream.Shared;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -25,7 +25,7 @@ namespace ZoDream.PixelStudio.Controls
         private bool _isPointerMoved;
         public IImageShellEventBus? Bus { set; private get; }
 
-        public SKSize Size => new((int)(ActualWidth * _dpiScale), (int)(ActualHeight * _dpiScale));
+        public Size Size => new((int)(ActualWidth * _dpiScale), (int)(ActualHeight * _dpiScale));
 
         private void ImageEditor_Loaded(object sender, RoutedEventArgs e)
         {
@@ -51,7 +51,7 @@ namespace ZoDream.PixelStudio.Controls
             {
                 ImageEditor_Loaded(this, null);
             }
-            Bus?.OnPainting(e.Surface.Canvas, e.Info);
+            Bus?.OnPainting(new ImageCanvasControl(e.Surface.Canvas, e.Info));
         }
 
 
@@ -143,7 +143,7 @@ namespace ZoDream.PixelStudio.Controls
             PART_Canvas.Invalidate();
         }
 
-        public void Resize(SKSize size)
+        public void Resize(Size size)
         {
             ResizeWithControl((int)size.Width, (int)size.Height);
         }

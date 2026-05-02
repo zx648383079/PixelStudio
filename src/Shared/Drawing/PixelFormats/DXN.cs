@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Drawing
 {
@@ -108,7 +105,7 @@ namespace ZoDream.Shared.Drawing
                 {
                     for (int k = 0; k < sizew; k++)
                     {
-                        RGBAColor color;
+                        Color color;
                         color.G = redTable[rIndices[(j * sizeh) + k]];
                         color.R = grnTable[gIndices[(j * sizeh) + k]];
                         float x = ((((float)color.R) / 255f) * 2f) - 1f;

@@ -70,7 +70,16 @@ namespace ZoDream.Shared.Numerics
 
         public override readonly int GetHashCode()
         {
-            return base.GetHashCode();
+            var hash = new HashCode();
+            hash.Add(X);
+            hash.Add(Y);
+            hash.Add(Width);
+            hash.Add(Height);
+            hash.Add(LeftTopRadius);
+            hash.Add(RightTopRadius);
+            hash.Add(RightBottomRadius);
+            hash.Add(LeftBottomRadius);
+            return hash.ToHashCode();
         }
 
         public override readonly string? ToString()

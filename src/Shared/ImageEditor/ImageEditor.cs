@@ -1,8 +1,10 @@
 ﻿using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using ZoDream.Shared.Drawing;
 using ZoDream.Shared.ImageEditor.Layers;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
@@ -28,9 +30,9 @@ namespace ZoDream.Shared.ImageEditor
 
         public IImageOptions Options { get; private set; } = new DefaultImageOptions();
 
-        public SKSize Size { get; private set; } = SKSize.Empty;
+        public Size Size { get; private set; } = new();
 
-        public SKRect Padding { get; set; } = SKRect.Empty;
+        public Thickness Padding { get; set; } = new();
 
         public IImageLayer? Current => Layer?.Current;
 
@@ -43,7 +45,7 @@ namespace ZoDream.Shared.ImageEditor
         {
 
         }
-        public void Resize(SKSize size)
+        public void Resize(Size size)
         {
             Size = size;
             _shell.Resize(size);
@@ -74,9 +76,9 @@ namespace ZoDream.Shared.ImageEditor
             _shell.Invalidate();
         }
 
-        public void Paint(SKCanvas canvas, SKImageInfo info)
+        public void Paint(ICanvasShell canvas)
         {
-            canvas.Clear(SKColors.Transparent);
+            canvas.Clear(SKColors.Transparent.ToColor());
             var c = new ImageCanvas(canvas);
             foreach (var layer in BackBar)
             {
@@ -103,11 +105,11 @@ namespace ZoDream.Shared.ImageEditor
             Commander?.Initialize(layer);
         }
 
-        public void Select(SKRect rect)
+        public void Select(Rect rect)
         {
         }
 
-        public void Touch(SKPoint point)
+        public void Touch(Point point)
         {
 
         }

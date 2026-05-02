@@ -12,7 +12,7 @@ namespace ZoDream.Shared.Font
 
         public Vector2 Offset { get; set; } = Vector2.Zero;
 
-        public SKRotationScaleMatrix Scale { get; set; } = new(1, 0, 0, 1);
+        public Matrix2x2 Scale { get; set; } = new(1, 0, 0, 1);
 
 
         public Rect BoundingBox 
@@ -42,8 +42,8 @@ namespace ZoDream.Shared.Font
 
         public Vector2 Transform(Vector2 value)
         {
-            return new(Scale.SCos * value.X + Scale.SSin * value.Y,
-                Scale.TX * value.X + Scale.TY * value.Y);
+            return new(Scale.M11 * value.X + Scale.M12 * value.Y,
+                Scale.M21 * value.X + Scale.M22 * value.Y);
         }
 
         public void MoveAbsolute(Vector2 offset)

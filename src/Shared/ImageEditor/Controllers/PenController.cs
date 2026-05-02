@@ -9,7 +9,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
     {
         public bool IsEnabled => true;
         private bool _isRightButtonPressed = false;
-        private SKPoint _last = SKPoint.Empty;
+        private SKPoint _last = new();
         private readonly SKPaint _paint = new()
         {
             Color = SKColors.Blue.WithAlpha(150),
@@ -31,19 +31,20 @@ namespace ZoDream.Shared.ImageEditor.Controllers
 
         public void PointerMoved(IMouseRoutedArgs args)
         {
+            var p = args.Position.ToPoint();
             if (!args.IsShiftPressed || _layer?.Source.IsEmpty != false)
             {
-                _last = args.Position;
+                _last = p;
             } else
             {
-                var offset = args.Position - _layer.Source.End;
+                var offset = p - _layer.Source.End;
                 if (Math.Abs(offset.X) >= Math.Abs(offset.Y))
                 {
-                    _last = new SKPoint(args.Position.X, _layer.Source.End.Y);
+                    _last = new SKPoint(p.X, _layer.Source.End.Y);
                 }
                 else
                 {
-                    _last = new SKPoint(_layer.Source.End.X, args.Position.Y);
+                    _last = new SKPoint(_layer.Source.End.X, p.Y);
                 }
             }
 
@@ -57,7 +58,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
         public void PointerPressed(IMouseRoutedArgs args)
         {
             _isRightButtonPressed = args.IsRightButtonPressed;
-            _last = args.Position;
+            _last = args.Position.ToPoint();
         }
 
         public void PointerReleased(IMouseRoutedArgs args)
@@ -101,7 +102,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
             {
                 return;
             }
-            canvas.DrawLine(_layer.Source.End, _last, _paint);
+            canvas.DrawLine(_layer.Source.End.ToPoint(), _last.ToPoint(), _paint);
         }
 
         public void Dispose()

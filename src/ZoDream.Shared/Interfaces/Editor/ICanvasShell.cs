@@ -1,6 +1,6 @@
 ﻿using ZoDream.Shared.Numerics;
 
-namespace ZoDream.Shared.Interfaces.Editor
+namespace ZoDream.Shared.Interfaces
 {
     public interface ICanvasShell
     {

@@ -1,6 +1,6 @@
-﻿using SkiaSharp;
-using ZoDream.Shared.ImageEditor.Layers;
+﻿using ZoDream.Shared.ImageEditor.Layers;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Controllers
 {
@@ -14,7 +14,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
         {
         }
 
-        public void Touch(SKPoint point)
+        public void Touch(Point point)
         {
 
         }

@@ -56,6 +56,15 @@ namespace ZoDream.Shared.Numerics
             return new(vec.X, vec.Y, vec.Z, vec.W);
         }
 
+        public static Thickness operator -(Rect left, Rect right)
+        {
+            var x = right.X - left.X;
+            var y = right.Y - left.Y;
+            return new(x, y,
+                left.Width - right.Width - x,
+                left.Height - right.Height - y);
+        }
+
         public static explicit operator Vector4(Rect rect)
         {
             return new(rect.X, rect.Y, rect.Width, rect.Height);

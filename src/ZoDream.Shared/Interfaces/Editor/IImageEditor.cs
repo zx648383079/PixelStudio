@@ -30,7 +30,7 @@ namespace ZoDream.Shared.Interfaces
         /// <summary>
         /// 内边距
         /// </summary>
-        public Rect Padding { get; set; }
+        public Thickness Padding { get; set; }
 
         public IImageLayer? Current { get; }
 

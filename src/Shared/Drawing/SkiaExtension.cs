@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Numerics;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Drawing
 {
@@ -283,6 +284,53 @@ namespace ZoDream.Shared.Drawing
             var t = (diff.X * bVector.Y - diff.Y * bVector.X) / cross;
             var u = (diff.X * aVector.Y - diff.Y * aVector.X) / cross;
             return 0 <= t && t <= 1 && 0 <= u && u <= 1;
+        }
+
+        public static SKColor ToColor(this Color source)
+        {
+            return new SKColor(source.R, source.G, source.B, source.A);
+        }
+
+        public static Color ToColor(this SKColor source)
+        {
+            return new Color(source.Red, source.Green, source.Blue, source.Alpha);
+        }
+        public static SKPoint ToPoint(this Point source)
+        {
+            return new SKPoint(source.X, source.Y);
+        }
+
+        public static Point ToPoint(this SKPoint source)
+        {
+            return new Point(source.X, source.Y);
+        }
+
+        public static SKSize ToSize(this Size source)
+        {
+            return new SKSize(source.Width, source.Height);
+        }
+
+        public static SKRect ToRect(this Rect source)
+        {
+            return new SKRect(source.X, source.Y, source.Width, source.Height);
+        }
+
+        public static SKRoundRect ToRect(this RoundRect source)
+        {
+            var res = new SKRoundRect();
+            res.SetRectRadii(new SKRect(source.X, source.Y, source.Width, source.Height),
+                [
+                    source.LeftTopRadius,
+                    source.RightTopRadius,
+                    source.RightBottomRadius,
+                    source.LeftBottomRadius
+                ]);
+            return res;
+        }
+
+        public static Size ToSize(this Rect source)
+        {
+            return new Size(source.Width, source.Height);
         }
     }
 }
