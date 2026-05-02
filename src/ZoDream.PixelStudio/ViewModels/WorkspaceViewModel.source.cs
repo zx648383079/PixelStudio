@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ZoDream.Shared.ImageEditor;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
@@ -182,13 +183,13 @@ namespace ZoDream.PixelStudio.ViewModels
             LayerItems.Clear();
         }
 
-        public bool TryGet(SKPoint point, out IImageLayer? layer)
+        public bool TryGet(Point point, out IImageLayer? layer)
         {
             layer = LayerItems.Get(point);
             return layer != null;
         }
 
-        public IEnumerable<IImageLayer> Get(SKRect rect)
+        public IEnumerable<IImageLayer> Get(Rect rect)
         {
             throw new NotImplementedException();
         }

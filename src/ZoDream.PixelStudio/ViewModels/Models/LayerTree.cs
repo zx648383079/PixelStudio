@@ -1,8 +1,8 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
@@ -55,7 +55,7 @@ namespace ZoDream.PixelStudio.ViewModels
             return null;
         }
 
-        public IImageLayer? Get(SKPoint point)
+        public IImageLayer? Get(Point point)
         {
             foreach (var item in Items)
             {

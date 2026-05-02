@@ -2,6 +2,7 @@
 using System;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
@@ -34,12 +35,12 @@ namespace ZoDream.Shared.ImageEditor.Sources
         public SKColor StrokeColor { get; set; }
 
         public float StrokeWidth { get; set; }
-        public override SKRect Bound => _path.Bounds;
+        public override Rect Bound => _path.Bounds;
 
         public PathBuilder Source => _path;
 
 
-        public override SKBitmap? CreateThumbnail(SKSize size)
+        public override object? CreateThumbnail(Size size)
         {
             return _thumbnail.Mutate(size, canvas => 
             {
@@ -47,7 +48,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
             });
         }
 
-        public void Add(SKPoint point)
+        public void Add(Point point)
         {
             if (_path.IsEmpty)
             {
@@ -63,7 +64,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
             _paint.IsStroke = false;
         }
 
-        public int NearOf(SKPoint point, float maxOffset)
+        public int NearOf(Point point, float maxOffset)
         {
             for (int i = _path.Count - 1; i >= 0; i--)
             {
@@ -81,7 +82,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
             return -1;
         }
 
-        public int IndexOf(SKPoint point)
+        public int IndexOf(Point point)
         {
             return _path.IndexOf(point);
         }
@@ -96,7 +97,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
         /// </summary>
         /// <param name="index"></param>
         /// <param name="to"></param>
-        public void MoveTo(int index, SKPoint to)
+        public void MoveTo(int index, Point to)
         {
             _path.MoveTo(index, to);
         }
@@ -105,12 +106,12 @@ namespace ZoDream.Shared.ImageEditor.Sources
         /// </summary>
         /// <param name="v"></param>
         /// <param name="offset"></param>
-        public void Move(int index, SKPoint offset)
+        public void Move(int index, Point offset)
         {
             _path.Move(index, offset);
         }
 
-        public void Move(int[] indexs, SKPoint offset)
+        public void Move(int[] indexs, Point offset)
         {
             foreach (var item in indexs)
             {

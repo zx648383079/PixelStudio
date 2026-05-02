@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
@@ -21,7 +22,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
         public int FontSize { get; set; } = 16;
 
-        public override SKBitmap? CreateThumbnail(SKSize size)
+        public override object? CreateThumbnail(Size size)
         {
             return Thumbnail.Mutate(size, canvas => 
             {

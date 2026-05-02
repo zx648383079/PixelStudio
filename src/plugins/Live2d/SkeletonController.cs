@@ -1,9 +1,9 @@
-using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZoDream.Shared.Document;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Plugin.Live2d
 {
@@ -37,7 +37,7 @@ namespace ZoDream.Plugin.Live2d
                     {
                         Name = DrawableIds[i],
                         VertexItems = root.GetDrawableVertexUvs(i, vertexCount),
-                        PointItems = Array.ConvertAll(root.GetDrawableVertexPositions(i, vertexCount), i => (SKPoint)i)
+                        PointItems = Array.ConvertAll(root.GetDrawableVertexPositions(i, vertexCount), i => (Point)i)
                     });
                 }
                 return items;

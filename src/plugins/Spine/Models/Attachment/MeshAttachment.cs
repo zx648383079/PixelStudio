@@ -1,5 +1,5 @@
-﻿using SkiaSharp;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Plugin.Spine.Models
 {
@@ -9,7 +9,7 @@ namespace ZoDream.Plugin.Spine.Models
         public float[] RegionUVs { get; set; }
         public int[] Triangles { get; set; }
 
-        public SKColor? Color { get; set; }
+        public Color? Color { get; set; }
 
         public string Path { get; set; }
         public object RendererObject { get; set; }

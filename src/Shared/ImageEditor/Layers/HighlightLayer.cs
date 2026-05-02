@@ -90,12 +90,12 @@ namespace ZoDream.Shared.ImageEditor.Layers
             _surface?.Dispose();
         }
 
-        public bool Contains(SKPoint point)
+        public bool Contains(Point point)
         {
             return false;
         }
 
-        public SKBitmap? CreateThumbnail(SKSize size)
+        public object? CreateThumbnail(Size size)
         {
             return null;
         }

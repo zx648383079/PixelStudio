@@ -1,8 +1,8 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 using System.IO;
 using ZoDream.Shared.Font;
 using ZoDream.Shared.IO;
+using ZoDream.Shared.Numerics;
 using ZoDream.Shared.OpenType.Tables;
 
 namespace ZoDream.Shared.OpenType.Converters
@@ -27,7 +27,7 @@ namespace ZoDream.Shared.OpenType.Converters
                 var g = reader.ReadByte();
                 var r = reader.ReadByte();
                 var a = reader.ReadByte();
-                return  new SKColor(r, g, b, a);
+                return new Color(r, g, b, a);
             });
             return res;
         }

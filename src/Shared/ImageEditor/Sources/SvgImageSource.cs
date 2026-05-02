@@ -2,6 +2,7 @@
 using Svg.Skia;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
@@ -40,7 +41,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
         public SKSvg Source { get; set; }
 
-        public override SKBitmap? CreateThumbnail(SKSize size)
+        public override object? CreateThumbnail(Size size)
         {
             return Thumbnail.Snapshot(size, Source.Picture);
         }

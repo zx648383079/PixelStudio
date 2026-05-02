@@ -1,4 +1,6 @@
-﻿using SkiaSharp;
+﻿
+
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Plugin.Spine.Models
 {
@@ -7,11 +9,11 @@ namespace ZoDream.Plugin.Spine.Models
         public ColorTimeline(int frameCount): base(frameCount)
         {
             Frames = new float[frameCount];
-            ColorFrames = new SKColor[frameCount];
+            ColorFrames = new Color[frameCount];
         }
         public int SlotIndex {  get; set; }
         public float[] Frames { get; set; }
-        public SKColor[] ColorFrames { get; set; }
+        public Color[] ColorFrames { get; set; }
 
         public override int PropertyId => ((int)TimelineType.RGB << 24) + SlotIndex;
     }
@@ -21,11 +23,11 @@ namespace ZoDream.Plugin.Spine.Models
         public RGBTimeline(int frameCount) : base(frameCount)
         {
             Frames = new float[frameCount];
-            ColorFrames = new SKColor[frameCount];
+            ColorFrames = new Color[frameCount];
         }
         public int SlotIndex { get; set; }
         public float[] Frames { get; set; }
-        public SKColor[] ColorFrames { get; set; }
+        public Color[] ColorFrames { get; set; }
 
         public override int PropertyId => ((int)TimelineType.RGB << 24) + SlotIndex;
     }
@@ -35,11 +37,11 @@ namespace ZoDream.Plugin.Spine.Models
         public AlphaTimeline(int frameCount) : base(frameCount)
         {
             Frames = new float[frameCount];
-            ColorFrames = new SKColor[frameCount];
+            ColorFrames = new Color[frameCount];
         }
         public int SlotIndex { get; set; }
         public float[] Frames { get; set; }
-        public SKColor[] ColorFrames { get; set; }
+        public Color[] ColorFrames { get; set; }
 
         public override int PropertyId => ((int)TimelineType.Alpha << 24) + SlotIndex;
     }

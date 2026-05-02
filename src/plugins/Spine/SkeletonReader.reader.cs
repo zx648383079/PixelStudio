@@ -1,4 +1,3 @@
-using SkiaSharp;
 using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Text;
 using ZoDream.Plugin.Spine.Models;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.IO;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Plugin.Spine
 {
@@ -464,7 +464,7 @@ namespace ZoDream.Plugin.Spine
                         {
                             Name = name,
                             Path = (flags & 16) != 0 ? ReadStringRef(reader) : name,
-                            Color = (flags & 32) != 0 ? ReadColor(reader) : SKColors.White,
+                            Color = (flags & 32) != 0 ? ReadColor(reader) : Color.White,
                             Sequence = (flags & 64) != 0 ? ReadSequence(reader) : null,
                             Rotation = (flags & 128) != 0 ? reader.ReadSingle() : 0,
                             X = reader.ReadSingle(),

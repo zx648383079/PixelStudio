@@ -1,7 +1,9 @@
 ﻿using SkiaSharp;
 using System.Collections.Generic;
+using System.Numerics;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
@@ -21,7 +23,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
         public float YRadius => Height / 2;
 
 
-        public override SKBitmap? CreateThumbnail(SKSize size)
+        public override object? CreateThumbnail(Size size)
         {
             return Thumbnail.Mutate(size, canvas => 
             {
@@ -41,13 +43,13 @@ namespace ZoDream.Shared.ImageEditor.Sources
                 _paint.Style = SKPaintStyle.StrokeAndFill;
                 _paint.ColorF = SKColors.Black;
             }
-            var center = new SKPoint(X + XRadius, Y + YRadius);
+            var center = new Point(X + XRadius, Y + YRadius);
             if (XRadius == YRadius)
             {
                 canvas.DrawCircle(center, XRadius, _paint);
                 return;
             }
-            canvas.DrawOval(center, new SKSize(XRadius, YRadius), _paint);
+            canvas.DrawOval(center, new Vector2(XRadius, YRadius), _paint);
         }
 
         public IEnumerable<PathBuilder> GetPath()

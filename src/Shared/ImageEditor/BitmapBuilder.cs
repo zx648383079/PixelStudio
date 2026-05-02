@@ -9,9 +9,9 @@ namespace ZoDream.Shared.ImageEditor
     {
         private SKBitmap? _instance;
 
-        public SKBitmap Mutate(SKSize size, Action<IImageCanvas> action)
+        public SKBitmap Mutate(Size size, Action<IImageCanvas> action)
         {
-            return Mutate(size.ToSizeI(), action);
+            return Mutate(new SKSizeI((int)size.Width, (int)size.Height), action);
         }
 
         public SKBitmap Mutate(SKSizeI size, Action<IImageCanvas> action)
@@ -27,20 +27,20 @@ namespace ZoDream.Shared.ImageEditor
             return _instance;
         }
 
-        public SKBitmap Snapshot(SKSize size, SKBitmap source)
+        public SKBitmap Snapshot(Size size, SKBitmap source)
         {
             return Mutate(size, canvas => {
-                var scale = Math.Min((float)size.Width / source.Width, (float)size.Height / source.Height);
+                var scale = Math.Min(size.Width / source.Width, size.Height / source.Height);
                 var w = source.Width * scale;
                 var h = source.Height * scale;
                 canvas.DrawBitmap(source, new Rect((size.Width - w) / 2, (size.Height - h) / 2, w, h));
             });
         }
 
-        public SKBitmap Snapshot(SKSize size, SKPicture source)
+        public SKBitmap Snapshot(Size size, SKPicture source)
         {
             return Mutate(size, canvas => {
-                var scale = Math.Min((float)size.Width / source.CullRect.Width, (float)size.Height / source.CullRect.Height);
+                var scale = Math.Min(size.Width / source.CullRect.Width, size.Height / source.CullRect.Height);
                 var w = source.CullRect.Width * scale;
                 var h = source.CullRect.Height * scale;
                 canvas.DrawPicture(source, SKRect.Create((size.Width - w) / 2, (size.Height - h) / 2, w, h));

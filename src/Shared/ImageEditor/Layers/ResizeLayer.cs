@@ -1,4 +1,5 @@
 ﻿using SkiaSharp;
+using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
@@ -14,7 +15,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
             ColorF = SKColors.Blue.WithAlpha(50),
             IsAntialias = true,
         };
-        private SKSurface? _surface;
+        private ImageBuffer? _surface;
 
         public bool IsVisible { get; set; } = false;
         public Rect Bound { get; private set; } = new();
@@ -47,17 +48,15 @@ namespace ZoDream.Shared.ImageEditor.Layers
             {
                 return;
             }
-            canvas.DrawSurface(_surface);
+            canvas.Draw(_surface);
         }
 
         private void RenderSurface()
         {
             var options = editor.Options;
             var bound = Bound;
-            var info = new SKImageInfo((int)bound.Width, (int)bound.Height);
-            _surface = SKSurface.Create(info);
-            var canvas = _surface.Canvas;
-            canvas.DrawRect(bound, _paint);
+            _surface = new ImageBuffer(bound.ToSize());
+            _surface.DrawRect(bound, new ImagePaint(_paint));
             var jointHalf = options.JointSize / 2;
             var jointX = bound.Left - jointHalf;
             var jointY = bound.Top - jointHalf;
@@ -71,7 +70,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
                     {
                         continue;
                     }
-                    canvas.DrawRect(SKRect.Create(jointX + i * widthHalf, 
+                    _surface.DrawRect(new Rect(jointX + i * widthHalf, 
                         jointY + j * heightHalf, options.JointSize, options.JointSize), options.JointPaint);
                 }
             }
@@ -89,7 +88,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
         {
         }
 
-        public void Resize(SKSize size)
+        public void Resize(Size size)
         {
         }
 

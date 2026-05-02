@@ -1,18 +1,34 @@
 ﻿using System;
+using System.Globalization;
 using System.Numerics;
 
 namespace ZoDream.Shared.Numerics
 {
     public struct Color : IEquatable<Color>
     {
+        public static Color White => new(255, 255, 255, 255);
+        public static Color Black => new(0, 0, 0, 255);
+        public static Color Transparent => new(16777215u);
+
+
         public byte A;
         public byte B;
         public byte G;
         public byte R;
 
+        
+
         public Color()
         {
             
+        }
+
+        public Color(uint value)
+        {
+            R = (byte)((value >> 16) & 0xFF);
+            G = (byte)((value >> 8) & 0xFF);
+            B = (byte)(value & 0xFF);
+            A = (byte)((value >> 24) & 0xFF);
         }
 
         public Color(byte r, byte g, byte b, byte a = 255)
@@ -53,6 +69,69 @@ namespace ZoDream.Shared.Numerics
         public readonly bool Equals(Color other)
         {
             return other.R == R && other.G == G && other.B == B && other.A == A;
+        }
+
+        public static bool TryParse(string text, out Color color)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                color = new();
+                return false;
+            }
+
+            var s = text.AsSpan().Trim().TrimStart('#');
+            int length = s.Length;
+            switch (length)
+            {
+                case 3:
+                case 4:
+                    {
+                        byte result2;
+                        if (length == 4)
+                        {
+                            if (!byte.TryParse(s.Slice(0, 1), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out result2))
+                            {
+                                color = new();
+                                return false;
+                            }
+
+                            result2 = (byte)((result2 << 4) | result2);
+                        }
+                        else
+                        {
+                            result2 = byte.MaxValue;
+                        }
+
+                        if (!byte.TryParse(s.Slice(length - 3, 1), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var result3) || !byte.TryParse(s.Slice(length - 2, 1), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var result4) || !byte.TryParse(s.Slice(length - 1, 1), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var result5))
+                        {
+                            color = new();
+                            return false;
+                        }
+
+                        color = new Color((byte)((result3 << 4) | result3), (byte)((result4 << 4) | result4), (byte)((result5 << 4) | result5), result2);
+                        return true;
+                    }
+                case 6:
+                case 8:
+                    {
+                        if (!uint.TryParse(s, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var result))
+                        {
+                            color = new();
+                            return false;
+                        }
+
+                        color = new Color(result);
+                        if (length == 6)
+                        {
+                            color.A = byte.MaxValue;
+                        }
+
+                        return true;
+                    }
+                default:
+                    color = new();
+                    return false;
+            }
         }
 
         public static explicit operator Color(Vector3 vec)

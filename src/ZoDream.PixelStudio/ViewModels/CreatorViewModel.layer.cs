@@ -1,11 +1,8 @@
-﻿using Microsoft.UI.Xaml.Media.Imaging;
-using SkiaSharp;
-using SkiaSharp.Views.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
@@ -92,11 +89,11 @@ namespace ZoDream.PixelStudio.ViewModels
             LayerItems.Clear();
         }
 
-        public IEnumerable<IImageLayer> Get(SKRect rect)
+        public IEnumerable<IImageLayer> Get(Rect rect)
         {
             foreach (var item in LayerItems)
             {
-                if (item.Source.Bound.IntersectsWith(rect))
+                if (item.Source.Bound.IsIntersect(rect))
                 {
                     yield return item;
                 }
@@ -129,7 +126,7 @@ namespace ZoDream.PixelStudio.ViewModels
             layer.Dispose();
         }
 
-        public bool TryGet(SKPoint point, out IImageLayer? layer)
+        public bool TryGet(Point point, out IImageLayer? layer)
         {
             foreach (var item in LayerItems)
             {

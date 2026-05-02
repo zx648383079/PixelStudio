@@ -1,10 +1,10 @@
-using SkiaSharp;
 using System;
 using System.Linq;
 using System.Numerics;
 using ZoDream.Plugin.Spine.Models;
 using ZoDream.Shared.Document;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Plugin.Spine
 {
@@ -139,15 +139,15 @@ namespace ZoDream.Plugin.Spine
             return res;
         }
 
-        internal static SKPoint[] ToPoint(float[] items, 
+        internal static Point[] ToPoint(float[] items, 
             int count,
             float x, float y)
         {
-            var res = new SKPoint[count / 2];
+            var res = new Point[count / 2];
             for (var i = 0; i < res.Length; i ++ )
             {
                 var j = i * 2;
-                res[i] = new SKPoint(items[j] - x, items[j + 1] - y);
+                res[i] = new Point(items[j] - x, items[j + 1] - y);
             }
             return res;
         }

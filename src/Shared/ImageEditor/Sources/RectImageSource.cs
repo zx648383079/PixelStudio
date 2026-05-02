@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
@@ -24,7 +25,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
         public float BottomRadius { get; set; }
 
 
-        public override SKBitmap? CreateThumbnail(SKSize size)
+        public override object? CreateThumbnail(Size size)
         {
             return Thumbnail.Mutate(size, canvas => {
                 Paint(canvas);
@@ -48,8 +49,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
                 canvas.DrawRect(Bound, _paint);
                 return;
             }
-            using var rect = new SKRoundRect();
-            rect.SetNinePatch(Bound, LeftRadius, TopRadius, RightRadius, BottomRadius);
+            var rect = new RoundRect(Bound, LeftRadius, TopRadius, RightRadius, BottomRadius);
             canvas.DrawRect(rect, _paint);
         }
 

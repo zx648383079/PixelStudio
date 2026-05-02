@@ -1,10 +1,10 @@
-using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using ZoDream.Plugin.Spine.Models;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Plugin.Spine
 {
@@ -236,7 +236,7 @@ namespace ZoDream.Plugin.Spine
                         foreach (var it in e.EnumerateArray())
                         {
                             timeline.Frames[frameIndex] = ReadSingle(it, "time");
-                            timeline.ColorFrames[frameIndex] = ReadColor(it, "color") ?? SKColor.Empty;
+                            timeline.ColorFrames[frameIndex] = ReadColor(it, "color") ?? new Color();
                             ReadCurve(it, timeline, frameIndex);
                             frameIndex++;
                         }
@@ -254,8 +254,8 @@ namespace ZoDream.Plugin.Spine
                         foreach (var it in e.EnumerateArray())
                         {
                             timeline.Frames[frameIndex] = ReadSingle(it, "time");
-                            timeline.ColorFrames[frameIndex] = ReadColor(it, "light") ?? SKColor.Empty;
-                            timeline.Color2Frames[frameIndex] = ReadColor(it, "dark") ?? SKColor.Empty;
+                            timeline.ColorFrames[frameIndex] = ReadColor(it, "light") ?? new Color();
+                            timeline.Color2Frames[frameIndex] = ReadColor(it, "dark") ?? new Color();
                             ReadCurve(it, timeline, frameIndex);
                             frameIndex++;
                         }
@@ -312,7 +312,7 @@ namespace ZoDream.Plugin.Spine
                         {
                             timeline.Frames[frameIndex] = ReadSingle(it, "time");
 
-                            timeline.Points[frameIndex] = new SKPoint(ReadSingle(it, "x") * timelineScale, ReadSingle(it, "y") * timelineScale);
+                            timeline.Points[frameIndex] = new Point(ReadSingle(it, "x") * timelineScale, ReadSingle(it, "y") * timelineScale);
                             ReadCurve(it, timeline, frameIndex);
                             frameIndex++;
                         }
@@ -819,13 +819,13 @@ namespace ZoDream.Plugin.Spine
             return def;
         }
 
-        private static SKColor? ReadColor(JsonElement element, string key)
+        private static Color? ReadColor(JsonElement element, string key)
         {
-            if (element.TryGetProperty(key, out var res) && SKColor.TryParse(res.ToString(), out var color))
+            if (element.TryGetProperty(key, out var res) && Color.TryParse(res.ToString(), out var color))
             {
                 if (res.GetString()?.Length >= 8)
                 {
-                    return new SKColor(color.Alpha, color.Red, color.Green, color.Blue);
+                    return new Color(color.A, color.R, color.G, color.B);
                 }
                 return color;
             }

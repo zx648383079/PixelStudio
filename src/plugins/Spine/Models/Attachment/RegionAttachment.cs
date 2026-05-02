@@ -1,6 +1,6 @@
-using SkiaSharp;
 using System;
 using System.Text.Json.Serialization;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Plugin.Spine.Models
 {
@@ -23,7 +23,7 @@ namespace ZoDream.Plugin.Spine.Models
         public float Width { get; set; }
         public float Height { get; set; }
 
-        public SKColor? Color { get; set; }
+        public Color? Color { get; set; }
 
         public string Path { get; set; }
         public object RendererObject { get; set; }

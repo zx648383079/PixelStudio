@@ -1,10 +1,8 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
-using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.Plugin.TexturePacker

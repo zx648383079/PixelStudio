@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
@@ -32,7 +33,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
         }
         public bool IsVisible { get; set; } = true;
 
-        public SKRect Bound => SKRect.Create(0, 0, Source.Width, Source.Height);
+        public override Rect Bound => new(0, 0, Source.Width, Source.Height);
 
         public IList<IImageSource> Split(IEnumerable<ISpriteLayer> items)
         {
@@ -79,18 +80,18 @@ namespace ZoDream.Shared.ImageEditor.Sources
             {
                 return;
             }
-            canvas.DrawBitmap(Source,
+            canvas.Draw(Source,
                 Bound,
                 _paint);
         }
 
         public override void Paint(IImageCanvas canvas, IImageStyle computedStyle)
         {
-            canvas.DrawBitmap(Source, computedStyle);
+            canvas.Draw(Source, computedStyle);
         }
 
 
-        public override SKBitmap? CreateThumbnail(SKSize size)
+        public override object? CreateThumbnail(Size size)
         {
             return Thumbnail.Snapshot(size, Source);
         }

@@ -1,5 +1,5 @@
-﻿using SkiaSharp;
-using ZoDream.Shared.Font;
+﻿using ZoDream.Shared.Font;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.OpenType.Tables
 {
@@ -10,6 +10,6 @@ namespace ZoDream.Shared.OpenType.Tables
         public string Name => TableName;
 
         public ushort[] Palettes { get; set; }
-        public SKColor[] Colors { get; set; }
+        public Color[] Colors { get; set; }
     }
 }

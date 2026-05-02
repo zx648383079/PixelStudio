@@ -63,7 +63,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
                 _paint);
         }
 
-        public bool Contains(SKPoint point)
+        public bool Contains(Point point)
         {
             return false;
         }

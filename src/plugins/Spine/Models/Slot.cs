@@ -1,6 +1,6 @@
-﻿using SkiaSharp;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Plugin.Spine.Models
 {
@@ -13,8 +13,8 @@ namespace ZoDream.Plugin.Spine.Models
         public string Name { get; set; } = string.Empty;
 
         public int Index { get; set; }
-        public SKColor? Color { get; set; }
-        public SKColor? DarkColor { get; set; }
+        public Color? Color { get; set; }
+        public Color? DarkColor { get; set; }
         [JsonPropertyName("blend")]
         public BlendMode BlendMode { get; set; }
 
