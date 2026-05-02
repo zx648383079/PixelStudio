@@ -1,5 +1,6 @@
 ﻿using SkiaSharp;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
@@ -23,11 +24,11 @@ namespace ZoDream.Shared.ImageEditor.Sources
         public float ShearX { get; set; }
         public float ShearY { get; set; }
 
-        public virtual SKRect Bound => SKRect.Create(X, Y, Width, Height);
+        public virtual Rect Bound => new(X, Y, Width, Height);
 
         
 
-        public virtual SKBitmap? CreateThumbnail(SKSize size)
+        public virtual object? CreateThumbnail(Size size)
         {
             return null;
         }
@@ -51,7 +52,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
             return true;
         }
 
-        public bool Contains(SKPoint point)
+        public bool Contains(Point point)
         {
             return Bound.Contains(point);
         }

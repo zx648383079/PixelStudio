@@ -1,4 +1,4 @@
-﻿using System;
+﻿using SkiaSharp;
 using System.IO;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
@@ -10,7 +10,17 @@ namespace ZoDream.Shared.ImageEditor
     {
         public Size Size => layer.Source.Bound.ToSize();
 
-        public object Picture => throw new NotImplementedException();
+        public object Picture {
+            get {
+                var recorder = new SKPictureRecorder();
+                var size = Size;
+                var canvas = recorder.BeginRecording(new SKRect(0, 0, size.Width, size.Height));
+                layer.Paint(new ImageCanvas(canvas));
+                var picture = recorder.EndRecording();
+                recorder.Dispose();
+                return picture;
+            }
+        }
 
 
 
@@ -26,6 +36,16 @@ namespace ZoDream.Shared.ImageEditor
 
         public void Dispose()
         {
+        }
+
+        public static IImagePixel From(SKBitmap bitmap)
+        {
+            return new BitmapBuffer(bitmap);
+        }
+
+        public static IImagePixel From(SKSurface surface)
+        {
+            return new SurfaceBuffer(surface);
         }
     }
 }

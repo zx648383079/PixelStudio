@@ -3,12 +3,12 @@ using System.Numerics;
 
 namespace ZoDream.Shared.Numerics
 {
-    public struct ColorF: IEquatable<ColorF>
+    public readonly struct ColorF : IEquatable<ColorF>
     {
-        public float A;
-        public float B;
-        public float G;
-        public float R;
+        public readonly float A;
+        public readonly float B;
+        public readonly float G;
+        public readonly float R;
 
         public ColorF()
         {

@@ -7,6 +7,7 @@ using ZoDream.Shared.Document;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.ImageEditor.Sources;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
@@ -151,13 +152,13 @@ namespace ZoDream.Shared.ImageEditor
             return new BitmapImageSource(bitmap, editor);
         }
 
-        public static SKRect ToRect(this IImageBound bound)
+        public static Rect ToRect(this IImageBound bound)
         {
             if (bound is IImageComputedStyle style)
             {
-                return SKRect.Create(style.ActualLeft, style.ActualTop, style.ActualWidth, style.ActualHeight);
+                return new(style.ActualLeft, style.ActualTop, style.ActualWidth, style.ActualHeight);
             }
-            return SKRect.Create(bound.X, bound.Y, bound.Width, bound.Height);
+            return new(bound.X, bound.Y, bound.Width, bound.Height);
         }
 
         public static SKMatrix ToMatrix(this IReadOnlyStyle style)

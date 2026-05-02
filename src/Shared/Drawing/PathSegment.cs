@@ -1,15 +1,16 @@
 ﻿using SkiaSharp;
 using System.Collections.Generic;
 using System.Linq;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Drawing
 {
     public class PathSegment
     {
         public SKPathVerb Type { get; set; }
-        public List<SKPoint> Points { get; set; } = new(3);
+        public List<Point> Points { get; set; } = new(3);
 
-        public PathSegment(SKPathVerb type, params SKPoint[] points)
+        public PathSegment(SKPathVerb type, params Point[] points)
         {
             Type = type;
             Points.AddRange(points);
@@ -18,7 +19,7 @@ namespace ZoDream.Shared.Drawing
         // 深拷贝
         public PathSegment Clone()
         {
-            return new PathSegment(Type, Points.Select(p => new SKPoint(p.X, p.Y)).ToArray());
+            return new PathSegment(Type, Points.Select(p => new Point(p.X, p.Y)).ToArray());
         }
     }
 }

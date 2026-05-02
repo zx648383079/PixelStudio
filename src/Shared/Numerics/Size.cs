@@ -3,10 +3,10 @@ using System.Numerics;
 
 namespace ZoDream.Shared.Numerics
 {
-    public struct Size : IEquatable<Size>
+    public readonly struct Size : IEquatable<Size>
     {
-        public float Width;
-        public float Height;
+        public readonly float Width;
+        public readonly float Height;
 
         public Size()
         {

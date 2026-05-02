@@ -1,6 +1,7 @@
 ﻿using SkiaSharp;
 using System.Collections.Generic;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Layers
 {
@@ -16,24 +17,24 @@ namespace ZoDream.Shared.ImageEditor.Layers
             Invalidate();
         }
         private readonly IImageEditor _editor;
-        private SKSurface? _surface;
+        private ImageBuffer? _surface;
 
         public IList<int> HorizontalLines = [];
         public IList<int> VerticalLines = [];
         public bool IsVisible { get; set; } = true;
-        public SKRect Bound => SKRect.Empty;
+        public Rect Bound => new();
 
-        public bool Contains(SKPoint point)
+        public bool Contains(Point point)
         {
             return false;
         }
 
-        public SKBitmap? CreateThumbnail(SKSize size)
+        public object? CreateThumbnail(Size size)
         {
             return null;
         }
 
-        public void Resize(SKSize size)
+        public void Resize(Size size)
         {
             Invalidate();
         }
@@ -58,7 +59,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
             {
                 return;
             }
-            canvas.DrawSurface(_surface);
+            canvas.Draw(_surface);
         }
 
         private void RenderSurface()
@@ -68,11 +69,8 @@ namespace ZoDream.Shared.ImageEditor.Layers
             {
                 return;
             }
-            var info = new SKImageInfo((int)size.Width, (int)size.Height);
-            _surface = SKSurface.Create(info);
-            var canvas = _surface.Canvas;
-            canvas.Clear(SKColors.Transparent);
-
+            _surface = new(size);
+            _surface.Clear();
         }
 
         public void Dispose()

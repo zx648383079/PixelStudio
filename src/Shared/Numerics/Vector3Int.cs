@@ -2,11 +2,11 @@
 
 namespace ZoDream.Shared.Numerics
 {
-    public struct Vector3Int : IEquatable<Vector3Int>
+    public readonly struct Vector3Int : IEquatable<Vector3Int>
     {
-        public int X;
-        public int Y;
-        public int Z;
+        public readonly int X;
+        public readonly int Y;
+        public readonly int Z;
 
         public Vector3Int()
         {

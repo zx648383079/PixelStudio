@@ -1,10 +1,14 @@
 ﻿using SkiaSharp;
 using System;
+using System.Linq;
+using System.Numerics;
+using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
-    public class ImageStyleCanvas(SKCanvas canvas, IImageStyler styler) : IImageCanvas
+    public class ImageStyleCanvas(SKCanvas canvas, IImageStyler styler): IImageCanvas
     {
         public float X { get; set; }
         public float Y { get; set; }
@@ -218,18 +222,18 @@ namespace ZoDream.Shared.ImageEditor
             }
             if (style is IImageComputedVertexStyle u)
             {
-                DrawTexture(source, u.SourceItems, u.PointItems);
+                DrawTexture(source, u.SourceItems.Select(i => i.ToPoint()).ToArray(), u.PointItems.Select(i => i.ToPoint()).ToArray());
                 return;
             }
             if (style is IImageVertexStyle v)
             {
-                DrawTexture(source, EditorExtension.ComputeVertex(v.VertexItems, style), v.PointItems);
+                DrawTexture(source, EditorExtension.ComputeVertex(v.VertexItems, style), v.PointItems.Select(i => i.ToPoint()).ToArray());
                 return;
             }
             DrawBitmap(source, style.X, style.Y);
         }
 
-        public void DrawSurface(SKSurface surface, Interfaces.IImageStyle style)
+        public void DrawSurface(SKSurface surface, IImageStyle style)
         {
             if (surface is null)
             {
@@ -238,7 +242,7 @@ namespace ZoDream.Shared.ImageEditor
             DrawSurface(surface, new SKPoint(style.X, style.Y));
         }
 
-        public void DrawPicture(SKPicture picture, Interfaces.IImageStyle style)
+        public void DrawPicture(SKPicture picture, IImageStyle style)
         {
             if (picture is null)
             {
@@ -247,13 +251,113 @@ namespace ZoDream.Shared.ImageEditor
             DrawPicture(picture, new SKPoint(style.X, style.Y));
         }
 
-        public void DrawText(string text, Interfaces.IImageStyle style, SKTextAlign textAlign, SKFont font, SKPaint paint)
+        public void DrawText(string text, IImageStyle style, SKTextAlign textAlign, SKFont font, SKPaint paint)
         {
             if (string.IsNullOrWhiteSpace(text))
             {
                 return;
             }
             DrawText(text, new SKPoint(style.X, style.Y), textAlign, font, paint);
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Clear(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(IImagePixel source)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(IImagePixel source, Point point)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(IImagePixel source, Rect rect)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(IImagePixel source, Rect rect, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(IImageBuffer source, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(IImageBuffer source)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void Draw(string text, Point point, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(IPathBuffer path, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DrawLine(Point from, Point to, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(IImagePixel source, Point[] sourceVertices, Point[] vertices)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DrawRect(Rect rect, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DrawRect(RoundRect rect, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DrawCircle(Point center, float radius, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DrawOval(Point center, Vector2 radius, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IImageCanvas Transform(Vector2 offset)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(IImagePixel source, IImageStyle style)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(string text, IImageStyle style, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

@@ -3,12 +3,19 @@ using System.Numerics;
 
 namespace ZoDream.Shared.Numerics
 {
-    public struct Rect : IEquatable<Rect>
+    public readonly struct Rect : IEquatable<Rect>
     {
-        public float X;
-        public float Y;
-        public float Width;
-        public float Height;
+        public readonly float X;
+        public readonly float Y;
+        public readonly float Width;
+        public readonly float Height;
+
+        public readonly Point Center => new(X + Width / 2, Y + Height / 2);
+
+        public readonly float Left => X;
+        public readonly float Top => Y;
+        public readonly float Right => X + Width;
+        public readonly float Bottom => Y + Height;
 
         public Rect()
         {
@@ -21,6 +28,12 @@ namespace ZoDream.Shared.Numerics
             Y = y;
             Width = width;
             Height = height;
+        }
+
+        public Rect(Point point, Size size)
+            : this(point.X, point.Y, size.Width, size.Height)
+        {
+            
         }
         public override readonly bool Equals(object? obj)
         {
@@ -39,6 +52,30 @@ namespace ZoDream.Shared.Numerics
         public override readonly string ToString()
         {
             return $"{{{X},{Y},{Width},{Height}}}";
+        }
+
+        public bool Contains(Point point)
+        {
+            if (point.X >= X && point.X < Right && point.Y>= Y)
+            {
+                return point.Y < Bottom;
+            }
+
+            return false;
+        }
+        /// <summary>
+        /// 是否与矩形相交
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <returns></returns>
+        public bool IsIntersect(Rect rect)
+        {
+            if (X < rect.Right && Right > rect.X && Y < rect.Bottom)
+            {
+                return Bottom > rect.Y;
+            }
+
+            return false;
         }
 
         public static bool operator ==(Rect left, Rect right)

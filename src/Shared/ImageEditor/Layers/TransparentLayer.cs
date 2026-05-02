@@ -1,5 +1,7 @@
 ﻿using SkiaSharp;
+using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Layers
 {
@@ -14,13 +16,13 @@ namespace ZoDream.Shared.ImageEditor.Layers
         private readonly IImageEditor _editor;
         private readonly int _gridSize = 10;
 
-        private SKSurface? _surface;
+        private ImageBuffer? _surface;
 
         public bool IsVisible { get; set; } = true;
 
-        public SKRect Bound => SKRect.Empty;
+        public Rect Bound => new();
 
-        public void Resize(SKSize size)
+        public void Resize(Size size)
         {
             Invalidate();
         }
@@ -41,10 +43,8 @@ namespace ZoDream.Shared.ImageEditor.Layers
             {
                 return;
             }
-            var info = new SKImageInfo((int)size.Width, (int)size.Height);
-            _surface = SKSurface.Create(info);
-            var canvas = _surface.Canvas;
-            canvas.Clear(SKColors.White);
+            _surface = new(size);
+            _surface.Clear(SKColors.White.ToColor());
             using var grayPaint = new SKPaint()
             {
                 Color = SKColors.LightGray,
@@ -61,7 +61,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
                     {
                         continue;
                     }
-                    canvas.DrawRect(i * _gridSize, j * _gridSize, _gridSize, _gridSize, grayPaint);
+                    _surface.DrawRect(new Rect(i * _gridSize, j * _gridSize, _gridSize, _gridSize), grayPaint);
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
             {
                 return;
             }
-            canvas.DrawSurface(_surface);
+            canvas.Draw(_surface);
         }
 
 
@@ -85,12 +85,12 @@ namespace ZoDream.Shared.ImageEditor.Layers
             _surface?.Dispose();
         }
 
-        public bool Contains(SKPoint point)
+        public bool Contains(Point point)
         {
             return false;
         }
 
-        public SKBitmap? CreateThumbnail(SKSize size)
+        public object? CreateThumbnail(Size size)
         {
             return null;
         }

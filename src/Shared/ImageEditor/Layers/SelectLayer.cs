@@ -1,6 +1,7 @@
 ﻿using SkiaSharp;
 using System;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Layers
 {
@@ -14,21 +15,21 @@ namespace ZoDream.Shared.ImageEditor.Layers
             Style = SKPaintStyle.StrokeAndFill,
             ColorF = SKColors.Blue.WithAlpha(50)
         };
-        private SKPoint _start = SKPoint.Empty;
-        private SKPoint _last = SKPoint.Empty;
+        private Point _start = new();
+        private Point _last = new();
 
         public bool IsVisible { get; set; } = false;
-        public SKRect Bound => new(
+        public Rect Bound => new(
                 Math.Min(_start.X, _last.X), Math.Min(_start.Y, _last.Y),
                 Math.Max(_start.X, _last.X), Math.Max(_start.Y, _last.Y)
                 );
 
-        public bool Contains(SKPoint point)
+        public bool Contains(Point point)
         {
             return false;
         }
 
-        public SKBitmap? CreateThumbnail(SKSize size)
+        public object? CreateThumbnail(Size size)
         {
             return null;
         }
@@ -68,7 +69,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
             IsVisible = false;
         }
 
-        public void Resize(SKSize size)
+        public void Resize(Size size)
         {
         }
 

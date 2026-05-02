@@ -5,6 +5,7 @@ using System.Linq;
 using ZoDream.Shared.Document;
 using ZoDream.Shared.Document.Stylers;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
@@ -140,7 +141,7 @@ namespace ZoDream.Shared.ImageEditor
             Paint(items, new ImageStyleCanvas(canvas, this));
         }
 
-        public IEnumerable<IImageLayer> Where(IImageLayerTree items, SKPoint point)
+        public IEnumerable<IImageLayer> Where(IImageLayerTree items, Point point)
         {
             foreach (var item in _cacheItems.OrderByDescending(i => i.ZIndex))
             {
@@ -158,11 +159,11 @@ namespace ZoDream.Shared.ImageEditor
             }
         }
 
-        public IEnumerable<IImageLayer> Where(IImageLayerTree items, SKRect rect)
+        public IEnumerable<IImageLayer> Where(IImageLayerTree items, Rect rect)
         {
             foreach (var item in _cacheItems.OrderByDescending(i => i.ZIndex))
             {
-                if (!item.ToRect().IntersectsWith(rect))
+                if (!item.ToRect().IsIntersect(rect))
                 {
                     continue;
                 }

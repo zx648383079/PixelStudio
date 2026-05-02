@@ -310,9 +310,19 @@ namespace ZoDream.Shared.Drawing
             return new SKSize(source.Width, source.Height);
         }
 
+        public static Size ToSize(this SKSize source)
+        {
+            return new Size(source.Width, source.Height);
+        }
+
         public static SKRect ToRect(this Rect source)
         {
             return new SKRect(source.X, source.Y, source.Width, source.Height);
+        }
+
+        public static Rect ToRect(this SKRect source)
+        {
+            return new Rect(source.Left, source.Top, source.Width, source.Height);
         }
 
         public static SKRoundRect ToRect(this RoundRect source)

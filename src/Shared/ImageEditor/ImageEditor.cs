@@ -79,7 +79,7 @@ namespace ZoDream.Shared.ImageEditor
         public void Paint(ICanvasShell canvas)
         {
             canvas.Clear(SKColors.Transparent.ToColor());
-            var c = new ImageCanvas(canvas);
+            var c = canvas.ToCanvas(Compute());
             foreach (var layer in BackBar)
             {
                 if (!layer.IsVisible)

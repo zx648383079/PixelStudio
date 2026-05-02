@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace ZoDream.Shared.Numerics
 {
-    public struct Color: IEquatable<Color>
+    public struct Color : IEquatable<Color>
     {
         public byte A;
         public byte B;

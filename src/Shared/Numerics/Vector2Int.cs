@@ -2,10 +2,10 @@
 
 namespace ZoDream.Shared.Numerics
 {
-    public struct Vector2Int : IEquatable<Vector2Int>
+    public readonly struct Vector2Int : IEquatable<Vector2Int>
     {
-        public int X; 
-        public int Y;
+        public readonly int X; 
+        public readonly int Y;
 
         public Vector2Int()
         {

@@ -128,35 +128,16 @@ namespace ZoDream.Shared.ImageEditor
         }
 
 
-        public void Mutate(IImageStyle style, Action<IImageCanvas> cb)
+        public virtual void Mutate(IImageStyle style, Action<IImageCanvas> cb)
         {
             throw new NotImplementedException();
         }
 
-        public IImageStyle Compute(IImageLayer layer)
+        public virtual IImageStyle Compute(IImageLayer layer)
         {
             throw new NotImplementedException();
         }
 
-        public void DrawBitmap(SKBitmap source, IImageStyle style)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DrawSurface(SKSurface surface, IImageStyle style)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DrawPicture(SKPicture picture, IImageStyle style)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DrawText(string text, IImageStyle style, SKTextAlign textAlign, SKFont font, SKPaint paint)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Draw(IImagePixel source)
         {
@@ -183,10 +164,11 @@ namespace ZoDream.Shared.ImageEditor
             throw new NotImplementedException();
         }
 
-        public void DrawText(string text, Point point, IImagePaint paint)
+        public void Draw(IImageBuffer source)
         {
             throw new NotImplementedException();
         }
+
 
         public void Draw(IPathBuffer path, IImagePaint paint)
         {
@@ -194,11 +176,6 @@ namespace ZoDream.Shared.ImageEditor
         }
 
         public void DrawLine(Point from, Point to, IImagePaint paint)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DrawTexture(IImagePixel source, Point[] sourceVertices, Point[] vertices)
         {
             throw new NotImplementedException();
         }
@@ -218,39 +195,42 @@ namespace ZoDream.Shared.ImageEditor
             throw new NotImplementedException();
         }
 
-        public void DrawOval(Point center, Size radius, IImagePaint paint)
+
+        public virtual IImageCanvas Transform(Vector2 offset)
         {
             throw new NotImplementedException();
         }
 
-        public IImageCanvas Transform(Vector2 offset)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void DrawBitmap(IImagePixel source, IImageStyle style)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DrawSurface(IImagePixel surface, IImageStyle style)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DrawPicture(IImagePixel picture, IImageStyle style)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DrawText(string text, IImageStyle style, IImagePaint paint)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Dispose()
         {
             canvas.Dispose();
+        }
+
+        public void Draw(string text, Point point, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(IImagePixel source, Point[] sourceVertices, Point[] vertices)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DrawOval(Point center, Vector2 radius, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void Draw(IImagePixel source, IImageStyle style)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void Draw(string text, IImageStyle style, IImagePaint paint)
+        {
+            throw new NotImplementedException();
         }
     }
 }

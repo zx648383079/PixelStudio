@@ -1,5 +1,6 @@
 ﻿using SkiaSharp;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Layers
 {
@@ -11,14 +12,14 @@ namespace ZoDream.Shared.ImageEditor.Layers
         }
 
         private readonly IImageEditor _editor;
-        private SKSurface? _surface;
+        private ImageBuffer? _surface;
         private IImageLayer? _target;
 
         public bool IsVisible { get; set; }
 
-        public SKRect Bound => SKRect.Empty;
+        public Rect Bound => new();
 
-        public void Resize(SKSize size)
+        public void Resize(Size size)
         {
             Invalidate();
         }
@@ -48,32 +49,30 @@ namespace ZoDream.Shared.ImageEditor.Layers
         {
             SyncSize();
             var size = _editor.Size;
-            var info = new SKImageInfo((int)size.Width, (int)size.Height);
-            _surface = SKSurface.Create(info);
-            var canvas = _surface.Canvas;
-            canvas.Clear(SKColors.Transparent);
-            using var paint = new SKPaint()
+            _surface = new(size);
+            _surface.Clear();
+            using var paint = new ImagePaint(new SKPaint()
             {
                 Color = new SKColor(0, 0, 0, 150),
                 Style = SKPaintStyle.Fill,
                 StrokeWidth = 0,
-            };
+            });
             var bound = _target.Source.Bound;
             if (bound.Left > 0)
             {
-                canvas.DrawRect(0, 0, bound.Left, info.Height, paint);
+                _surface.DrawRect(new Rect(0, 0, bound.Left, size.Height), paint);
             }
-            if (bound.Right < info.Width)
+            if (bound.Right < size.Width)
             {
-                canvas.DrawRect(bound.Right, 0, info.Width - bound.Right, info.Height, paint);
+                _surface.DrawRect(new Rect(bound.Right, 0, size.Width - bound.Right, size.Height), paint);
             }
             if (bound.Top > 0)
             {
-                canvas.DrawRect(bound.Left, 0, bound.Width, bound.Top, paint);
+                _surface.DrawRect(new Rect(bound.Left, 0, bound.Width, bound.Top), paint);
             }
-            if (bound.Bottom < info.Height)
+            if (bound.Bottom < size.Height)
             {
-                canvas.DrawRect(bound.Left, bound.Bottom, bound.Width, info.Height - bound.Bottom, paint);
+                _surface.DrawRect(new Rect(bound.Left, bound.Bottom, bound.Width, size.Height - bound.Bottom), paint);
             }
         }
 
@@ -83,7 +82,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
             {
                 RenderSurface();
             }
-            canvas.DrawSurface(_surface);
+            canvas.Draw(_surface);
         }
 
         public void Dispose()

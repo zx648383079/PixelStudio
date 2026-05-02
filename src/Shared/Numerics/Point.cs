@@ -3,10 +3,10 @@ using System.Numerics;
 
 namespace ZoDream.Shared.Numerics
 {
-    public struct Point : IEquatable<Point>
+    public readonly struct Point : IEquatable<Point>
     {
-        public float X;
-        public float Y;
+        public readonly float X;
+        public readonly float Y;
 
         public Point()
         {

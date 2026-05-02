@@ -26,7 +26,6 @@ namespace ZoDream.Shared.ImageEditor
                 canvas.DrawBitmap(bitmap, 0, 0);
                 var picture = recorder.EndRecording();
                 recorder.Dispose();
-
                 return picture;
             }
         }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
@@ -100,7 +101,7 @@ namespace ZoDream.Shared.ImageEditor
             return (width, height);
         }
 
-        public IEnumerable<IImageLayer> Where(IImageLayerTree items, SKPoint point)
+        public IEnumerable<IImageLayer> Where(IImageLayerTree items, Point point)
         {
             foreach (var item in _cacheItems.OrderByDescending(i => i.Value.ZIndex))
             {
@@ -117,11 +118,11 @@ namespace ZoDream.Shared.ImageEditor
             }
         }
 
-        public IEnumerable<IImageLayer> Where(IImageLayerTree items, SKRect rect)
+        public IEnumerable<IImageLayer> Where(IImageLayerTree items, Rect rect)
         {
             foreach (var item in _cacheItems.OrderByDescending(i => i.Value.ZIndex))
             {
-                if (!item.Value.ToRect().IntersectsWith(rect))
+                if (!item.Value.ToRect().IsIntersect(rect))
                 {
                     continue;
                 }

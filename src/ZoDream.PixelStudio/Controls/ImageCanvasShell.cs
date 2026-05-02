@@ -1,5 +1,6 @@
 ﻿using SkiaSharp;
 using ZoDream.Shared.Drawing;
+using ZoDream.Shared.ImageEditor;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
@@ -12,6 +13,14 @@ namespace ZoDream.PixelStudio.Controls
         public void Clear(Color color)
         {
             canvas.Clear(color.ToColor());
+        }
+        public IImageCanvas ToCanvas()
+        {
+            return new ImageCanvas(canvas);
+        }
+        public IImageCanvas ToCanvas(IImageStyler styler)
+        {
+            return new ImageStyleCanvas(canvas, styler);
         }
     }
 }

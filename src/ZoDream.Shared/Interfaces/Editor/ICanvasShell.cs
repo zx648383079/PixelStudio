@@ -7,5 +7,9 @@ namespace ZoDream.Shared.Interfaces
         public Size Size { get; }
 
         public void Clear(Color color);
+
+        public IImageCanvas ToCanvas();
+
+        public IImageCanvas ToCanvas(IImageStyler styler);
     }
 }

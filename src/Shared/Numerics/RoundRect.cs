@@ -4,17 +4,17 @@ using System.Numerics;
 
 namespace ZoDream.Shared.Numerics
 {
-    public struct RoundRect : IEquatable<RoundRect>
+    public readonly struct RoundRect : IEquatable<RoundRect>
     {
-        public float X;
-        public float Y;
-        public float Width;
-        public float Height;
+        public readonly float X;
+        public readonly float Y;
+        public readonly float Width;
+        public readonly float Height;
 
-        public Vector2 LeftTopRadius;
-        public Vector2 LeftBottomRadius;
-        public Vector2 RightTopRadius;
-        public Vector2 RightBottomRadius;
+        public readonly Vector2 LeftTopRadius;
+        public readonly Vector2 LeftBottomRadius;
+        public readonly Vector2 RightTopRadius;
+        public readonly Vector2 RightBottomRadius;
 
 
         public RoundRect(float x, float y, float width, float height, float radius)
@@ -85,6 +85,15 @@ namespace ZoDream.Shared.Numerics
         public override readonly string? ToString()
         {
             return base.ToString();
+        }
+
+        /// <summary>
+        /// 判断半径是否有效
+        /// </summary>
+        /// <param name="radius"></param>
+        public static bool IsRadius(Vector2 radius)
+        {
+            return radius.X > 0 && radius.Y > 0;
         }
 
         public static bool operator ==(RoundRect left, RoundRect right)

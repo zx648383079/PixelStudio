@@ -2,12 +2,12 @@
 
 namespace ZoDream.Shared.Numerics
 {
-    public struct Vector4Int : IEquatable<Vector4Int>
+    public readonly struct Vector4Int : IEquatable<Vector4Int>
     {
-        public int X;
-        public int Y;
-        public int Z;
-        public int W;
+        public readonly int X;
+        public readonly int Y;
+        public readonly int Z;
+        public readonly int W;
 
         public Vector4Int()
         {

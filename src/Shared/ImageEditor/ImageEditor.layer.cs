@@ -2,12 +2,13 @@
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.ImageEditor.Sources;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
     public partial class ImageEditor : IImageEditor
     {
-        public SKColor? BackgroundColor { get; set; }
+        public Color? BackgroundColor { get; set; }
 
         public IImageComputedStyler ComputedStyler { get; private set; }
 
@@ -24,12 +25,12 @@ namespace ZoDream.Shared.ImageEditor
         }
         public IImageBuffer Create(string name)
         {
-            return new ImageBuffer();
+            return new ImageBuffer(Size);
         }
 
         public IImageBuffer Decode(IImageLayer layer)
         {
-            return new ImageBuffer();
+            return new ImageBuffer(layer.Source.Bound.ToSize());
         }
 
         public IImagePixel Encode(IImageLayer layer)

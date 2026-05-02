@@ -1,5 +1,6 @@
 ﻿using SkiaSharp;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Layers
 {
@@ -16,14 +17,14 @@ namespace ZoDream.Shared.ImageEditor.Layers
         private SKSurface? _surface;
 
         public bool IsVisible { get; set; } = false;
-        public SKRect Bound { get; private set; } = SKRect.Empty;
+        public Rect Bound { get; private set; } = new();
 
-        public bool Contains(SKPoint point)
+        public bool Contains(Point point)
         {
             return false;
         }
 
-        public SKBitmap? CreateThumbnail(SKSize size)
+        public object? CreateThumbnail(Size size)
         {
             return null;
         }

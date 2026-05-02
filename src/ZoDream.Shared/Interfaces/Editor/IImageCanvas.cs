@@ -21,6 +21,7 @@ namespace ZoDream.Shared.Interfaces
         public void Draw(IImagePixel source, Point point);
         public void Draw(IImagePixel source, Rect rect);
         public void Draw(IImagePixel source, Rect rect, IImagePaint paint);
+        public void Draw(IImageBuffer source);
         public void Draw(IImageBuffer source, IImagePaint paint);
         public void Draw(string text, Point point, IImagePaint paint);
 
