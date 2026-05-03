@@ -194,7 +194,7 @@ namespace ZoDream.PixelStudio.ViewModels
             throw new NotImplementedException();
         }
 
-        public void Paint(IImageCanvas canvas)
+        public void Paint(IImageStyleCanvas canvas)
         {
             LayerItems.Paint(canvas);
         }

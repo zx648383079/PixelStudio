@@ -1,17 +1,17 @@
 ﻿using Microsoft.UI.Input;
 using Microsoft.UI.Xaml.Input;
-using SkiaSharp;
 using Windows.System;
 using ZoDream.Shared;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.PixelStudio.Controls
 {
-    public class ImageMouseRoutedArgs(SKPoint point, 
+    public class ImageMouseRoutedArgs(Point point, 
         PointerState state,
         PointerPoint? source = null, VirtualKeyModifiers? modifiers = null) : IMouseRoutedArgs
     {
-        public SKPoint Position => point;
+        public Point Position => point;
 
         public PointerState State => state;
 

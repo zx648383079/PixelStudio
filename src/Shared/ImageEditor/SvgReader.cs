@@ -23,5 +23,14 @@ namespace ZoDream.Shared.ImageEditor
             return Task.CompletedTask;
         }
 
+        public Task WriteAsync(string fileName, IImagePixel data)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<IImagePixel?> IPluginReader<IImagePixel>.ReadAsync(string fileName)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

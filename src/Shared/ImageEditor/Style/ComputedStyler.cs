@@ -135,7 +135,7 @@ namespace ZoDream.Shared.ImageEditor
             }
         }
 
-        public void Paint(IImageLayerTree items, IImageCanvas canvas)
+        public void Paint(IImageLayerTree items, IImageStyleCanvas canvas)
         {
             items.Paint(canvas);
         }

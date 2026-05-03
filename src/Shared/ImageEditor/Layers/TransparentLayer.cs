@@ -45,12 +45,12 @@ namespace ZoDream.Shared.ImageEditor.Layers
             }
             _surface = new(size);
             _surface.Clear(SKColors.White.ToColor());
-            using var grayPaint = new SKPaint()
+            using var grayPaint = new ImagePaint(new SKPaint()
             {
                 Color = SKColors.LightGray,
                 Style = SKPaintStyle.Fill,
                 StrokeWidth = 0,
-            };
+            });
             var columnCount = size.Width / _gridSize + 1;
             var rowCount = size.Height / _gridSize + 1;
             for (var i = 0; i < columnCount; i++)

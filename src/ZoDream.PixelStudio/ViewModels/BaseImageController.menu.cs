@@ -1,9 +1,9 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 using Windows.Storage;
 using ZoDream.PixelStudio.Dialogs;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
@@ -142,7 +142,7 @@ namespace ZoDream.PixelStudio.ViewModels
         }
         private void TapTransparent()
         {
-            Instance!.BackgroundColor = Instance.BackgroundColor is null ? SKColors.White : null;
+            Instance!.BackgroundColor = Instance.BackgroundColor is null ? Color.White : null;
             Instance.Invalidate();
         }
 

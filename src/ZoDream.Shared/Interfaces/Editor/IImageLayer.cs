@@ -31,6 +31,6 @@ namespace ZoDream.Shared.Interfaces
         /// </summary>
         public void Resample();
 
-        public void Paint(IImageCanvas canvas);
+        public void Paint(IImageStyleCanvas canvas);
     }
 }

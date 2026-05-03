@@ -1,8 +1,8 @@
-﻿using SkiaSharp;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ZoDream.Shared.ImageEditor.Layers;
 using ZoDream.Shared.ImageEditor.Sources;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Controllers
 {
@@ -10,9 +10,9 @@ namespace ZoDream.Shared.ImageEditor.Controllers
     {
         private IMouseState? _currentState;
         private PathImageSource? _layer;
-        private SKRect? _multipleRect;
+        private Rect? _multipleRect;
         private IList<int> _selected = [];
-        private SKPoint _lastPoint = SKPoint.Empty;
+        private Point _lastPoint = new();
         public bool IsEnabled => editor.Current?.Source is PathImageSource;
 
         public void Initialize(IImageLayer? layer)
@@ -26,7 +26,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
             _layer = null;
         }
 
-        public void Touch(SKPoint point)
+        public void Touch(Point point)
         {
             editor.Invalidate();
         }
@@ -72,8 +72,9 @@ namespace ZoDream.Shared.ImageEditor.Controllers
                 _layer?.Move([.. _selected], offset);
                 if (_multipleRect is not null)
                 {
-                    _multipleRect.Value.Offset(offset);
+                    _multipleRect = _multipleRect.Value + offset;
                 }
+                
                 _lastPoint = current;
             } else
             {
@@ -125,7 +126,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
                 {
                     continue;
                 }
-                var joint = SKRect.Create(item.Value.X - jointHalf, item.Value.Y - jointHalf, jointSize, jointSize);
+                var joint = new Rect(item.Value.X - jointHalf, item.Value.Y - jointHalf, jointSize, jointSize);
                 canvas.DrawRect(joint,
                     _selected.Contains(i) ? options.JointHoveredPaint : options.JointPaint);
                 canvas.DrawRect(joint, options.JointStrokePaint);

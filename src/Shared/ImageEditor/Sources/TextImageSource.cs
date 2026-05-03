@@ -43,10 +43,10 @@ namespace ZoDream.Shared.ImageEditor.Sources
             var r = font.MeasureText(Text, out var bound, _paint);
             Width = bound.Width;
             Height = bound.Height + 3;
-            canvas.DrawText(Text, new SKPoint(X, Y), SKTextAlign.Left, font, _paint);
+            canvas.Draw(Text, new Point(X, Y), new FontImagePaint(font, SKTextAlign.Left, _paint));
         }
 
-        public override void Paint(IImageCanvas canvas, IImageStyle computedStyle)
+        public override void Paint(IImageStyleCanvas canvas, IImageStyle computedStyle)
         {
             Paint(canvas);
         }

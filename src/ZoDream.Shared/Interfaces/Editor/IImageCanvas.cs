@@ -63,9 +63,14 @@ namespace ZoDream.Shared.Interfaces
 
         #endregion
 
+
+    }
+
+    public interface IImageStyleCanvas : IImageCanvas
+    {
         #region 与 Style 联动
-        public IImageCanvas Transform(Vector2 offset);
-        public void Mutate(IImageStyle style, Action<IImageCanvas> cb);
+        public IImageStyleCanvas Transform(Vector2 offset);
+        public void Mutate(IImageStyle style, Action<IImageStyleCanvas> cb);
         public IImageStyle Compute(IImageLayer layer);
         public void Draw(IImagePixel source, IImageStyle style);
         public void Draw(string text, IImageStyle style, IImagePaint paint);

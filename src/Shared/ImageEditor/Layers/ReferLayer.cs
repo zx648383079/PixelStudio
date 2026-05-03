@@ -58,7 +58,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
             {
                 return;
             }
-            canvas.DrawBitmap(Source, 
+            (canvas as ISKImageCanvas)?.DrawBitmap(Source, 
                 SKRect.Create(X, Y, Source.Width * Scale, Source.Height * Scale),
                 _paint);
         }

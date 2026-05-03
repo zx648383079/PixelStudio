@@ -76,5 +76,35 @@ namespace ZoDream.Shared.ImageEditor
         {
             _canvas.DrawRect(rect, paint);
         }
+
+        public void Draw(IImagePixel source)
+        {
+            _canvas.Draw(source);
+        }
+
+        public void Draw(IImagePixel source, Rect rect)
+        {
+            _canvas.Draw(source, rect);
+        }
+
+        public void Draw(IImagePixel source, Rect rect, IImagePaint paint)
+        {
+            _canvas.Draw(source, rect, paint);
+        }
+
+        public void Draw(IImageBuffer source)
+        {
+            _canvas.Draw(source);
+        }
+
+        public void Draw(IImageBuffer source, IImagePaint paint)
+        {
+            _canvas.Draw(source, paint);
+        }
+
+        public void DrawLine(Point from, Point to, IImagePaint paint)
+        {
+            _canvas.DrawLine(from, to, paint);
+        }
     }
 }

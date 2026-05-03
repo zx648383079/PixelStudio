@@ -8,6 +8,10 @@ namespace ZoDream.Shared.Numerics
     {
         public static Color White => new(255, 255, 255, 255);
         public static Color Black => new(0, 0, 0, 255);
+
+        public static Color Blue = new(0, 0, 255, 255);
+        public static Color Red = new(255, 0, 0, 255);
+        public static Color Green = new(0, 255, 0, 255);
         public static Color Transparent => new(16777215u);
 
 
@@ -134,6 +138,11 @@ namespace ZoDream.Shared.Numerics
             }
         }
 
+        public readonly Color WithAlpha(byte a)
+        {
+            return new(R, G, B, a);
+        }
+
         public static explicit operator Color(Vector3 vec)
         {
             return new(vec.X, vec.Y, vec.Z);
@@ -142,6 +151,16 @@ namespace ZoDream.Shared.Numerics
         public static explicit operator Color(Vector4 vec)
         {
             return new(vec.X, vec.Y, vec.Z, vec.W);
+        }
+
+        public static explicit operator uint(Color color)
+        {
+            return (uint)((color.A << 24) | (color.R << 16) | (color.G << 8) | color.B);
+        }
+
+        public static explicit operator Color(uint value)
+        {
+            return new(value);
         }
 
         public static explicit operator Vector4(Color color)

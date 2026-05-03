@@ -1,5 +1,6 @@
 ﻿using SkiaSharp;
 using System;
+using System.Numerics;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
@@ -44,7 +45,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
         {
             return _thumbnail.Mutate(size, canvas => 
             {
-                canvas.DrawPath(_path.Build(), _paint);
+                (canvas as ISKImageCanvas)?.DrawPath(_path.Build(), _paint);
             });
         }
 
@@ -106,12 +107,12 @@ namespace ZoDream.Shared.ImageEditor.Sources
         /// </summary>
         /// <param name="v"></param>
         /// <param name="offset"></param>
-        public void Move(int index, Point offset)
+        public void Move(int index, Vector2 offset)
         {
             _path.Move(index, offset);
         }
 
-        public void Move(int[] indexs, Point offset)
+        public void Move(int[] indexs, Vector2 offset)
         {
             foreach (var item in indexs)
             {
@@ -121,12 +122,12 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
         public override void Paint(IImageCanvas canvas)
         {
-            canvas.DrawPath(_path.Build(), _paint);
+            (canvas as ISKImageCanvas)?.DrawPath(_path.Build(), _paint);
         }
 
-        public override void Paint(IImageCanvas canvas, IImageStyle computedStyle)
+        public override void Paint(IImageStyleCanvas canvas, IImageStyle computedStyle)
         {
-            canvas.DrawPath(_path.Build(), _paint);
+            (canvas as ISKImageCanvas)?.DrawPath(_path.Build(), _paint);
         }
 
         public override void Dispose()

@@ -112,7 +112,7 @@ namespace ZoDream.PixelStudio.ViewModels
             }
         }
 
-        public void Paint(IImageCanvas canvas)
+        public void Paint(IImageStyleCanvas canvas)
         {
             foreach (var item in LayerItems.Reverse())
             {

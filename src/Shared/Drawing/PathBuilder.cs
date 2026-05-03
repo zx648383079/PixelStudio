@@ -72,7 +72,7 @@ namespace ZoDream.Shared.Drawing
         /// </summary>
         /// <param name="v"></param>
         /// <param name="offset"></param>
-        public void Move(int index, Point offset)
+        public void Move(int index, Vector2 offset)
         {
             var item = Items[index];
             if (item.Points.Count == 0)

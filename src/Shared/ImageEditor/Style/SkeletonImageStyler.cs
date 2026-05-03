@@ -77,7 +77,7 @@ namespace ZoDream.Shared.ImageEditor
                         ScaleY = item.ScaleY,
                         Width = uv.Width,
                         Height = uv.Height,
-                        SourceItems = [..uv.VertexItems],//.Select(i => new SKPoint(i.X * Width, i.Y * Height)).ToArray(),
+                        SourceItems = [..uv.VertexItems.Select(i => (Point)i)],//.Select(i => new SKPoint(i.X * Width, i.Y * Height)).ToArray(),
                         PointItems = [.. uv.PointItems]
                     };
                     _cacheItems.Add(computed);
@@ -112,7 +112,7 @@ namespace ZoDream.Shared.ImageEditor
             }
         }
 
-        public void Paint(IImageLayerTree items, IImageCanvas canvas)
+        public void Paint(IImageLayerTree items, IImageStyleCanvas canvas)
         {
             foreach (var item in _cacheItems)
             {

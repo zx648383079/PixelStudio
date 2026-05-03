@@ -82,9 +82,9 @@ namespace ZoDream.PixelStudio.ViewModels
         public void Load(IImageEditor editor)
         {
             //Name = layer.Name;
-            var size = editor.Size.ToSizeI();
-            Width = size.Width;
-            Height = size.Height;
+            var size = editor.Size;
+            Width = (int)size.Width;
+            Height = (int)size.Height;
         }
 
         public void Save(IImageEditor layer)

@@ -85,7 +85,7 @@ namespace ZoDream.PixelStudio.ViewModels
             
         }
 
-        public void Paint(IImageCanvas canvas)
+        public void Paint(IImageStyleCanvas canvas)
         {
             var isFolder = Source is FolderImageSource;
             if (!IsVisible && (isFolder || Children.Count == 0))
@@ -107,7 +107,7 @@ namespace ZoDream.PixelStudio.ViewModels
                 if (!isFolder)
                 {
                     var s = Source as IImageStyleSource;
-                    Children.Paint(c.Transform(s?.X ?? 0, s?.Y ?? 0));
+                    Children.Paint(c.Transform(new(s?.X ?? 0, s?.Y ?? 0)));
                 }
             });
         }

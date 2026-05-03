@@ -18,7 +18,7 @@ namespace ZoDream.PixelStudio.Controls
         {
             return new ImageCanvas(canvas);
         }
-        public IImageCanvas ToCanvas(IImageStyler styler)
+        public IImageStyleCanvas ToCanvas(IImageStyler styler)
         {
             return new ImageStyleCanvas(canvas, styler);
         }

@@ -14,6 +14,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Shared\Document\Document.csproj" />
+	  <ProjectReference Include="..\..\Shared\Drawing\Drawing.csproj" />
 	  <ProjectReference Include="..\..\Shared\IO\IO.csproj" />
 	</ItemGroup>
 

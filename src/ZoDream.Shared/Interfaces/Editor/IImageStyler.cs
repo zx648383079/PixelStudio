@@ -26,7 +26,7 @@ namespace ZoDream.Shared.Interfaces
         /// <param name="items"></param>
         public void Compute(IImageLayerTree items);
 
-        public void Paint(IImageLayerTree items, IImageCanvas canvas);
+        public void Paint(IImageLayerTree items, IImageStyleCanvas canvas);
         /// <summary>
         /// 根据坐标获取图层
         /// </summary>

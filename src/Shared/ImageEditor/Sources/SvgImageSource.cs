@@ -46,9 +46,9 @@ namespace ZoDream.Shared.ImageEditor.Sources
             return Thumbnail.Snapshot(size, Source.Picture);
         }
 
-        public override void Paint(IImageCanvas canvas, IImageStyle computedStyle)
+        public override void Paint(IImageStyleCanvas canvas, IImageStyle computedStyle)
         {
-            canvas.DrawPicture(Source.Picture, computedStyle);
+            (canvas as ISKImageCanvas)?.DrawPicture(Source.Picture, computedStyle);
         }
     }
 }

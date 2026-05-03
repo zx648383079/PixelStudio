@@ -1,5 +1,4 @@
-﻿using SkiaSharp;
-using ZoDream.Shared.Interfaces;
+﻿using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
@@ -61,6 +60,6 @@ namespace ZoDream.Shared.ImageEditor.Sources
         {
         }
 
-        public abstract void Paint(IImageCanvas canvas, IImageStyle computedStyle);
+        public abstract void Paint(IImageStyleCanvas canvas, IImageStyle computedStyle);
     }
 }

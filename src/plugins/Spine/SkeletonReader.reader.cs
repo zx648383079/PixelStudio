@@ -507,7 +507,7 @@ namespace ZoDream.Plugin.Spine
                     if (_version.Major >= 4)
                     {
                         m.Path = (flags & 16) != 0 ? ReadStringRef(reader) : name;
-                        m.Color = (flags & 32) != 0 ? ReadColor(reader) : SKColors.White;
+                        m.Color = (flags & 32) != 0 ? ReadColor(reader) : Color.White;
                         m.Sequence = (flags & 64) != 0 ? ReadSequence(reader) : null;
                         m.HullLength = ReadInt(reader, true);
                     } else
@@ -535,7 +535,7 @@ namespace ZoDream.Plugin.Spine
                     if (_version.Major >= 4)
                     {
                         l.Path = (flags & 16) != 0 ? ReadStringRef(reader) : name;
-                        l.Color = (flags & 32) != 0 ? ReadColor(reader) : SKColors.White;
+                        l.Color = (flags & 32) != 0 ? ReadColor(reader) : Color.White;
                         l.Sequence = (flags & 64) != 0 ? ReadSequence(reader) : null;
                         var skinIndex = ReadInt(reader, true);
                     } else
@@ -664,7 +664,7 @@ namespace ZoDream.Plugin.Spine
                                 };
                                 ReadArray(frameCount, i => {
                                     timeline.Frames[i] = reader.ReadSingle();
-                                    timeline.ColorFrames[i] = new SKColor(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
+                                    timeline.ColorFrames[i] = new Color(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
                                     if (i < frameCount - 1)
                                     {
                                         ReadCurve(reader, i, timeline);
@@ -682,7 +682,7 @@ namespace ZoDream.Plugin.Spine
                                 };
                                 ReadArray(frameCount, i => {
                                     timeline.Frames[i] = reader.ReadSingle();
-                                    timeline.ColorFrames[i] = new SKColor(0, 0, 0, reader.ReadByte());
+                                    timeline.ColorFrames[i] = new Color(0, 0, 0, reader.ReadByte());
                                     if (i < frameCount - 1)
                                     {
                                         ReadCurve(reader, i, timeline);
@@ -701,7 +701,7 @@ namespace ZoDream.Plugin.Spine
                                 ReadArray(frameCount, i => {
                                     timeline.Frames[i] = reader.ReadSingle();
                                     timeline.ColorFrames[i] = ReadColor(reader);
-                                    timeline.Color2Frames[i] = new SKColor(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
+                                    timeline.Color2Frames[i] = new Color(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
                                     if (i < frameCount - 1)
                                     {
                                         ReadCurve(reader, i, timeline);
@@ -719,8 +719,8 @@ namespace ZoDream.Plugin.Spine
                                 };
                                 ReadArray(frameCount, i => {
                                     timeline.Frames[i] = reader.ReadSingle();
-                                    timeline.ColorFrames[i] = new SKColor(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
-                                    timeline.Color2Frames[i] = new SKColor(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
+                                    timeline.ColorFrames[i] = new Color(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
+                                    timeline.Color2Frames[i] = new Color(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
                                     if (i < frameCount - 1)
                                     {
                                         ReadCurve(reader, i, timeline);
@@ -786,7 +786,7 @@ namespace ZoDream.Plugin.Spine
                                 timeline.BoneIndex = boneIndex;
                                 ReadArray(frameCount, i => {
                                     timeline.Frames[i] = reader.ReadSingle();
-                                    timeline.Points[i] = new SKPoint(reader.ReadSingle() * timelineScale, reader.ReadSingle() * timelineScale);
+                                    timeline.Points[i] = new Point(reader.ReadSingle() * timelineScale, reader.ReadSingle() * timelineScale);
                                   
                                     if (i < frameCount - 1)
                                     {
@@ -1184,7 +1184,7 @@ namespace ZoDream.Plugin.Spine
             return optimizePositive ? result : ((result >> 1) ^ -(result & 1));
         }
 
-        private SKColor ReadColor(BinaryReader reader, bool hasAlpha = true)
+        private Color ReadColor(BinaryReader reader, bool hasAlpha = true)
         {
             if (!hasAlpha)
             {
@@ -1194,7 +1194,7 @@ namespace ZoDream.Plugin.Spine
             var g = reader.ReadByte();
             var b = reader.ReadByte();
             var a = hasAlpha ? reader.ReadByte() : byte.MaxValue;
-            return new SKColor(r, g, b, a);
+            return new Color(r, g, b, a);
         }
         private string ReadStringRef(BinaryReader reader)
         {

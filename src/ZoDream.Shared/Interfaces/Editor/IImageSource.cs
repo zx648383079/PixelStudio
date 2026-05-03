@@ -23,6 +23,6 @@ namespace ZoDream.Shared.Interfaces
     public interface IImageStyleSource : IImageSource, IImageStyle
     {
 
-        public void Paint(IImageCanvas canvas, IImageStyle computedStyle);
+        public void Paint(IImageStyleCanvas canvas, IImageStyle computedStyle);
     }
 }

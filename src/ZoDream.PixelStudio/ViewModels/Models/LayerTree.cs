@@ -76,7 +76,7 @@ namespace ZoDream.PixelStudio.ViewModels
             return null;
         }
 
-        public void Paint(IImageCanvas canvas)
+        public void Paint(IImageStyleCanvas canvas)
         {
             foreach (var item in Items)
             {

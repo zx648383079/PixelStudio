@@ -109,7 +109,7 @@ namespace ZoDream.PixelStudio.ViewModels
                 // TODO 层级问题
                 var size = new CssSprites(res)
                     .Compute([.. LayerItems.Select(i => (IImageBound)i.Source)]);
-                Instance!.Resize(new SKSize(size));
+                Instance!.Resize(size);
                 Instance.Invalidate();
             }
         }

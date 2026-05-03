@@ -19,6 +19,6 @@ namespace ZoDream.Shared.Interfaces
 
         public IImageLayer? Get(Point point);
 
-        public void Paint(IImageCanvas canvas);
+        public void Paint(IImageStyleCanvas canvas);
     }
 }

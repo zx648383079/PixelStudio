@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.PixelStudio.Plugins
 {
@@ -14,7 +14,7 @@ namespace ZoDream.PixelStudio.Plugins
         /// </summary>
         /// <param name="items"></param>
         /// <returns>整个区域的宽，高</returns>
-        public Vector2 Compute(IEnumerable<IImageBound> items)
+        public Size Compute(IEnumerable<IImageBound> items)
         {
             return algorithm switch
             {
@@ -23,7 +23,7 @@ namespace ZoDream.PixelStudio.Plugins
                 CssSpritesAlgorithm.Diagonal => PlaceDiagonal(items),
                 CssSpritesAlgorithm.AltDiagonal => PlaceAltDiagonal(items),
                 CssSpritesAlgorithm.BinaryTree => PlaceBinaryTree(items),
-                _ => Vector2.Zero,
+                _ => new(),
             };
         }
 
@@ -43,7 +43,7 @@ namespace ZoDream.PixelStudio.Plugins
             };
         }
 
-        private Vector2 PlaceTopDown(IEnumerable<IImageBound> items)
+        private Size PlaceTopDown(IEnumerable<IImageBound> items)
         {
             var data = items.Order(this);
             var y = 0f;
@@ -61,7 +61,7 @@ namespace ZoDream.PixelStudio.Plugins
             return new(width, y);
         }
 
-        private Vector2 PlaceLeftRight(IEnumerable<IImageBound> items)
+        private Size PlaceLeftRight(IEnumerable<IImageBound> items)
         {
             var data = items.Order(this);
             var x = 0f;
@@ -79,7 +79,7 @@ namespace ZoDream.PixelStudio.Plugins
             return new(x, height);
         }
 
-        private Vector2 PlaceDiagonal(IEnumerable<IImageBound> items)
+        private Size PlaceDiagonal(IEnumerable<IImageBound> items)
         {
             var data = items.Order(this);
             var x = 0f;
@@ -94,7 +94,7 @@ namespace ZoDream.PixelStudio.Plugins
             return new(x, y);
         }
 
-        private Vector2 PlaceAltDiagonal(IEnumerable<IImageBound> items)
+        private Size PlaceAltDiagonal(IEnumerable<IImageBound> items)
         {
             var data = items.Order(this);
             var width = 0f;
@@ -117,7 +117,7 @@ namespace ZoDream.PixelStudio.Plugins
         #region BinaryTree
         private BinaryTreeNode? _rootNode;
 
-        private Vector2 PlaceBinaryTree(IEnumerable<IImageBound> items)
+        private Size PlaceBinaryTree(IEnumerable<IImageBound> items)
         {
             var data = items.Order(this);
             var width = items.Any() ? data.First().Width : 0;

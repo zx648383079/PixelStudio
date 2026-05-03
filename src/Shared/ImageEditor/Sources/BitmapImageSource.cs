@@ -80,14 +80,14 @@ namespace ZoDream.Shared.ImageEditor.Sources
             {
                 return;
             }
-            canvas.Draw(Source,
-                Bound,
+            (canvas as ISKImageCanvas)?.DrawBitmap(Source,
+                Bound.ToRect(),
                 _paint);
         }
 
-        public override void Paint(IImageCanvas canvas, IImageStyle computedStyle)
+        public override void Paint(IImageStyleCanvas canvas, IImageStyle computedStyle)
         {
-            canvas.Draw(Source, computedStyle);
+            (canvas as ISKImageCanvas)?.DrawBitmap(Source, computedStyle);
         }
 
 

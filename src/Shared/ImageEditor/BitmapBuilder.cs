@@ -33,7 +33,7 @@ namespace ZoDream.Shared.ImageEditor
                 var scale = Math.Min(size.Width / source.Width, size.Height / source.Height);
                 var w = source.Width * scale;
                 var h = source.Height * scale;
-                canvas.DrawBitmap(source, new Rect((size.Width - w) / 2, (size.Height - h) / 2, w, h));
+                (canvas as ISKImageCanvas)?.DrawBitmap(source, new SKRect((size.Width - w) / 2, (size.Height - h) / 2, w, h));
             });
         }
 
@@ -43,7 +43,7 @@ namespace ZoDream.Shared.ImageEditor
                 var scale = Math.Min(size.Width / source.CullRect.Width, size.Height / source.CullRect.Height);
                 var w = source.CullRect.Width * scale;
                 var h = source.CullRect.Height * scale;
-                canvas.DrawPicture(source, SKRect.Create((size.Width - w) / 2, (size.Height - h) / 2, w, h));
+                (canvas as ISKImageCanvas)?.DrawPicture(source, SKRect.Create((size.Width - w) / 2, (size.Height - h) / 2, w, h));
             });
         }
 

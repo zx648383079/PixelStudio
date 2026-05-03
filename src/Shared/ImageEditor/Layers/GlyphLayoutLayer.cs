@@ -1,5 +1,6 @@
 ﻿using SkiaSharp;
 using System;
+using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
@@ -17,7 +18,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
         }
 
         private readonly IImageEditor _editor;
-        private SKSurface? _surface;
+        private ImageBuffer? _surface;
         public bool IsVisible { get; set; } = true;
         public Rect Bound => new();
 
@@ -68,16 +69,14 @@ namespace ZoDream.Shared.ImageEditor.Layers
             {
                 return;
             }
-            var info = new SKImageInfo((int)size.Width, (int)size.Height);
-            _surface = SKSurface.Create(info);
-            var canvas = _surface.Canvas;
-            canvas.Clear(SKColors.Transparent);
+            _surface = new(size);
+            _surface.Clear(Color.Transparent);
 
             var width = Math.Min(400, Math.Min(size.Width, size.Height));
-            Paint(canvas, SKRect.Create((size.Width - width) / 2, (size.Height - width) / 2, width, width));
+            Paint(_surface, new((size.Width - width) / 2, (size.Height - width) / 2, width, width));
         }
 
-        private void Paint(SKCanvas canvas, SKRect rect)
+        private void Paint(IImageCanvas canvas, Rect rect)
         {
             var options = _editor.Options;
             var vBearingY = rect.Height / 5;
@@ -87,29 +86,28 @@ namespace ZoDream.Shared.ImageEditor.Layers
             var glyphHeight = rect.Height - vBearingY * 1.5f;
 
             var hBearingY = glyphHeight / 1.5f;
-            using var outlinePaint = new SKPaint()
+            using var outlinePaint = new ImagePaint(new SKPaint()
             {
                 IsStroke = true,
                 StrokeWidth = 2,
-                Color = options.Foreground,
-                
-            };
-            using var linePaint = new SKPaint()
+                Color = options.Foreground.ToColor(), 
+            });
+            using var linePaint = new ImagePaint(new SKPaint()
             {
                 IsStroke = true,
                 StrokeWidth = 2,
-                Color = options.Foreground.WithAlpha(40),
+                Color = options.Foreground.WithAlpha(40).ToColor(),
                 PathEffect = SKPathEffect.CreateDash([10, 5], 0)
-            };
-            DrawVLine(canvas, new SKPoint(rect.Left + hBearingX, rect.Top), rect.Height, linePaint);
-            DrawVLine(canvas, new SKPoint(rect.Right - hBearingX * 2, rect.Top), rect.Height, linePaint);
+            });
+            DrawVLine(canvas, new Point(rect.Left + hBearingX, rect.Top), rect.Height, linePaint);
+            DrawVLine(canvas, new Point(rect.Right - hBearingX * 2, rect.Top), rect.Height, linePaint);
 
-            DrawHLine(canvas, new SKPoint(rect.Left, rect.Top + vBearingY + hBearingY), rect.Width, outlinePaint);
-            DrawVLine(canvas, new SKPoint(rect.Left + hBearingX + glyphWidth / 2, rect.Top), rect.Width, outlinePaint);
+            DrawHLine(canvas, new Point(rect.Left, rect.Top + vBearingY + hBearingY), rect.Width, outlinePaint);
+            DrawVLine(canvas, new Point(rect.Left + hBearingX + glyphWidth / 2, rect.Top), rect.Width, outlinePaint);
 
 
-            DrawHLine(canvas, new SKPoint(rect.Left, rect.Top + vBearingY), rect.Width, linePaint);
-            DrawHLine(canvas, new SKPoint(rect.Left, rect.Bottom - vBearingY / 2), rect.Width, linePaint);
+            DrawHLine(canvas, new Point(rect.Left, rect.Top + vBearingY), rect.Width, linePaint);
+            DrawHLine(canvas, new Point(rect.Left, rect.Bottom - vBearingY / 2), rect.Width, linePaint);
 
 
 
@@ -117,14 +115,14 @@ namespace ZoDream.Shared.ImageEditor.Layers
             canvas.DrawRect(rect, outlinePaint);
         }
 
-        private void DrawHLine(SKCanvas canvas, SKPoint point, float length, SKPaint paint)
+        private void DrawHLine(IImageCanvas canvas, Point point, float length, IImagePaint paint)
         {
-            canvas.DrawLine(point, new SKPoint(point.X + length, point.Y), paint);
+            canvas.DrawLine(point, new Point(point.X + length, point.Y), paint);
         }
 
-        private void DrawVLine(SKCanvas canvas, SKPoint point, float length, SKPaint paint)
+        private void DrawVLine(IImageCanvas canvas, Point point, float length, IImagePaint paint)
         {
-            canvas.DrawLine(point, new SKPoint(point.X, point.Y + length), paint);
+            canvas.DrawLine(point, new Point(point.X, point.Y + length), paint);
         }
 
         public void Dispose()

@@ -8,12 +8,12 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
-    public class ImageStyleCanvas(SKCanvas canvas, IImageStyler styler): IImageCanvas
+    public class ImageStyleCanvas(SKCanvas canvas, IImageStyler styler): IImageStyleCanvas, ISKImageCanvas
     {
         public float X { get; set; }
         public float Y { get; set; }
 
-        public IImageCanvas Transform(float x, float y)
+        public IImageStyleCanvas Transform(float x, float y)
         {
             if (x == 0 && y == 0)
             {
@@ -26,7 +26,7 @@ namespace ZoDream.Shared.ImageEditor
             };
         }
 
-        public void Mutate(IImageStyle style, Action<IImageCanvas> cb)
+        public void Mutate(IImageStyle style, Action<IImageStyleCanvas> cb)
         {
             if (style.Rotate == 0)
             {
@@ -214,7 +214,7 @@ namespace ZoDream.Shared.ImageEditor
         }
 
 
-        public void DrawBitmap(SKBitmap source, Interfaces.IImageStyle style)
+        public void DrawBitmap(SKBitmap source, IImageStyle style)
         {
             if (source is null)
             {
@@ -341,7 +341,7 @@ namespace ZoDream.Shared.ImageEditor
             throw new NotImplementedException();
         }
 
-        public IImageCanvas Transform(Vector2 offset)
+        public IImageStyleCanvas Transform(Vector2 offset)
         {
             throw new NotImplementedException();
         }

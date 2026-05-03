@@ -10,6 +10,6 @@ namespace ZoDream.Shared.Interfaces
 
         public IImageCanvas ToCanvas();
 
-        public IImageCanvas ToCanvas(IImageStyler styler);
+        public IImageStyleCanvas ToCanvas(IImageStyler styler);
     }
 }

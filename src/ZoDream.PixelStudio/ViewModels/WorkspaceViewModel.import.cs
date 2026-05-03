@@ -158,7 +158,10 @@ namespace ZoDream.PixelStudio.ViewModels
         {
             OnDragImage(new FileLoader(items));
         }
-
+        private IImageLayer? AddImage(IImagePixel data)
+        {
+            return null;
+        }
         private IImageLayer? AddImage(IImageData data)
         {
             var layer = data.TryParse(Instance!);

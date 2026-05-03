@@ -7,7 +7,7 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
-    public class ImageCanvas(SKCanvas canvas) : IImageCanvas
+    public class ImageCanvas(SKCanvas canvas) : IImageStyleCanvas, ISKImageCanvas
     {
         /// <summary>
         /// 以透明背景
@@ -128,7 +128,7 @@ namespace ZoDream.Shared.ImageEditor
         }
 
 
-        public virtual void Mutate(IImageStyle style, Action<IImageCanvas> cb)
+        public virtual void Mutate(IImageStyle style, Action<IImageStyleCanvas> cb)
         {
             throw new NotImplementedException();
         }
@@ -196,7 +196,7 @@ namespace ZoDream.Shared.ImageEditor
         }
 
 
-        public virtual IImageCanvas Transform(Vector2 offset)
+        public virtual IImageStyleCanvas Transform(Vector2 offset)
         {
             throw new NotImplementedException();
         }
@@ -229,6 +229,16 @@ namespace ZoDream.Shared.ImageEditor
         }
 
         public virtual void Draw(string text, IImageStyle style, IImagePaint paint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DrawBitmap(SKBitmap source, IImageStyle style)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DrawPicture(SKPicture picture, IImageStyle style)
         {
             throw new NotImplementedException();
         }

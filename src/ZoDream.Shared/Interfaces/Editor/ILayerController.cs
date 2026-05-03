@@ -31,6 +31,6 @@ namespace ZoDream.Shared.Interfaces
 
         public IEnumerable<IImageLayer> Get(Rect rect);
 
-        public void Paint(IImageCanvas canvas);
+        public void Paint(IImageStyleCanvas canvas);
     }
 }

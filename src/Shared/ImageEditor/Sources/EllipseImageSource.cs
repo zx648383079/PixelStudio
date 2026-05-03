@@ -9,10 +9,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
 {
     public class EllipseImageSource(IImageEditor editor) : BaseImageSource(editor)
     {
-        private readonly SKPaint _paint = new()
-        {
-            Color = SKColors.Black,
-        };
+        private readonly ImagePaint _paint = ImagePaint.CreateBorder(Color.Black);
         public bool IsFill { get; set; }
 
         public SKColor FillColor { get; set; }
@@ -35,14 +32,17 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
         public override void Paint(IImageCanvas canvas)
         {
-            _paint.StrokeWidth = StrokeWidth;
-            _paint.Style = SKPaintStyle.Stroke;
-            _paint.ColorF = SKColors.Transparent;
-            if (IsFill)
-            {
-                _paint.Style = SKPaintStyle.StrokeAndFill;
-                _paint.ColorF = SKColors.Black;
-            }
+            _paint.Mutate(paint => {
+                paint.StrokeWidth = StrokeWidth;
+                paint.Style = SKPaintStyle.Stroke;
+                paint.ColorF = SKColors.Transparent;
+                if (IsFill)
+                {
+                    paint.Style = SKPaintStyle.StrokeAndFill;
+                    paint.ColorF = SKColors.Black;
+                }
+            });
+            
             var center = new Point(X + XRadius, Y + YRadius);
             if (XRadius == YRadius)
             {
@@ -65,7 +65,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
             base.Dispose();
         }
 
-        public override void Paint(IImageCanvas canvas, IImageStyle computedStyle)
+        public override void Paint(IImageStyleCanvas canvas, IImageStyle computedStyle)
         {
         }
     }

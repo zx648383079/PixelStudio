@@ -8,10 +8,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
 {
     public class RectImageSource(IImageEditor editor) : BaseImageSource(editor)
     {
-        private readonly SKPaint _paint = new()
-        {
-            Color = SKColors.Black,
-        };
+        private readonly ImagePaint _paint = ImagePaint.CreateBorder(Color.Black);
 
         public SKColor FillColor { get; set; }
         public SKColor StrokeColor { get; set; }
@@ -36,14 +33,17 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
         public void Paint(IImageCanvas canvas)
         {
-            _paint.StrokeWidth = StrokeWidth;
-            _paint.Style = SKPaintStyle.Stroke;
-            _paint.ColorF = SKColors.Transparent;
-            if (IsFill)
-            {
-                _paint.Style = SKPaintStyle.StrokeAndFill;
-                _paint.ColorF = SKColors.Black;
-            }
+            _paint.Mutate(paint => {
+                paint.StrokeWidth = StrokeWidth;
+                paint.Style = SKPaintStyle.Stroke;
+                paint.ColorF = SKColors.Transparent;
+                if (IsFill)
+                {
+                    paint.Style = SKPaintStyle.StrokeAndFill;
+                    paint.ColorF = SKColors.Black;
+                }
+            });
+            
             if (LeftRadius == 0 && TopRadius == 0 && RightRadius == 0 && BottomRadius == 0)
             {
                 canvas.DrawRect(Bound, _paint);
@@ -53,7 +53,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
             canvas.DrawRect(rect, _paint);
         }
 
-        public override void Paint(IImageCanvas canvas, IImageStyle computedStyle)
+        public override void Paint(IImageStyleCanvas canvas, IImageStyle computedStyle)
         {
         }
 

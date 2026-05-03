@@ -6,6 +6,7 @@ using SkiaSharp.Views.Windows;
 using System.Collections.Generic;
 using Windows.Storage;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 using ZoDream.Shared.UndoRedo;
 
 namespace ZoDream.PixelStudio.ViewModels
@@ -61,7 +62,7 @@ namespace ZoDream.PixelStudio.ViewModels
             UndoRedo.ReverseUndoStateChanged += UndoRedo_ReverseUndoStateChanged;
         }
 
-        private readonly SKSize _thumbnailSize = new(60, 60);
+        private readonly Size _thumbnailSize = new(60, 60);
         public CommandManager UndoRedo { get; private set; } = new();
         public IImageEditor? Instance { get; set; }
 
@@ -101,7 +102,8 @@ namespace ZoDream.PixelStudio.ViewModels
 
         public BitmapSource? CreateThumbnail(IImageSource source)
         {
-            return source?.CreateThumbnail(_thumbnailSize)?.ToWriteableBitmap();
+            var data = source?.CreateThumbnail(_thumbnailSize);
+            return (data as SKBitmap)?.ToWriteableBitmap();
         }
     }
 }

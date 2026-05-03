@@ -3,6 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
+using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.Plugin.TexturePacker
@@ -136,6 +137,16 @@ namespace ZoDream.Plugin.TexturePacker
                 output.Write(working, 0, n);
             }
             return output.ToArray();
+        }
+
+        Task<IImagePixel?> IPluginReader<IImagePixel>.ReadAsync(string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task WriteAsync(string fileName, IImagePixel data)
+        {
+            throw new NotImplementedException();
         }
 
         enum PVRFileType

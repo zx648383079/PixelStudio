@@ -102,6 +102,16 @@ namespace ZoDream.Shared.Numerics
                 left.Height - right.Height - y);
         }
 
+        public static Rect operator +(Rect left, Vector2 right)
+        {
+            return new(left.X + right.X, left.Y + right.Y, left.Width, left.Height);
+        }
+
+        public static Rect operator -(Rect left, Vector2 right)
+        {
+            return new(left.X - right.X, left.Y - right.Y, left.Width, left.Height);
+        }
+
         public static explicit operator Vector4(Rect rect)
         {
             return new(rect.X, rect.Y, rect.Width, rect.Height);

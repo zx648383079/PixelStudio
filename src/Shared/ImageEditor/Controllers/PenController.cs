@@ -2,6 +2,7 @@
 using System;
 using ZoDream.Shared.ImageEditor.Sources;
 using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Controllers
 {
@@ -9,7 +10,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
     {
         public bool IsEnabled => true;
         private bool _isRightButtonPressed = false;
-        private SKPoint _last = new();
+        private Point _last = new();
         private readonly SKPaint _paint = new()
         {
             Color = SKColors.Blue.WithAlpha(150),
@@ -31,7 +32,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
 
         public void PointerMoved(IMouseRoutedArgs args)
         {
-            var p = args.Position.ToPoint();
+            var p = args.Position;
             if (!args.IsShiftPressed || _layer?.Source.IsEmpty != false)
             {
                 _last = p;
@@ -40,11 +41,11 @@ namespace ZoDream.Shared.ImageEditor.Controllers
                 var offset = p - _layer.Source.End;
                 if (Math.Abs(offset.X) >= Math.Abs(offset.Y))
                 {
-                    _last = new SKPoint(p.X, _layer.Source.End.Y);
+                    _last = new Point(p.X, _layer.Source.End.Y);
                 }
                 else
                 {
-                    _last = new SKPoint(_layer.Source.End.X, p.Y);
+                    _last = new Point(_layer.Source.End.X, p.Y);
                 }
             }
 
@@ -58,7 +59,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
         public void PointerPressed(IMouseRoutedArgs args)
         {
             _isRightButtonPressed = args.IsRightButtonPressed;
-            _last = args.Position.ToPoint();
+            _last = args.Position;
         }
 
         public void PointerReleased(IMouseRoutedArgs args)
@@ -84,7 +85,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
             editor.Invalidate();
         }
 
-        private bool IsClosePath(SKPoint point)
+        private bool IsClosePath(Point point)
         {
             if (_layer!.Source.Count <= 2)
             {
@@ -102,7 +103,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
             {
                 return;
             }
-            canvas.DrawLine(_layer.Source.End.ToPoint(), _last.ToPoint(), _paint);
+            canvas.DrawLine(_layer.Source.End, _last, new ImagePaint(_paint));
         }
 
         public void Dispose()

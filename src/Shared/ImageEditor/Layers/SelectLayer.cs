@@ -8,13 +8,13 @@ namespace ZoDream.Shared.ImageEditor.Layers
     public class SelectLayer : IImageSource, ICommandLayer, IMouseState
     {
 
-        private readonly SKPaint _paint = new()
+        private readonly IImagePaint _paint = new ImagePaint(new()
         {
             Color = SKColors.Blue,
             StrokeWidth = 1,
             Style = SKPaintStyle.StrokeAndFill,
             ColorF = SKColors.Blue.WithAlpha(50)
-        };
+        });
         private Point _start = new();
         private Point _last = new();
 
