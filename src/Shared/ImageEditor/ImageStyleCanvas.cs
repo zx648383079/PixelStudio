@@ -227,7 +227,8 @@ namespace ZoDream.Shared.ImageEditor
             }
             if (style is IImageVertexStyle v)
             {
-                DrawTexture(source, EditorExtension.ComputeVertex(v.VertexItems, style), v.PointItems.Select(i => i.ToPoint()).ToArray());
+                DrawTexture(source, EditorExtension.ComputeVertex(v.VertexItems, style)
+                    .Select(i => i.ToPoint()).ToArray(), v.PointItems.Select(i => i.ToPoint()).ToArray());
                 return;
             }
             DrawBitmap(source, style.X, style.Y);
@@ -262,102 +263,133 @@ namespace ZoDream.Shared.ImageEditor
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            canvas.Clear(SKColors.Transparent);
         }
 
         public void Clear(Color color)
         {
-            throw new NotImplementedException();
+            canvas.Clear(color.ToColor());
         }
 
         public void Draw(IImagePixel source)
         {
-            throw new NotImplementedException();
+            Draw(source, new Point());
         }
 
         public void Draw(IImagePixel source, Point point)
         {
-            throw new NotImplementedException();
+            if (source is ISKImagePixel p)
+            {
+                p.Paint(canvas, point.ToPoint());
+            }
         }
 
         public void Draw(IImagePixel source, Rect rect)
         {
-            throw new NotImplementedException();
+            Draw(source, rect, null);
         }
 
         public void Draw(IImagePixel source, Rect rect, IImagePaint paint)
         {
-            throw new NotImplementedException();
+            if (source is ISKImagePixel p)
+            {
+                p.Paint(canvas, rect.ToRect(), (paint as ImagePaint)?.Source);
+            }
         }
 
         public void Draw(IImageBuffer source, IImagePaint paint)
         {
-            throw new NotImplementedException();
+            if (source is ISKImagePixel p)
+            {
+                p.Paint(canvas, SKPoint.Empty, (paint as ImagePaint)?.Source);
+            }
         }
 
         public void Draw(IImageBuffer source)
         {
-            throw new NotImplementedException();
+            Draw(source, null);
         }
 
-
-        public void Draw(string text, Point point, IImagePaint paint)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Draw(IPathBuffer path, IImagePaint paint)
         {
-            throw new NotImplementedException();
+            if (path is ISKImagePixel p)
+            {
+                p.Paint(canvas, SKPoint.Empty, (paint as ImagePaint)?.Source);
+            }
         }
 
         public void DrawLine(Point from, Point to, IImagePaint paint)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Draw(IImagePixel source, Point[] sourceVertices, Point[] vertices)
-        {
-            throw new NotImplementedException();
+            canvas.DrawLine(from.ToPoint(), to.ToPoint(), (paint as ImagePaint)?.Source);
         }
 
         public void DrawRect(Rect rect, IImagePaint paint)
         {
-            throw new NotImplementedException();
+            canvas.DrawRect(rect.ToRect(), (paint as ImagePaint)?.Source);
         }
 
         public void DrawRect(RoundRect rect, IImagePaint paint)
         {
-            throw new NotImplementedException();
+            canvas.DrawRoundRect(rect.ToRect(), (paint as ImagePaint)?.Source);
         }
 
         public void DrawCircle(Point center, float radius, IImagePaint paint)
         {
-            throw new NotImplementedException();
+            canvas.DrawCircle(center.ToPoint(), radius, (paint as ImagePaint)?.Source);
         }
+
 
         public void DrawOval(Point center, Vector2 radius, IImagePaint paint)
         {
-            throw new NotImplementedException();
+            canvas.DrawOval(center.X, center.Y, radius.X, radius.Y, (paint as ImagePaint)?.Source);
+        }
+
+        public void Draw(string text, Point point, IImagePaint paint)
+        {
+            if (paint is FontImagePaint p)
+            {
+                p.Paint(canvas, text, point.ToPoint());
+            }
+        }
+
+        public void Draw(IImagePixel source, Point[] sourceVertices, Point[] vertices)
+        {
+            if (source is ISKImagePixel p)
+            {
+                p.Paint(canvas, sourceVertices.Select(i => i.ToPoint()).ToArray(), vertices.Select(i => i.ToPoint()).ToArray());
+            }
         }
 
         public IImageStyleCanvas Transform(Vector2 offset)
         {
-            throw new NotImplementedException();
+            return Transform(offset.X, offset.Y);
         }
 
         public void Draw(IImagePixel source, IImageStyle style)
         {
-            throw new NotImplementedException();
+            if (style is IImageComputedVertexStyle u)
+            {
+                Draw(source, u.SourceItems, u.PointItems);
+                return;
+            }
+            if (style is IImageVertexStyle v)
+            {
+                Draw(source, EditorExtension.ComputeVertex(v.VertexItems, style), v.PointItems);
+                return;
+            }
+            Draw(source, new Point(style.X, style.Y));
         }
 
         public void Draw(string text, IImageStyle style, IImagePaint paint)
         {
-            throw new NotImplementedException();
+            Draw(text, new Point(style.X, style.Y), paint);
         }
 
         public void Dispose()
         {
         }
+
+
     }
 }

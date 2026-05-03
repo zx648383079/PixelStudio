@@ -3,10 +3,11 @@ using System.IO;
 using System.Numerics;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ZoDream.Shared.ImageEditor
 {
-    public class BitmapBuffer(SKBitmap bitmap) : IImagePixel, IImageBuffer
+    public class BitmapBuffer(SKBitmap bitmap) : IImagePixel, IImageBuffer, ISKImagePixel
     {
 
         private IImageCanvas? _canvas;
@@ -125,6 +126,28 @@ namespace ZoDream.Shared.ImageEditor
         public void DrawLine(Point from, Point to, IImagePaint paint)
         {
             Canvas.DrawLine(from, to, paint);
+        }
+
+        public void Paint(SKCanvas canvas, SKPoint point, SKPaint? paint = null)
+        {
+            canvas.DrawBitmap(bitmap, point, paint);
+        }
+
+        public void Paint(SKCanvas canvas, SKRect rect, SKPaint? paint = null)
+        {
+            canvas.DrawBitmap(bitmap, rect, paint);
+        }
+
+        public void Paint(SKCanvas canvas, SKPoint[] sourceVertices, SKPoint[] vertices)
+        {
+            using var paint = new SKPaint()
+            {
+                IsAntialias = true,
+                Shader = SKShader.CreateBitmap(bitmap, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp)
+            };
+            canvas.DrawVertices(SKVertexMode.TriangleFan,
+                vertices,
+                sourceVertices, null, paint);
         }
     }
 }

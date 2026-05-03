@@ -6,7 +6,7 @@ using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.Shared.ImageEditor
 {
-    public class SvgReader : IImageReader
+    public class SvgReader : IPluginReader<IImageData>
     {
         public Task<IImageData?> ReadAsync(string fileName)
         {
@@ -23,14 +23,5 @@ namespace ZoDream.Shared.ImageEditor
             return Task.CompletedTask;
         }
 
-        public Task WriteAsync(string fileName, IImagePixel data)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        Task<IImagePixel?> IPluginReader<IImagePixel>.ReadAsync(string fileName)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

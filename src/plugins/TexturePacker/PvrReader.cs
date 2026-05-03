@@ -11,7 +11,7 @@ namespace ZoDream.Plugin.TexturePacker
     /// <summary>
     /// pvr,pvr.gz,.pvr.ccz
     /// </summary>
-    public class PvrReader : IImageReader
+    public class PvrReader : IPluginReader<IImageData>
     {
         public bool IsSupport(Stream input)
         {
@@ -139,15 +139,6 @@ namespace ZoDream.Plugin.TexturePacker
             return output.ToArray();
         }
 
-        Task<IImagePixel?> IPluginReader<IImagePixel>.ReadAsync(string fileName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task WriteAsync(string fileName, IImagePixel data)
-        {
-            throw new NotImplementedException();
-        }
 
         enum PVRFileType
         {

@@ -15,6 +15,8 @@ namespace ZoDream.Shared.ImageEditor
             }
         }
 
+        public SKPaint Source => paint;
+
         public void Mutate(Action<SKPaint> cb)
         {
             cb.Invoke(paint);
@@ -81,6 +83,12 @@ namespace ZoDream.Shared.ImageEditor
 
     public class FontImagePaint(SKFont font, SKTextAlign align,  SKPaint paint) : ImagePaint(paint)
     {
+
+        public void Paint(SKCanvas canvas, string text, SKPoint point)
+        {
+            canvas.DrawText(text, point, align, font, paint);
+        }
+
         public override void Dispose()
         {
             base.Dispose();

@@ -8,7 +8,7 @@ namespace ZoDream.Shared.ImageEditor
     /// <summary>
     /// 绘制图片
     /// </summary>
-    public class ImageBuffer : IImageBuffer
+    public class ImageBuffer : IImageBuffer, ISKImagePixel
     {
 
         public ImageBuffer(Size size)
@@ -105,6 +105,29 @@ namespace ZoDream.Shared.ImageEditor
         public void DrawLine(Point from, Point to, IImagePaint paint)
         {
             _canvas.DrawLine(from, to, paint);
+        }
+
+        public void Paint(SKCanvas canvas, SKPoint point, SKPaint? paint = null)
+        {
+            canvas.DrawSurface(_surface, point, paint);
+        }
+
+        public void Paint(SKCanvas canvas, SKRect rect, SKPaint? paint = null)
+        {
+            Paint(canvas, new SKPoint(rect.Left, rect.Top), paint);
+        }
+
+        public void Paint(SKCanvas canvas, SKPoint[] sourceVertices, SKPoint[] vertices)
+        {
+            using var image = _surface.Snapshot();
+            using var paint = new SKPaint()
+            {
+                IsAntialias = true,
+                Shader = SKShader.CreateImage(image, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp)
+            };
+            canvas.DrawVertices(SKVertexMode.TriangleFan,
+                vertices,
+                sourceVertices, null, paint);
         }
     }
 }

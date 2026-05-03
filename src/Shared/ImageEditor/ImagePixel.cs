@@ -47,5 +47,10 @@ namespace ZoDream.Shared.ImageEditor
         {
             return new SurfaceBuffer(surface);
         }
+
+        public static IImagePixel From(IImageData data)
+        {
+            return new AsyncImageBuffer(data);
+        }
     }
 }

@@ -180,13 +180,13 @@ namespace ZoDream.Shared.ImageEditor
         /// <param name="items"></param>
         /// <param name="bound"></param>
         /// <returns></returns>
-        public static SKPoint[] ComputeVertex(IEnumerable<Vector2> items, IImageStyle bound)
+        public static Point[] ComputeVertex(IEnumerable<Vector2> items, IImageStyle bound)
         {
             var m = SKMatrix.CreateScale(bound.ScaleX * bound.Width, bound.ScaleY * bound.Height);
             m = m.PostConcat(SKMatrix.CreateRotationDegrees(bound.Rotate, bound.Width / 2, bound.Height / 2));
             // var p = m.MapPoint(bound.Width, bound.Height);
 
-            return items.Select(i => m.MapPoint(i.X, i.Y)).ToArray();
+            return items.Select(i => m.MapPoint(i.X, i.Y).ToPoint()).ToArray();
         }
         /// <summary>
         /// 将UV转为图上坐标

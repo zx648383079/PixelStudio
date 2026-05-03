@@ -1,5 +1,4 @@
 ﻿using SkiaSharp;
-using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
@@ -15,6 +14,12 @@ namespace ZoDream.Shared.ImageEditor.Layers
 
         private readonly IImageEditor _editor;
         private readonly int _gridSize = 10;
+        private readonly ImagePaint _grayPaint = new(new SKPaint()
+        {
+            Color = SKColors.LightGray,
+            Style = SKPaintStyle.Fill,
+            StrokeWidth = 0,
+        });
 
         private ImageBuffer? _surface;
 
@@ -44,13 +49,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
                 return;
             }
             _surface = new(size);
-            _surface.Clear(SKColors.White.ToColor());
-            using var grayPaint = new ImagePaint(new SKPaint()
-            {
-                Color = SKColors.LightGray,
-                Style = SKPaintStyle.Fill,
-                StrokeWidth = 0,
-            });
+            _surface.Clear(Color.White);
             var columnCount = size.Width / _gridSize + 1;
             var rowCount = size.Height / _gridSize + 1;
             for (var i = 0; i < columnCount; i++)
@@ -61,7 +60,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
                     {
                         continue;
                     }
-                    _surface.DrawRect(new Rect(i * _gridSize, j * _gridSize, _gridSize, _gridSize), grayPaint);
+                    _surface.DrawRect(new Rect(i * _gridSize, j * _gridSize, _gridSize, _gridSize), _grayPaint);
                 }
             }
         }
@@ -83,6 +82,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
         public void Dispose()
         {
             _surface?.Dispose();
+            _grayPaint?.Dispose();
         }
 
         public bool Contains(Point point)

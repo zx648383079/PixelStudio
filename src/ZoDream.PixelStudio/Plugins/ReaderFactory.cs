@@ -52,9 +52,9 @@ namespace ZoDream.PixelStudio.Plugins
             return LayerFilterItems.Contains(Path.GetExtension(fileName));
         }
 
-        private static IImageReader? GetImageExtensionReader(string extension)
+        private static IPluginReader<IImageData>? GetImageExtensionReader(string extension)
         {
-            IImageReader? reader = extension switch
+            IPluginReader<IImageData>? reader = extension switch
             {
                 ".pvr" or ".ccz" => new Plugin.TexturePacker.PvrReader(),
                 ".svg" => new SvgReader(),
@@ -71,13 +71,13 @@ namespace ZoDream.PixelStudio.Plugins
             return null;
         }
 
-        public static IImageReader? GetImageReader(string fileName)
+        public static IPluginReader<IImageData>? GetImageReader(string fileName)
         {
             var extension = Path.GetExtension(fileName);
             return GetImageExtensionReader(extension);
         }
 
-        public static IImageReader? GetImageReader(IStorageFile file)
+        public static IPluginReader<IImageData>? GetImageReader(IStorageFile file)
         {
             var reader = GetImageExtensionReader(file.FileType);
             if (reader is not null)

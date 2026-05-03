@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using ZoDream.Shared.Document;
+using ZoDream.Shared.Drawing;
+using ZoDream.Shared.ImageEditor;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.Plugins
@@ -28,7 +30,7 @@ namespace ZoDream.PixelStudio.Plugins
         }
 
         private readonly IEnumerable<IStorageItem> _storageItems = [];
-        private readonly Dictionary<string, IImageReader> _imageItems = [];
+        private readonly Dictionary<string, IPluginReader<IImageData>> _imageItems = [];
         private readonly Dictionary<string, ISpriteSection> _layerItems = [];
         private readonly Dictionary<string, ISkeletonReader> _skeletonItems = [];
 
@@ -106,7 +108,7 @@ namespace ZoDream.PixelStudio.Plugins
                     continue;
                 }
                 var metaItems = await ReaderFactory.LoadImageMetaAsync(item.Key);
-                yield return new ImageSection(item.Key, res, [..metaItems]);
+                yield return new ImageSection(item.Key, ImagePixel.From(res), [..metaItems]);
             }
         }
 
