@@ -5,9 +5,9 @@ namespace ZoDream.Shared.ImageEditor
 {
     public partial class ImageEditor : IImageShellEventBus
     {
-        public void OnPainting(ICanvasShell canvas)
+        public void OnPainting(ICanvasShell canvas, float delta)
         {
-            Paint(canvas);
+            Paint(canvas, delta);
         }
 
         public void OnSizeChanged(Size size)

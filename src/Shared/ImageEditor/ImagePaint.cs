@@ -37,6 +37,19 @@ namespace ZoDream.Shared.ImageEditor
             });
         }
 
+        public static ImagePaint CreateDashedBorder(Color color, float strokeWidth = 1)
+        {
+            return new ImagePaint(new SKPaint()
+            {
+                Color = color.ToColor(),
+                StrokeWidth = strokeWidth,
+                Style = SKPaintStyle.Stroke,
+                // [虚线长度, 间隙长度]
+                PathEffect = SKPathEffect.CreateDash([10, 5], 0),
+                IsAntialias = true
+            });
+        }
+
         public static ImagePaint CreateFill(Color fill, Color border, float strokeWidth = 1)
         {
             return new ImagePaint(new SKPaint()
@@ -78,6 +91,26 @@ namespace ZoDream.Shared.ImageEditor
                 Color = color.ToColor(),
                 BlendMode = mode,
             });
+        }
+        /// <summary>
+        /// 擦除功能
+        /// </summary>
+        /// <param name="strength"></param>
+        /// <returns></returns>
+        public static ImagePaint CreateErase(float strength = 1)
+        {
+            var paint = new SKPaint
+            {
+                Color = SKColors.Transparent,  // 完全透明
+                BlendMode = SKBlendMode.Src,   // 直接替换像素
+                IsAntialias = true
+            };
+            if (strength < 1f)
+            {
+                byte alpha = (byte)(255 * (1 - strength));
+                paint.Color = new SKColor(0, 0, 0, alpha);
+            }
+            return new ImagePaint(paint);
         }
     }
 

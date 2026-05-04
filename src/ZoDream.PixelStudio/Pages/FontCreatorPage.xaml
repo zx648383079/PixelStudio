@@ -20,7 +20,7 @@
         <ResourceDictionary>
             <DataTemplate x:Key="GlyphGroupTemplate" x:DataType="vm:GlyphGroupViewModel">
                 <TreeViewItem AutomationProperties.Name="{Binding Name}" ItemsSource="{Binding Items}">
-                    <TextBlock Text="{Binding Name}" />
+                    <TextBlock Text="{Binding Name}" ToolTipService.ToolTip="{Binding ToolTip}" />
                 </TreeViewItem>
             </DataTemplate>
             <DataTemplate x:Key="GlyphItemTemplate" x:DataType="vm:GlyphViewModel">

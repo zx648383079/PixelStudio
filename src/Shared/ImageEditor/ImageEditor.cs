@@ -79,8 +79,12 @@ namespace ZoDream.Shared.ImageEditor
         {
             _shell.Invalidate();
         }
-
-        public void Paint(ICanvasShell canvas)
+        /// <summary>
+        /// 绘制
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="delta">上次的间隔/s</param>
+        public void Paint(ICanvasShell canvas, float delta)
         {
             canvas.Clear(SKColors.Transparent.ToColor());
             var c = canvas.ToCanvas(Compute());

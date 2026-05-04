@@ -1,6 +1,10 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ZoDream.Shared;
 using ZoDream.Shared.Interfaces;
@@ -15,22 +19,53 @@ namespace ZoDream.PixelStudio.Controls
     {
         public ImageCanvasShell()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Loaded += ImageEditor_Loaded;
+            Unloaded += ImageEditor_Unloaded;
         }
 
         private readonly double _dpiScale = App.ViewModel.GetDpiScaleFactorFromWindow();
         private bool _booted = false;
         private bool _isPointerPressed;
         private bool _isPointerMoved;
+
+
+        private readonly Stopwatch _watch = new();
+        private CancellationTokenSource _token = new();
+        private long _lastTicks;
+        private byte _fps;
+
+        public byte FPS { 
+            get => _fps; 
+            set {
+                _fps = value;
+                if (value > 0)
+                {
+                    _token.Cancel();
+                    _token = new();
+                    _ = AnimationLoop(_token.Token);
+                } else
+                {
+                    _token.Cancel();
+                }
+            }
+        }
+
         public IImageShellEventBus? Bus { set; private get; }
 
         public Size Size => new((int)(ActualWidth * _dpiScale), (int)(ActualHeight * _dpiScale));
+
 
         private void ImageEditor_Loaded(object sender, RoutedEventArgs e)
         {
             _booted = true;
             Bus?.OnSizeChanged(Size);
+        }
+
+        private void ImageEditor_Unloaded(object sender, RoutedEventArgs e)
+        {
+            FPS = 0;
+            _token.Cancel();
         }
 
         public ICommand SelectedCommand {
@@ -39,6 +74,7 @@ namespace ZoDream.PixelStudio.Controls
         }
 
         
+
 
         // Using a DependencyProperty as the backing store for SelectedCommand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedCommandProperty =
@@ -51,7 +87,9 @@ namespace ZoDream.PixelStudio.Controls
             {
                 ImageEditor_Loaded(this, null);
             }
-            Bus?.OnPainting(new ImageCanvasControl(e.Surface.Canvas, e.Info));
+            var currentTicks = _watch.ElapsedTicks;
+            Bus?.OnPainting(new ImageCanvasControl(e.Surface.Canvas, e.Info), (currentTicks - _lastTicks) / (float)Stopwatch.Frequency);
+            _lastTicks = currentTicks;
         }
 
 
@@ -138,8 +176,13 @@ namespace ZoDream.PixelStudio.Controls
         }
 
 
+
         public void Invalidate()
         {
+            if (FPS > 0 || !_token.IsCancellationRequested)
+            {
+                return;
+            }
             PART_Canvas.Invalidate();
         }
 
@@ -159,6 +202,20 @@ namespace ZoDream.PixelStudio.Controls
             //VScrollBar.Maximum = CanvasTarget.ActualHeight;
             //HScrollBar.Visibility = CanvasTarget.ActualWidth > ActualWidth ? Visibility.Visible : Visibility.Collapsed;
             //VScrollBar.Visibility = CanvasTarget.ActualHeight > ActualHeight ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+
+        private async Task AnimationLoop(CancellationToken token)
+        {
+            _watch.Start();
+            _lastTicks = _watch.ElapsedTicks;
+            while (!token.IsCancellationRequested && FPS > 0)
+            {
+                PART_Canvas.Invalidate();
+                await Task.Delay(TimeSpan.FromSeconds(1.0 / FPS), token);
+            }
+
+            _watch.Stop();
         }
 
     }

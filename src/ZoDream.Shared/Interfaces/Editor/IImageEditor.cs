@@ -60,7 +60,7 @@ namespace ZoDream.Shared.Interfaces
         public void Resize();
         public void Resize(Size size);
 
-        public void Paint(ICanvasShell canvas);
+        public void Paint(ICanvasShell canvas, float delta);
 
         public void Invalidate();
 

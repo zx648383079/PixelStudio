@@ -26,6 +26,7 @@ namespace ZoDream.PixelStudio.Dialogs
                     if (args.Length == 1 || args[1] <= args[0])
                     {
                         yield return args[0];
+                        continue;
                     }
                     var count = args[1] - args[0];
                     for (uint i = args[0]; i <= count; i++)
