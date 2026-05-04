@@ -14,7 +14,7 @@ namespace ZoDream.Shared.ImageEditor
             get {
                 var recorder = new SKPictureRecorder();
                 var size = Size;
-                var canvas = recorder.BeginRecording(new SKRect(0, 0, size.Width, size.Height));
+                var canvas = recorder.BeginRecording(SKRect.Create(0, 0, size.Width, size.Height));
                 layer.Paint(new ImageCanvas(canvas));
                 var picture = recorder.EndRecording();
                 recorder.Dispose();

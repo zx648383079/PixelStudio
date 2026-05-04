@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using ZoDream.Shared.ImageEditor.Layers;
-using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.ViewModels
 {

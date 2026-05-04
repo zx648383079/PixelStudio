@@ -6,6 +6,10 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Controllers
 {
+    /// <summary>
+    /// 路径节点编辑工具
+    /// </summary>
+    /// <param name="editor"></param>
     public class PenJointController(IImageEditor editor) : ICommandController, IMouseState
     {
         private IMouseState? _currentState;

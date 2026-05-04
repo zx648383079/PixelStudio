@@ -17,6 +17,8 @@ namespace ZoDream.Shared.Numerics
         public readonly float Right => X + Width;
         public readonly float Bottom => Y + Height;
 
+        public readonly bool IsEmpty => Width == 0 || Height == 0;
+
         public Rect()
         {
             

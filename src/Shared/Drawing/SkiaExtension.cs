@@ -317,7 +317,7 @@ namespace ZoDream.Shared.Drawing
 
         public static SKRect ToRect(this Rect source)
         {
-            return new SKRect(source.X, source.Y, source.Width, source.Height);
+            return SKRect.Create(source.X, source.Y, source.Width, source.Height);
         }
 
         public static Rect ToRect(this SKRect source)
@@ -328,7 +328,7 @@ namespace ZoDream.Shared.Drawing
         public static SKRoundRect ToRect(this RoundRect source)
         {
             var res = new SKRoundRect();
-            res.SetRectRadii(new SKRect(source.X, source.Y, source.Width, source.Height),
+            res.SetRectRadii(SKRect.Create(source.X, source.Y, source.Width, source.Height),
                 [
                     source.LeftTopRadius,
                     source.RightTopRadius,

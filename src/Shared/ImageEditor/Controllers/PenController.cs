@@ -6,6 +6,10 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Controllers
 {
+    /// <summary>
+    /// 钢笔工具，绘制路径
+    /// </summary>
+    /// <param name="editor"></param>
     public class PenController(IImageEditor editor) : ICommandController, IMouseState
     {
         public bool IsEnabled => true;

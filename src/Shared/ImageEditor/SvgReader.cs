@@ -17,7 +17,7 @@ namespace ZoDream.Shared.ImageEditor
         public Task WriteAsync(string fileName, IImageData data)
         {
             using var stream = File.OpenWrite(fileName);
-            using var canvas = SKSvgCanvas.Create(new SKRect(0, 0, 100, 100), stream);
+            using var canvas = SKSvgCanvas.Create(SKRect.Create(0, 0, 100, 100), stream);
             canvas.DrawBitmap(data.ToBitmap(), 0, 0);
             canvas.Flush();
             return Task.CompletedTask;

@@ -18,6 +18,7 @@
     <None Remove="Dialogs\AboutDialog.xaml" />
     <None Remove="Dialogs\ConfirmDialog.xaml" />
     <None Remove="Dialogs\CreateCircleDialog.xaml" />
+    <None Remove="Dialogs\CreateGlyphDialog.xaml" />
     <None Remove="Dialogs\CreatePathDialog.xaml" />
     <None Remove="Dialogs\CreateProjectDialog.xaml" />
     <None Remove="Dialogs\CreateRectDialog.xaml" />
@@ -95,6 +96,11 @@
     <ProjectReference Include="..\Shared\UndoRedo\UndoRedo.csproj" />
     <ProjectReference Include="..\Shared\WebType\WebType.csproj" />
     <ProjectReference Include="..\ZoDream.Shared\ZoDream.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dialogs\CreateGlyphDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\FontCreatorPage.xaml">

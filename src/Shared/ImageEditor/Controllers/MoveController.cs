@@ -4,6 +4,10 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Controllers
 {
+    /// <summary>
+    /// 移动图层工具
+    /// </summary>
+    /// <param name="editor"></param>
     public class MoveController(IImageEditor editor) : ICommandController, IMouseState
     {
         private IMouseState? _currentState;

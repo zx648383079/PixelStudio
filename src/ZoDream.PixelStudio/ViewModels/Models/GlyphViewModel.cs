@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
+using ZoDream.Shared.Font;
 using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.ViewModels
@@ -26,12 +27,30 @@ namespace ZoDream.PixelStudio.ViewModels
 
     public class GlyphGroupViewModel : ObservableObject
     {
+
+        public GlyphGroupViewModel()
+        {
+            
+        }
+
+        public GlyphGroupViewModel(NamedUnicodeRange range)
+        {
+            Name = $"{range.Name}(0x{range.Start:X4}-0x{range.End:X4})";
+            _beginRange = range.Start;
+            _endRange = range.End;
+        }
+
+        private readonly uint _beginRange;
+        private readonly uint _endRange;
+
         private string _name = string.Empty;
 
         public string Name {
             get => _name;
             set => SetProperty(ref _name, value);
         }
+
+
 
         private ObservableCollection<GlyphViewModel> _items = [];
 
@@ -40,5 +59,7 @@ namespace ZoDream.PixelStudio.ViewModels
             set => SetProperty(ref _items, value);
         }
 
+
+        public bool Contains(uint index) => index >= _beginRange && index <= _endRange;
     }
 }

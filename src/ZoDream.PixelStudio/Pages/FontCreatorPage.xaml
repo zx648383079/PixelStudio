@@ -174,6 +174,12 @@
                         <FontIcon Glyph="&#xE8DC;" />
                     </ToggleButton.Content>
                 </ToggleButton>
+                <AppBarSeparator />
+                <Button
+                    Command="{Binding AddGlyphCommand}"
+                    Content="&#xE710;"
+                    Style="{StaticResource LargeIconBtn}"
+                    ToolTipService.ToolTip="添加" />
             </StackPanel>
         </Grid>
 
@@ -194,7 +200,7 @@
                 Grid.Column="1"
                 AllowDrop="True">
                 <ivy:Interaction.Behaviors>
-                    <bhv:DragFileBehavior Command="{Binding DragImageCommand}" />
+                    <bhv:DragFileBehavior Command="{Binding DragFileCommand}" />
                 </ivy:Interaction.Behaviors>
             </ctl:ImageCanvasShell>
 

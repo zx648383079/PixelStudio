@@ -33,7 +33,7 @@ namespace ZoDream.Shared.ImageEditor
                 var scale = Math.Min(size.Width / source.Width, size.Height / source.Height);
                 var w = source.Width * scale;
                 var h = source.Height * scale;
-                (canvas as ISKImageCanvas)?.DrawBitmap(source, new SKRect((size.Width - w) / 2, (size.Height - h) / 2, w, h));
+                (canvas as ISKImageCanvas)?.DrawBitmap(source, SKRect.Create((size.Width - w) / 2, (size.Height - h) / 2, w, h));
             });
         }
 

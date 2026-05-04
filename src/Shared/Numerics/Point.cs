@@ -8,6 +8,8 @@ namespace ZoDream.Shared.Numerics
         public readonly float X;
         public readonly float Y;
 
+        public readonly bool IsEmpty => X == 0 || Y == 0;
+
         public Point()
         {
 

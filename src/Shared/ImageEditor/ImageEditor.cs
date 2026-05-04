@@ -13,17 +13,21 @@ namespace ZoDream.Shared.ImageEditor
 
         public ImageEditor(IImageShell shell, 
             IImageController controller,
-            ILayerController layer)
+            ILayerController layer,
+            IImageService service)
         {
             shell.Bus = this;
             _shell = shell;
             Controller = controller;
             Layer = layer;
+            Service = service;
         }
 
         private readonly IImageShell _shell;
-        public IList<ICommandLayer> BackBar { get; } = [];
-        public IList<ICommandLayer> FrontBar { get; } = [];
+
+        public IImageService Service { get; private set; }
+        public IList<ICommandLayer> BackBar { get; private set; } = [];
+        public IList<ICommandLayer> FrontBar { get; private set; } = [];
         public ILayerController Layer { get; private set; }
         public IImageController Controller { get; private set; }
         public ICommandController? Commander { get; private set; }

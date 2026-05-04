@@ -1,8 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
-using Windows.Storage;
 using ZoDream.Shared.ImageEditor;
 using ZoDream.Shared.Interfaces;
 
@@ -50,7 +47,11 @@ namespace ZoDream.PixelStudio.ViewModels
 
         public void Initialize(IImageShell shell)
         {
-            Instance = new ImageEditor(shell, this, this);
+            var service = new ImageService();
+            service.Add<IImageController>(this);
+            service.Add<ILayerController>(this);
+            Instance = new ImageEditor(shell, this, this, service);
+            service.Add(Instance);
             Instance.Initialize();
         }
         private void UndoRedo_ReverseUndoStateChanged(bool value)

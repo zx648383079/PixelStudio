@@ -44,14 +44,14 @@ namespace ZoDream.Shared.ImageEditor.Layers
         private void RenderSurface()
         {
             var size = _editor.Size;
-            if (size.Width == 0 || size.Height == 0)
+            if (size.IsEmpty)
             {
                 return;
             }
             _surface = new(size);
             _surface.Clear(Color.White);
-            var columnCount = size.Width / _gridSize + 1;
-            var rowCount = size.Height / _gridSize + 1;
+            var columnCount = (int)(size.Width / _gridSize) + 1;
+            var rowCount = (int)(size.Height / _gridSize) + 1;
             for (var i = 0; i < columnCount; i++)
             {
                 for (var j = 0; j < rowCount; j++)

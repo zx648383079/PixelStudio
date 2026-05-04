@@ -8,6 +8,8 @@ namespace ZoDream.Shared.Numerics
         public readonly float Width;
         public readonly float Height;
 
+        public readonly bool IsEmpty => Width == 0 || Height == 0;
+
         public Size()
         {
 
@@ -18,6 +20,7 @@ namespace ZoDream.Shared.Numerics
             Width = width;
             Height = height;
         }
+
         public override readonly bool Equals(object? obj)
         {
             return obj is Size rect && Equals(rect);
