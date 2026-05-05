@@ -160,7 +160,13 @@ namespace ZoDream.PixelStudio.ViewModels
         }
         private IImageLayer? AddImage(IImagePixel data)
         {
-            return null;
+            return data switch
+            {
+                AsyncImageBuffer buffer => Add(new SKImageSource(buffer.Source, Instance)),
+                BitmapBuffer bitmap => Add(new BitmapImageSource(bitmap.Source, Instance)),
+                SurfaceBuffer surface => Add(new SurfaceImageSource(surface.Source, Instance)),
+                _ => null,
+            };
         }
         private IImageLayer? AddImage(IImageData data)
         {

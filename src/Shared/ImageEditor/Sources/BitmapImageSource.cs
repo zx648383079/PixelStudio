@@ -18,20 +18,8 @@ namespace ZoDream.Shared.ImageEditor.Sources
             Color = SKColors.White,
             IsAntialias = true
         };
-        private float _opacity = 1;
+        public SKBitmap Source => bitmap;
 
-        public SKBitmap Source { get; private set; } = bitmap;
-
-        
-
-        public float Opacity {
-            get => _opacity;
-            set {
-                _opacity = value;
-                _paint.Color = SKColors.White.WithAlpha((byte)(255 * value));
-            }
-        }
-        public bool IsVisible { get; set; } = true;
 
         public override Rect Bound => new(0, 0, Source.Width, Source.Height);
 
@@ -80,14 +68,15 @@ namespace ZoDream.Shared.ImageEditor.Sources
             {
                 return;
             }
-            (canvas as ISKImageCanvas)?.DrawBitmap(Source,
+            _paint.Color = SKColors.White.WithAlpha((byte)(255 * Opacity));
+            (canvas as ISKImageCanvas)?.Draw(Source,
                 Bound.ToRect(),
                 _paint);
         }
 
         public override void Paint(IImageStyleCanvas canvas, IImageStyle computedStyle)
         {
-            (canvas as ISKImageCanvas)?.DrawBitmap(Source, computedStyle);
+            (canvas as ISKImageCanvas)?.Draw(Source, computedStyle);
         }
 
 
@@ -98,7 +87,8 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
         public IEnumerable<PathBuilder> GetPath()
         {
-            return PotraceSkiaSharp.Trace(new PotraceParam(), bitmap).Select(i => PathBuilder.FromPath(i));
+            return PotraceSkiaSharp.Trace(new PotraceParam(), bitmap)
+                .Select(i => PathBuilder.FromPath(i));
         }
 
         public override void Dispose()

@@ -10,33 +10,30 @@ namespace ZoDream.Shared.ImageEditor
     {
         private SKImage? _image;
 
-        protected SKImage Image {
+        public SKImage Source {
             get {
                 _image ??= data.ToImage();
                 return _image;
             }
         }
-        public Size Size => new(Image.Width, Image.Height);
+        public Size Size => new(Source.Width, Source.Height);
 
         public object Picture {
             get {
                 var recorder = new SKPictureRecorder();
-                var canvas = recorder.BeginRecording(SKRect.Create(0, 0, Image.Width, Image.Height));
-                canvas.DrawImage(Image, 0, 0);
+                var canvas = recorder.BeginRecording(SKRect.Create(0, 0, Source.Width, Source.Height));
+                canvas.DrawImage(Source, 0, 0);
                 var picture = recorder.EndRecording();
                 recorder.Dispose();
                 return picture;
             }
         }
 
-        public void Dispose()
-        {
-            _image?.Dispose();
-        }
+   
 
         public void SaveAs(Stream output)
         {
-            Image.Encode(output, SKEncodedImageFormat.Png, 100);
+            Source.Encode(output, SKEncodedImageFormat.Png, 100);
         }
 
         public void SaveAs(string fileName)
@@ -47,12 +44,12 @@ namespace ZoDream.Shared.ImageEditor
 
         public void Paint(SKCanvas canvas, SKPoint point, SKPaint? paint = null)
         {
-            canvas.DrawImage(Image, point, paint);
+            canvas.DrawImage(Source, point, paint);
         }
 
         public void Paint(SKCanvas canvas, SKRect rect, SKPaint? paint = null)
         {
-            canvas.DrawImage(Image, rect, paint);
+            canvas.DrawImage(Source, rect, paint);
         }
 
         public void Paint(SKCanvas canvas, SKPoint[] sourceVertices, SKPoint[] vertices)
@@ -60,11 +57,16 @@ namespace ZoDream.Shared.ImageEditor
             using var paint = new SKPaint()
             {
                 IsAntialias = true,
-                Shader = SKShader.CreateImage(Image, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp)
+                Shader = SKShader.CreateImage(Source, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp)
             };
             canvas.DrawVertices(SKVertexMode.TriangleFan,
                 vertices,
                 sourceVertices, null, paint);
+        }
+
+        public void Dispose()
+        {
+            _image?.Dispose();
         }
     }
 }

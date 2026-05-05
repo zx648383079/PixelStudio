@@ -197,7 +197,7 @@
                 AllowDrop="True"
                 SelectedCommand="{Binding EditorSelectedCommand}">
                 <ivy:Interaction.Behaviors>
-                    <bhv:DragFileBehavior Command="{Binding DragImageCommand}" />
+                    <bhv:DragFileBehavior Command="{Binding DragFileCommand}" />
                 </ivy:Interaction.Behaviors>
             </ctl:ImageCanvasShell>
 

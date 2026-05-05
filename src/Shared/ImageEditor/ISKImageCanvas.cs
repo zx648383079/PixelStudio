@@ -5,14 +5,23 @@ namespace ZoDream.Shared.ImageEditor
 {
     public interface ISKImageCanvas
     {
-        public void DrawBitmap(SKBitmap source);
-        public void DrawBitmap(SKBitmap source, SKPoint point);
+        public void Draw(SKBitmap source, SKPoint point);
+        public void Draw(SKBitmap source, SKRect rect, SKPaint paint);
 
-        public void DrawBitmap(SKBitmap source, SKRect rect);
+        public void Draw(SKBitmap source, IImageStyle style);
 
-        public void DrawBitmap(SKBitmap source, SKRect rect, SKPaint paint);
+        public void Draw(SKImage source, SKPoint point);
+        public void Draw(SKImage source, SKRect rect, SKPaint paint);
+        public void Draw(SKImage source, IImageStyle style);
 
-        public void DrawBitmap(SKBitmap source, IImageStyle style);
+        public void Draw(SKSurface source, SKPoint point, SKPaint paint);
+        public void Draw(SKSurface source, SKRect rect, SKPaint paint);
+
+        public void Draw(SKSurface source, IImageStyle style);
+
+        public void Draw(SKPicture source, SKPoint point);
+        public void Draw(SKPicture source, SKRect rect, SKPaint paint);
+        public void Draw(SKPicture source, IImageStyle style);
 
         public void DrawCircle(SKPoint center, float radius, SKPaint paint);
 
@@ -26,22 +35,11 @@ namespace ZoDream.Shared.ImageEditor
 
         public void DrawRect(SKRoundRect rect, SKPaint paint);
 
-        public void DrawSurface(SKSurface surface);
 
-        public void DrawSurface(SKSurface surface, SKPoint point);
-
-        public void DrawSurface(SKSurface surface, SKRect rect);
-
-        public void DrawPicture(SKPicture picture, SKPoint point);
-
-        public void DrawPicture(SKPicture picture, SKRect rect);
-
-        public void DrawPicture(SKPicture picture, SKRect rect, SKPaint paint);
-        public void DrawPicture(SKPicture picture, IImageStyle style);
 
         public void DrawText(string text, SKPoint point, SKTextAlign textAlign, SKFont font, SKPaint paint);
 
-        public void DrawTexture(SKBitmap source, SKPoint[] sourceVertices, SKPoint[] vertices);
+        public void Draw(SKBitmap source, SKPoint[] sourceVertices, SKPoint[] vertices);
 
 
     }

@@ -23,6 +23,8 @@ namespace ZoDream.Shared.ImageEditor.Sources
         public float ShearX { get; set; }
         public float ShearY { get; set; }
 
+        public float Opacity { get; set; }
+
         public virtual Rect Bound => new(X, Y, Width, Height);
 
         
@@ -31,10 +33,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
         {
             return null;
         }
-        public virtual void Dispose()
-        {
-            Thumbnail.Dispose();
-        }
+
 
         public virtual bool Contains(float x, float y)
         {
@@ -61,5 +60,10 @@ namespace ZoDream.Shared.ImageEditor.Sources
         }
 
         public abstract void Paint(IImageStyleCanvas canvas, IImageStyle computedStyle);
+
+        public virtual void Dispose()
+        {
+            Thumbnail.Dispose();
+        }
     }
 }

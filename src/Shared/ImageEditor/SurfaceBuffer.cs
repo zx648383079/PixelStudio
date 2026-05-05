@@ -10,6 +10,8 @@ namespace ZoDream.Shared.ImageEditor
     {
         public Size Size => surface.Canvas.LocalClipBounds.Size.ToSize();
 
+        public SKSurface Source => surface;
+
         public object Picture {
             get {
                 using var image = surface.Snapshot();

@@ -30,21 +30,37 @@ namespace ZoDream.Shared.ImageEditor
         public SKBitmap Snapshot(Size size, SKBitmap source)
         {
             return Mutate(size, canvas => {
-                var scale = Math.Min(size.Width / source.Width, size.Height / source.Height);
-                var w = source.Width * scale;
-                var h = source.Height * scale;
-                (canvas as ISKImageCanvas)?.DrawBitmap(source, SKRect.Create((size.Width - w) / 2, (size.Height - h) / 2, w, h));
+                (canvas as ISKImageCanvas)?.Draw(source, Compute(source.Width, source.Height, size), null);
             });
         }
 
         public SKBitmap Snapshot(Size size, SKPicture source)
         {
             return Mutate(size, canvas => {
-                var scale = Math.Min(size.Width / source.CullRect.Width, size.Height / source.CullRect.Height);
-                var w = source.CullRect.Width * scale;
-                var h = source.CullRect.Height * scale;
-                (canvas as ISKImageCanvas)?.DrawPicture(source, SKRect.Create((size.Width - w) / 2, (size.Height - h) / 2, w, h));
+                (canvas as ISKImageCanvas)?.Draw(source, Compute(source.CullRect.Width, source.CullRect.Height, size), null);
             });
+        }
+
+        public SKBitmap Snapshot(Size size, SKImage source)
+        {
+            return Mutate(size, canvas => {
+                (canvas as ISKImageCanvas)?.Draw(source, Compute(source.Width, source.Height, size), null);
+            });
+        }
+
+        public SKBitmap Snapshot(Size size, SKSurface source)
+        {
+            return Mutate(size, canvas => {
+                (canvas as ISKImageCanvas)?.Draw(source, Compute(source.Canvas.DeviceClipBounds.Width, source.Canvas.DeviceClipBounds.Height, size), null);
+            });
+        }
+
+        private static SKRect Compute(float width, float height, Size toSize)
+        {
+            var scale = Math.Min(toSize.Width / width, toSize.Height / height);
+            var w = width * scale;
+            var h = height * scale;
+            return SKRect.Create((toSize.Width - w) / 2, (toSize.Height - h) / 2, w, h);
         }
 
         public void Dispose()

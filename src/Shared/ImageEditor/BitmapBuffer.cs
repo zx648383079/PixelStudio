@@ -3,7 +3,6 @@ using System.IO;
 using System.Numerics;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ZoDream.Shared.ImageEditor
 {
@@ -18,6 +17,8 @@ namespace ZoDream.Shared.ImageEditor
                 return _canvas;
             }
         }
+
+        public SKBitmap Source => bitmap;
         public Size Size => new(bitmap.Width, bitmap.Height);
 
         public object Picture {

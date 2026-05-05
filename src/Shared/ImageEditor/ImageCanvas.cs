@@ -1,6 +1,5 @@
 ﻿using SkiaSharp;
 using System;
-using System.IO;
 using System.Linq;
 using System.Numerics;
 using ZoDream.Shared.Drawing;
@@ -26,108 +25,7 @@ namespace ZoDream.Shared.ImageEditor
         {
             canvas.Clear(color.ToColor());
         }
-        public void DrawBitmap(SKBitmap source)
-        {
-            canvas.DrawBitmap(source, SKPoint.Empty);
-        }
 
-        public void DrawBitmap(SKBitmap source, SKPoint point)
-        {
-            DrawBitmap(source, SKRect.Create(point, new SKSize(source.Width, source.Height)));
-        }
-
-        public void DrawBitmap(SKBitmap source, SKRect rect)
-        {
-            canvas.DrawBitmap(source, rect);
-        }
-
-        public void DrawBitmap(SKBitmap source, SKRect rect, SKPaint paint)
-        {
-            canvas.DrawBitmap(source, rect, paint);
-        }
-
-        public void DrawCircle(SKPoint center, float radius, SKPaint paint)
-        {
-            canvas.DrawCircle(center, radius, paint);
-        }
-
-        public void DrawOval(SKPoint center, SKSize radius, SKPaint paint)
-        {
-            canvas.DrawOval(center, radius, paint);
-        }
-
-        public void DrawPath(SKPath path, SKPaint paint)
-        {
-            canvas.DrawPath(path, paint);
-        }
-
-        public void DrawLine(SKPoint from, SKPoint to, SKPaint paint)
-        {
-            canvas.DrawLine(from, to, paint);
-        }
-
-        public void DrawRect(SKRect rect, SKPaint paint)
-        {
-            canvas.DrawRect(rect, paint);
-        }
-
-        public void DrawRect(SKRoundRect rect, SKPaint paint)
-        {
-            canvas.DrawRoundRect(rect, paint);
-        }
-
-        public void DrawSurface(SKSurface surface)
-        {
-            DrawSurface(surface, SKPoint.Empty);
-        }
-
-        public void DrawSurface(SKSurface surface, SKPoint point)
-        {
-            canvas.DrawSurface(surface, point);
-        }
-
-        public void DrawSurface(SKSurface surface, SKRect rect)
-        {
-            canvas.DrawSurface(surface, rect.Left, rect.Top);
-        }
-
-        public void DrawPicture(SKPicture picture, SKPoint point)
-        {
-            canvas.DrawPicture(picture, point);
-        }
-        public void DrawPicture(SKPicture picture, SKRect rect)
-        {
-            DrawPicture(picture, rect, null);
-        }
-        public void DrawPicture(SKPicture picture, SKRect rect, SKPaint paint) 
-        {
-            var matrix = SKMatrix.CreateScaleTranslation(rect.Width / picture.CullRect.Width,
-                rect.Height / picture.CullRect.Height,
-                rect.Left,
-                rect.Top);
-            canvas.DrawPicture(picture, matrix, paint);
-        }
-
-        public void DrawText(string text, SKPoint point, SKTextAlign textAlign, SKFont font, SKPaint paint)
-        {
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                return;
-            }
-            canvas.DrawText(text, point, textAlign, font, paint);
-        }
-
-        public void DrawTexture(SKBitmap source, SKPoint[] sourceVertices, SKPoint[] vertices)
-        {
-            using var paint = new SKPaint()
-            {
-                IsAntialias = true,
-                Shader = SKShader.CreateBitmap(source, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp)
-            };
-            canvas.DrawVertices(SKVertexMode.TriangleFan,
-                vertices,
-                sourceVertices, null, paint);
-        }
 
 
         public virtual void Mutate(IImageStyle style, Action<IImageStyleCanvas> cb)
@@ -237,19 +135,201 @@ namespace ZoDream.Shared.ImageEditor
 
         public virtual void Draw(IImagePixel source, IImageStyle style)
         {
+            if (style is IImageComputedVertexStyle u)
+            {
+                Draw(source, u.SourceItems, u.PointItems);
+                return;
+            }
+            if (style is IImageVertexStyle v)
+            {
+                if (source is ISKImagePixel p)
+                {
+                    p.Paint(canvas, EditorExtension.ComputeVertex(v.VertexItems, style),
+                        EditorExtension.ConvertTo(v.PointItems));
+                }
+                return;
+            }
+            Draw(source, new Point(style.X, style.Y));
         }
 
         public virtual void Draw(string text, IImageStyle style, IImagePaint paint)
         {
+            Draw(text, new Point(style.X, style.Y), paint);
         }
 
-        public void DrawBitmap(SKBitmap source, IImageStyle style)
+        #region sk
+
+        public void Draw(SKBitmap source, SKPoint point)
         {
+            canvas.DrawBitmap(source, point);
+        }
+        public void Draw(SKBitmap source, SKRect rect, SKPaint paint)
+        {
+            canvas.DrawBitmap(source, rect, paint);
         }
 
-        public void DrawPicture(SKPicture picture, IImageStyle style)
+        public void Draw(SKBitmap source, IImageStyle style)
         {
+            if (source is null)
+            {
+                return;
+            }
+            if (style is IImageComputedVertexStyle u)
+            {
+                Draw(SKShader.CreateBitmap(source, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp),
+                    EditorExtension.ConvertTo(u.SourceItems), EditorExtension.ConvertTo(u.PointItems));
+                return;
+            }
+            if (style is IImageVertexStyle v)
+            {
+                Draw(SKShader.CreateBitmap(source, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp),
+                    EditorExtension.ComputeVertex(v.VertexItems, style), EditorExtension.ConvertTo(v.PointItems));
+                return;
+            }
+            Draw(source, new SKPoint(style.X, style.Y));
         }
+
+        public void Draw(SKImage source, SKPoint point)
+        {
+            canvas.DrawImage(source, point);
+        }
+        public void Draw(SKImage source, SKRect rect, SKPaint paint)
+        {
+            canvas.DrawImage(source, rect, paint);
+        }
+        public void Draw(SKImage source, IImageStyle style)
+        {
+            if (source is null)
+            {
+                return;
+            }
+            if (style is IImageComputedVertexStyle u)
+            {
+                Draw(SKShader.CreateImage(source, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp),
+                    EditorExtension.ConvertTo(u.SourceItems), EditorExtension.ConvertTo(u.PointItems));
+                return;
+            }
+            if (style is IImageVertexStyle v)
+            {
+                Draw(SKShader.CreateImage(source, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp),
+                    EditorExtension.ComputeVertex(v.VertexItems, style), EditorExtension.ConvertTo(v.PointItems));
+                return;
+            }
+            Draw(source, new SKPoint(style.X, style.Y));
+        }
+
+        public void Draw(SKSurface source, SKPoint point, SKPaint paint)
+        {
+            canvas.DrawSurface(source, point, paint);
+        }
+
+        public void Draw(SKSurface source, SKRect rect, SKPaint paint)
+        {
+            using var p = source.Snapshot();
+            Draw(p, rect, paint);
+        }
+
+        public void Draw(SKSurface source, IImageStyle style)
+        {
+            if (source is null)
+            {
+                return;
+            }
+            Draw(source, new SKPoint(style.X, style.Y), null);
+        }
+
+        public void Draw(SKPicture source, SKPoint point)
+        {
+            canvas.DrawPicture(source, point);
+        }
+        public void Draw(SKPicture source, SKRect rect, SKPaint paint)
+        {
+            var matrix = SKMatrix.CreateScaleTranslation(rect.Width / source.CullRect.Width,
+                rect.Height / source.CullRect.Height,
+                rect.Left,
+                rect.Top);
+            canvas.DrawPicture(source, matrix, paint);
+        }
+        public void Draw(SKPicture source, IImageStyle style)
+        {
+            if (source is null)
+            {
+                return;
+            }
+            if (style is IImageComputedVertexStyle u)
+            {
+                Draw(SKShader.CreatePicture(source, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp),
+                    EditorExtension.ConvertTo(u.SourceItems), EditorExtension.ConvertTo(u.PointItems));
+                return;
+            }
+            if (style is IImageVertexStyle v)
+            {
+                Draw(SKShader.CreatePicture(source, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp),
+                    EditorExtension.ComputeVertex(v.VertexItems, style), EditorExtension.ConvertTo(v.PointItems));
+                return;
+            }
+            Draw(source, new SKPoint(style.X, style.Y));
+        }
+
+        public void DrawCircle(SKPoint center, float radius, SKPaint paint)
+        {
+            canvas.DrawCircle(center, radius, paint);
+        }
+
+        public void DrawOval(SKPoint center, SKSize radius, SKPaint paint)
+        {
+            canvas.DrawOval(center, radius, paint);
+        }
+
+        public void DrawPath(SKPath path, SKPaint paint)
+        {
+            canvas.DrawPath(path, paint);
+        }
+
+        public void DrawLine(SKPoint from, SKPoint to, SKPaint paint)
+        {
+            canvas.DrawLine(from, to, paint);
+        }
+
+        public void DrawRect(SKRect rect, SKPaint paint)
+        {
+            canvas.DrawRect(rect, paint);
+        }
+
+        public void DrawRect(SKRoundRect rect, SKPaint paint)
+        {
+            canvas.DrawRoundRect(rect, paint);
+        }
+
+        public void DrawText(string text, SKPoint point, SKTextAlign textAlign, SKFont font, SKPaint paint)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return;
+            }
+            canvas.DrawText(text, point, textAlign, font, paint);
+        }
+
+        public void Draw(SKBitmap source, SKPoint[] sourceVertices, SKPoint[] vertices)
+        {
+            Draw(SKShader.CreateBitmap(source, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp),
+                sourceVertices, vertices);
+        }
+
+        public void Draw(SKShader source, SKPoint[] sourceVertices, SKPoint[] vertices)
+        {
+            using var paint = new SKPaint()
+            {
+                IsAntialias = true,
+                Shader = source
+            };
+            canvas.DrawVertices(SKVertexMode.TriangleFan,
+                vertices,
+                sourceVertices, null, paint);
+        }
+
+
+        #endregion
 
         public void Dispose()
         {
