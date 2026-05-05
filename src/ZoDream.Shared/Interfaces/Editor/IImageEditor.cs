@@ -16,6 +16,8 @@ namespace ZoDream.Shared.Interfaces
         /// </summary>
         public IList<ICommandLayer> FrontBar { get; }
 
+        public IImageService Service { get; }
+
         public ILayerController Layer { get; }
         public IImageController Controller { get; }
 
