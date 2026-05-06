@@ -21,6 +21,18 @@ namespace ZoDream.PixelStudio.ViewModels
             set => SetProperty(ref _name, value);
         }
 
+        private bool _isAutoSize;
+
+        public bool IsAutoSize {
+            get => _isAutoSize;
+            set {
+                SetProperty(ref _isAutoSize, value);
+                OnPropertyChanged(nameof(IsSizeEnabled));
+            }
+        }
+
+        public bool IsSizeEnabled => !IsAutoSize;
+
         private bool _isLockSize;
 
         public bool IsLockSize {

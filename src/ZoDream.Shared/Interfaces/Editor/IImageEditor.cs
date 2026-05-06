@@ -59,7 +59,14 @@ namespace ZoDream.Shared.Interfaces
         public IImageBuffer Decode(IImageLayer layer);
 
         public void Unselect();
+        /// <summary>
+        /// 根据图层生成最大全区域
+        /// </summary>
         public void Resize();
+        /// <summary>
+        /// 设置尺寸
+        /// </summary>
+        /// <param name="size"></param>
         public void Resize(Size size);
 
         public void Paint(ICanvasShell canvas, float delta);

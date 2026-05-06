@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Input;
 using System;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -69,6 +70,12 @@ namespace ZoDream.PixelStudio.Controls
         private void UpdatedIcon()
         {
             Icon = IsOn ? OnIcon : OffIcon;
+        }
+
+        protected override void OnTapped(TappedRoutedEventArgs e)
+        {
+            base.OnTapped(e);
+            IsOn = !IsOn;
         }
     }
 }

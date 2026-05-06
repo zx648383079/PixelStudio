@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.ImageEditor.Layers;
 using ZoDream.Shared.Interfaces;
@@ -47,7 +46,19 @@ namespace ZoDream.Shared.ImageEditor
 
         public void Resize()
         {
-
+            var outerWidth = 0f;
+            var outerHeight = 0f;
+            foreach (var item in Layer.Items)
+            {
+                var bound = item.Source.Bound;
+                outerWidth = Math.Max(outerWidth, bound.Right);
+                outerHeight = Math.Max(outerHeight, bound.Bottom);
+            }
+            if (outerHeight == 0 || outerWidth == 0)
+            {
+                return;
+            }
+            Resize(new(outerWidth, outerHeight));
         }
         public void Resize(Size size)
         {

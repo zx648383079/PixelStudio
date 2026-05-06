@@ -38,7 +38,7 @@
         <TextBlock Style="{StaticResource InlineHeader}" Text="名称：" />
         <TextBlock
             Grid.Row="1"
-            Style="{StaticResource InlineHeader}"
+            Style="{StaticResource TopHeaderTb}"
             Text="尺寸：" />
 
         <TextBlock
@@ -49,42 +49,53 @@
             Grid.Row="3"
             Style="{StaticResource InlineHeader}"
             Text="背景色：" />
-        <TextBlock
-            Grid.Row="4"
-            Style="{StaticResource InlineHeader}"
-            Text="透明背景：" />
 
         <TextBox Grid.Column="1" Text="{Binding Name, Mode=TwoWay}" />
         <StackPanel
             Grid.Row="1"
             Grid.Column="1"
-            Orientation="Horizontal">
-            <NumberBox Header="Width" Value="{Binding Width, Mode=TwoWay}" />
-            <ctl:ToggleIcon
-                IsOn="{Binding IsLockSize, Mode=TwoWay}"
-                OffIcon="&#xE785;"
-                OnIcon="&#xE72E;"
-                Style="{StaticResource LockBtn}" />
-            <NumberBox Header="Height" Value="{Binding Height, Mode=TwoWay}" />
-            <Button
-                Command="{Binding SizeRestoreCommand}"
-                Style="{StaticResource RestoreBtn}"
-                Visibility="{Binding SizeRestoreEnabled, Converter={StaticResource ToggleCvt}}" />
+            Orientation="Vertical">
+            <ToggleSwitch
+                IsOn="{Binding IsAutoSize, Mode=TwoWay}"
+                OffContent="固定"
+                OnContent="自适应" />
+            <StackPanel Orientation="Horizontal">
+                <NumberBox
+                    Header="Width"
+                    IsEnabled="{Binding IsSizeEnabled}"
+                    Value="{Binding Width, Mode=TwoWay}" />
+                <ctl:ToggleIcon
+                    IsOn="{Binding IsLockSize, Mode=TwoWay}"
+                    OffIcon="&#xE785;"
+                    OnIcon="&#xE72E;"
+                    Style="{StaticResource LockBtn}" />
+                <NumberBox
+                    Header="Height"
+                    IsEnabled="{Binding IsSizeEnabled}"
+                    Value="{Binding Height, Mode=TwoWay}" />
+                <Button
+                    Command="{Binding SizeRestoreCommand}"
+                    Style="{StaticResource RestoreBtn}"
+                    Visibility="{Binding SizeRestoreEnabled, Converter={StaticResource ToggleCvt}}" />
+            </StackPanel>
         </StackPanel>
 
         <wctl:ColorPickerButton
             Grid.Row="2"
             Grid.Column="1"
             SelectedColor="{Binding Foreground, Mode=TwoWay}" />
-        <wctl:ColorPickerButton
+
+        <StackPanel
             Grid.Row="3"
             Grid.Column="1"
-            SelectedColor="{Binding Background, Mode=TwoWay}" />
-        <ToggleSwitch
-            Grid.Row="4"
-            Grid.Column="1"
-            IsOn="{Binding IsTransparentBackground, Mode=TwoWay}"
-            OffContent="背景色"
-            OnContent="透明背景" />
+            Orientation="Horizontal">
+            <ToggleSwitch
+                IsOn="{Binding IsTransparentBackground, Mode=TwoWay}"
+                OffContent="单色"
+                OnContent="透明背景" />
+            <wctl:ColorPickerButton SelectedColor="{Binding Background, Mode=TwoWay}" Visibility="{Binding IsTransparentBackground, Converter={StaticResource ToggleCvt}, ConverterParameter=False}" />
+        </StackPanel>
+
+
     </Grid>
 </ContentDialog>
