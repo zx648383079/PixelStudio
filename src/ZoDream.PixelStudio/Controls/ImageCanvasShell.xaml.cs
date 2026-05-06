@@ -179,7 +179,7 @@ namespace ZoDream.PixelStudio.Controls
 
         public void Invalidate()
         {
-            if (FPS > 0 || !_token.IsCancellationRequested)
+            if (FPS > 0 || _token.IsCancellationRequested)
             {
                 return;
             }

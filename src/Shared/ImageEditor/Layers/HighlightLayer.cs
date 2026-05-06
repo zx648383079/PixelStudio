@@ -78,6 +78,10 @@ namespace ZoDream.Shared.ImageEditor.Layers
 
         public void Paint(IImageCanvas canvas)
         {
+            if (_target is null)
+            {
+                return;
+            }
             if (_surface == null)
             {
                 RenderSurface();

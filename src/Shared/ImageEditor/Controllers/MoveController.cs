@@ -1,4 +1,5 @@
-﻿using ZoDream.Shared.ImageEditor.Layers;
+﻿using System;
+using ZoDream.Shared.ImageEditor.Layers;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
@@ -16,6 +17,24 @@ namespace ZoDream.Shared.ImageEditor.Controllers
 
         public void Initialize(IImageLayer? layer)
         {
+            if (layer is null)
+            {
+                return;
+            }
+            if (_currentState is not ResizeLayer)
+            {
+                if (_currentState is IDisposable d)
+                {
+                    d.Dispose();
+                }
+                _currentState = null;
+            }
+            _currentState ??= new ResizeLayer(editor);
+            if (_currentState is ICommandLayer l)
+            {
+                l.With(layer);
+            }
+            editor.Invalidate();
         }
 
         public void Touch(Point point)

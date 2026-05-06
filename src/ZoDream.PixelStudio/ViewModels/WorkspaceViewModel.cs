@@ -53,6 +53,7 @@ namespace ZoDream.PixelStudio.ViewModels
             Instance = new ImageEditor(shell, this, this, service);
             service.Add(Instance);
             Instance.Initialize();
+            ModeCommand.Execute(SelectedMode);
         }
         private void UndoRedo_ReverseUndoStateChanged(bool value)
         {

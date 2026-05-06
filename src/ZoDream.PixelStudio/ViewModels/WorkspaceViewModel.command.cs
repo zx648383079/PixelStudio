@@ -6,7 +6,6 @@ using ZoDream.PixelStudio.Dialogs;
 using ZoDream.PixelStudio.Plugins;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.ImageEditor.Sources;
-using SkiaSharp;
 
 namespace ZoDream.PixelStudio.ViewModels
 {

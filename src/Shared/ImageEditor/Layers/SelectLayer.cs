@@ -75,6 +75,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
 
         public void With(IImageLayer layer)
         {
+
         }
 
         public void Dispose()

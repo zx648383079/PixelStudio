@@ -35,6 +35,7 @@ namespace ZoDream.PixelStudio.ViewModels
             service.Add(Instance);
             Instance.Initialize();
             Instance.BackBar.Add(new GlyphLayoutLayer(Instance));
+            ModeCommand.Execute(SelectedMode);
         }
 
 

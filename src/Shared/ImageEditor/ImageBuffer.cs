@@ -13,13 +13,32 @@ namespace ZoDream.Shared.ImageEditor
 
         public ImageBuffer(Size size)
         {
-            var info = new SKImageInfo((int)size.Width, (int)size.Height);
+            _size = new SKSizeI((int)size.Width, (int)size.Height);
+            var info = new SKImageInfo(_size.Width, _size.Height);
             _surface = SKSurface.Create(info);
             _canvas = new ImageCanvas(_surface.Canvas);
         }
 
-        private readonly SKSurface _surface;
-        private readonly IImageCanvas _canvas;
+        private SKSizeI _size;
+        private SKSurface _surface;
+        private ImageCanvas _canvas;
+
+
+        public void Resize(Size size)
+        {
+            var width = (int)size.Width;
+            var height = (int)size.Height;
+            if (_size.Width == width && _size.Height == height)
+            {
+                return;
+            }
+            var info = new SKImageInfo(width, height);
+            _surface.Dispose();
+            _canvas.Dispose();
+            _surface = SKSurface.Create(info);
+            _canvas = new ImageCanvas(_surface.Canvas);
+            _size = new SKSizeI(width, height);
+        }
 
         public void Clear()
         {

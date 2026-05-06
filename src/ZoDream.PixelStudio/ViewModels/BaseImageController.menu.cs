@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using Windows.Storage;
 using ZoDream.PixelStudio.Dialogs;
+using ZoDream.Shared.ImageEditor.Controllers;
 using ZoDream.Shared.Numerics;
 
 namespace ZoDream.PixelStudio.ViewModels
@@ -17,6 +18,7 @@ namespace ZoDream.PixelStudio.ViewModels
         public ICommand ExportCommand { get; private set; }
         public ICommand UndoCommand { get; private set; }
         public ICommand RedoCommand { get; private set; }
+        public ICommand ModeCommand { get; private set; }
 
         public ICommand CutCommand { get; private set; }
         public ICommand CopyCommand { get; private set; }
@@ -76,6 +78,26 @@ namespace ZoDream.PixelStudio.ViewModels
         {
             var dialog = new AboutDialog();
             await App.ViewModel.OpenDialogAsync(dialog);
+        }
+
+        private void TapMode(string? mode)
+        {
+            SelectedMode = mode ?? string.Empty;
+            switch (mode)
+            {
+                case "Move":
+                    Instance.SwitchMode<MoveController>();
+                    break;
+                case "Pen":
+                    Instance.SwitchMode<PenController>();
+                    break;
+                case "PenJoint":
+                    Instance.SwitchMode<PenJointController>();
+                    break;
+                default:
+                    Instance.SwitchMode<ViewController>();
+                    break;
+            }
         }
 
         protected virtual void TapNew()

@@ -24,6 +24,9 @@ namespace ZoDream.PixelStudio.ViewModels
             ExportCommand = new RelayCommand(TapExport);
             UndoCommand = new RelayCommand(TapUndo);
             RedoCommand = new RelayCommand(TapRedo);
+
+            ModeCommand = new RelayCommand<string>(TapMode);
+
             CutCommand = new RelayCommand(TapCut);
             PasteCommand = new RelayCommand(TapPaste);
             CopyCommand = new RelayCommand(TapCopy);
@@ -89,6 +92,32 @@ namespace ZoDream.PixelStudio.ViewModels
             get => _isLoading;
             set => SetProperty(ref _isLoading, value);
         }
+
+        private string _selectedMode = "Move";
+
+        public string SelectedMode {
+            get => _selectedMode;
+            set {
+                SetProperty(ref _selectedMode, value);
+                OnPropertyChanged(nameof(SelectedModeIcon));
+            }
+        }
+
+        public string SelectedModeIcon => SelectedMode switch
+        {
+            "Move" => "\uE8B0",
+            "Pen" => "\uEDFB",
+            "PenJoint" => "\uF003",
+            _ => "\uF271",
+        };
+
+        private bool _isSelectedLayer;
+
+        public bool IsSelectedLayer {
+            get => _isSelectedLayer;
+            set => SetProperty(ref _isSelectedLayer, value);
+        }
+
 
         private void UndoRedo_ReverseUndoStateChanged(bool value)
         {

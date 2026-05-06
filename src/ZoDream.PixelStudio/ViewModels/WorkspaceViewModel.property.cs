@@ -8,9 +8,6 @@ namespace ZoDream.PixelStudio.ViewModels
         private readonly AppViewModel _app = App.ViewModel;
 
 
-        public bool IsSelectedLayer => SelectedLayer != null;
-
-        
 
         private IImageLayer? _selectedLayer;
 
@@ -18,7 +15,7 @@ namespace ZoDream.PixelStudio.ViewModels
             get => _selectedLayer;
             set {
                 SetProperty(ref _selectedLayer, value);
-                OnPropertyChanged(nameof(IsSelectedLayer));
+                IsSelectedLayer = value != null;
             }
         }
     }

@@ -7,23 +7,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private readonly AppViewModel _app = App.ViewModel;
 
-        private string _selectedMode = "Move";
 
-        public string SelectedMode {
-            get => _selectedMode;
-            set {
-                SetProperty(ref _selectedMode, value);
-                OnPropertyChanged(nameof(SelectedModeIcon));
-            }
-        }
-
-        public string SelectedModeIcon => SelectedMode switch
-        {
-            "Move" => "\uE8B0",
-            "Pen" => "\uEDFB",
-            "PenJoint" => "\uF003",
-            _ => "\uF271",
-        };
 
         private ObservableCollection<GlyphGroupViewModel> _glyphItems = [];
 
@@ -33,6 +17,6 @@ namespace ZoDream.PixelStudio.ViewModels
         }
 
 
-        public bool IsSelectedLayer => false;
+
     }
 }

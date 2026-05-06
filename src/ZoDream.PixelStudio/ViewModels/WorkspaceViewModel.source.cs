@@ -52,7 +52,7 @@ namespace ZoDream.PixelStudio.ViewModels
             set => SetProperty(ref _layerItems, value);
         }
 
-        public IImageLayer? Current => throw new NotImplementedException();
+        public IImageLayer? Current => SelectedLayer;
 
         public IImageLayer? GetLayer(Guid id)
         {
