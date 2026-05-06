@@ -23,18 +23,14 @@ namespace ZoDream.Shared.ImageEditor
         };
         private readonly SKPaint _jointPaint = new()
         {
-            Color = SKColors.Blue,
-            StrokeWidth = 1,
             ColorF = SKColors.White,
-            Style = SKPaintStyle.StrokeAndFill,
+            Style = SKPaintStyle.Fill,
             IsAntialias = true,
         };
         private readonly SKPaint _jointHoveredPaint = new()
         {
-            Color = SKColors.Blue,
-            StrokeWidth = 1,
             ColorF = SKColors.Blue.WithAlpha(50),
-            Style = SKPaintStyle.StrokeAndFill,
+            Style = SKPaintStyle.Fill,
             IsAntialias = true,
         };
 

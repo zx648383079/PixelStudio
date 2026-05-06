@@ -59,7 +59,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
             _surface = null;
         }
 
-        public void With(IImageLayer layer)
+        public void Initialize(IImageLayer[] items)
         {
         }
 

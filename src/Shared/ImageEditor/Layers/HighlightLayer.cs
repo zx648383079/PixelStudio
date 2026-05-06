@@ -1,4 +1,5 @@
 ﻿using SkiaSharp;
+using System.Linq;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
@@ -24,9 +25,9 @@ namespace ZoDream.Shared.ImageEditor.Layers
             Invalidate();
         }
 
-        public void With(IImageLayer layer)
+        public void Initialize(IImageLayer[] items)
         {
-            _target = layer;
+            _target = items.FirstOrDefault();
             SyncSize();
             Invalidate();
         }

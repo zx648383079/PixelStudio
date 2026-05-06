@@ -21,7 +21,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
         public SKBitmap Source => bitmap;
 
 
-        public override Rect Bound => new(0, 0, Source.Width, Source.Height);
+        public override Rect Bound => new(X, Y, Source.Width, Source.Height);
 
         public IList<IImageSource> Split(IEnumerable<ISpriteLayer> items)
         {

@@ -1,5 +1,4 @@
 ﻿using SkiaSharp;
-using System;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
@@ -19,10 +18,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
         private Point _last = new();
 
         public bool IsVisible { get; set; } = false;
-        public Rect Bound => new(
-                Math.Min(_start.X, _last.X), Math.Min(_start.Y, _last.Y),
-                Math.Max(_start.X, _last.X), Math.Max(_start.Y, _last.Y)
-                );
+        public Rect Bound => Rect.Create(_start, _last);
 
         public bool Contains(Point point)
         {
@@ -73,7 +69,7 @@ namespace ZoDream.Shared.ImageEditor.Layers
         {
         }
 
-        public void With(IImageLayer layer)
+        public void Initialize(IImageLayer[] items)
         {
 
         }

@@ -11,8 +11,8 @@ namespace ZoDream.Shared.Interfaces
         /// <summary>
         /// 设置面向的图层
         /// </summary>
-        /// <param name="layer"></param>
-        public void With(IImageLayer layer);
+        /// <param name="items"></param>
+        public void Initialize(IImageLayer[] items);
 
         /// <summary>
         /// 依赖Editor尺寸的需要重绘

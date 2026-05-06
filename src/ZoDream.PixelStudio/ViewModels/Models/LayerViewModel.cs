@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.Numerics;
 using ZoDream.Shared.ImageEditor.Sources;
 using ZoDream.Shared.Interfaces;
 
@@ -53,6 +54,22 @@ namespace ZoDream.PixelStudio.ViewModels
             set => SetProperty(ref _isLocked, value);
         }
 
+        private bool _isSelected = false;
+
+        public bool IsSelected {
+            get => _isSelected;
+            set {
+                SetProperty(ref _isSelected, value);
+                if (!value)
+                {
+                    foreach (var item in _children)
+                    {
+                        item.IsSelected = false;
+                    }
+                }
+            }
+        }
+
         private IImageLayerTree _children = new LayerTree();
 
         public IImageLayerTree Children {
@@ -83,6 +100,16 @@ namespace ZoDream.PixelStudio.ViewModels
                 PreviewImage = b.CreateThumbnail(Source);
             }
             
+        }
+
+        public void Move(Vector2 offset)
+        {
+            if (Source is IImagePoint f)
+            {
+                f.X += offset.X;
+                f.Y += offset.Y;
+                return;
+            }
         }
 
         public void Paint(IImageStyleCanvas canvas)

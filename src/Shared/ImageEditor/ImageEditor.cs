@@ -1,6 +1,8 @@
 ﻿using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.ImageEditor.Layers;
 using ZoDream.Shared.Interfaces;
@@ -38,8 +40,6 @@ namespace ZoDream.Shared.ImageEditor
 
         public Thickness Padding { get; set; } = new();
 
-        public IImageLayer? Current => Layer?.Current;
-
         public void Initialize()
         {
             BackBar.Add(new TransparentLayer(this));
@@ -71,7 +71,7 @@ namespace ZoDream.Shared.ImageEditor
             }
             Commander?.Dispose();
             Commander = (T)Activator.CreateInstance(typeof(T), this);
-            Commander?.Initialize(Current);
+            Commander?.Initialize(Layer.SelectedItems);
             Invalidate();
         }
 
@@ -110,20 +110,26 @@ namespace ZoDream.Shared.ImageEditor
 
         public void Select(IImageLayer? layer)
         {
-            Commander?.Initialize(layer);
+            Commander?.Initialize(layer is null ? [] : [layer]);
         }
 
         public void Select(Rect rect)
         {
+            var items = Layer.Get(rect).ToArray();
+            Commander?.Initialize(items);
         }
 
         public void Touch(Point point)
         {
-
+            if (Layer.TryGet(point, out var layer))
+            {
+                Select(layer);
+            }
         }
 
         public void Unselect()
         {
+            Commander?.Initialize([]);
             Invalidate();
         }
 

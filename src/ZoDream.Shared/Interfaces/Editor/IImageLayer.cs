@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
@@ -14,6 +15,7 @@ namespace ZoDream.Shared.Interfaces
         public bool IsVisible { get; set; }
 
         public bool IsLocked {  get; set; }
+        public bool IsSelected {  get; set; }
 
         public int Depth { get; set; }
 
@@ -32,5 +34,10 @@ namespace ZoDream.Shared.Interfaces
         public void Resample();
 
         public void Paint(IImageStyleCanvas canvas);
+        /// <summary>
+        /// 移动
+        /// </summary>
+        /// <param name="offset"></param>
+        public void Move(Vector2 offset);
     }
 }

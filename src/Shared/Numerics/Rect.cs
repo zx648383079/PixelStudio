@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace ZoDream.Shared.Numerics
@@ -79,6 +80,57 @@ namespace ZoDream.Shared.Numerics
 
             return false;
         }
+
+        public static Rect Create(Point start, Point end)
+        {
+            var left = start.X;
+            var right = end.X;
+            if (end.X < left)
+            {
+                left = end.X;
+                right = start.X;
+            }
+            var top = start.Y;
+            var bottom = end.Y;
+            if (end.Y < top)
+            {
+                top = end.Y;
+                bottom = start.Y;
+            }
+            return Create(left, top, right, bottom);
+        }
+
+        public static Rect Create(float left, float top, float right, float bottom)
+        {
+            return new(left, top, right - left, bottom - top);
+        }
+
+        public static Rect Create(IEnumerable<Rect> items)
+        {
+            var left = 0f;
+            var right = 0f;
+            var top = 0f;
+            var bottom = 0f;
+            var first = true;
+            foreach (var item in items)
+            {
+                if (first)
+                {
+                    left = item.Left;
+                    right = item.Right;
+                    top = item.Top;
+                    bottom = item.Bottom;
+                    first = false;
+                    continue;
+                }
+                left = Math.Min(left, item.Left);
+                top = Math.Min(top, item.Top);
+                right = Math.Max(right, item.Right);
+                bottom = Math.Max(bottom, item.Bottom);
+            }
+            return Create(left, top, right, bottom);
+        }
+
 
         public static bool operator ==(Rect left, Rect right)
         {

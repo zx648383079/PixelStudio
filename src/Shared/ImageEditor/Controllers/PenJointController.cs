@@ -17,12 +17,12 @@ namespace ZoDream.Shared.ImageEditor.Controllers
         private Rect? _multipleRect;
         private IList<int> _selected = [];
         private Point _lastPoint = new();
-        public bool IsEnabled => editor.Current?.Source is PathImageSource;
+        public bool IsEnabled => editor.Layer.SelectedItem?.Source is PathImageSource;
 
-        public void Initialize(IImageLayer? layer)
+        public void Initialize(IImageLayer[] items)
         {
             _selected = [];
-            if (layer?.Source is PathImageSource p)
+            if (items.Length > 0 && items[0].Source is PathImageSource p)
             {
                 _layer = p;
                 return;

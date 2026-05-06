@@ -1,6 +1,6 @@
-using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ZoDream.Shared.ImageEditor;
 using ZoDream.Shared.Interfaces;
@@ -51,8 +51,6 @@ namespace ZoDream.PixelStudio.ViewModels
             get => _layerItems;
             set => SetProperty(ref _layerItems, value);
         }
-
-        public IImageLayer? Current => SelectedLayer;
 
         public IImageLayer? GetLayer(Guid id)
         {
@@ -183,7 +181,7 @@ namespace ZoDream.PixelStudio.ViewModels
             LayerItems.Clear();
         }
 
-        public bool TryGet(Point point, out IImageLayer? layer)
+        public bool TryGet(Point point, [NotNullWhen(true)] out IImageLayer? layer)
         {
             layer = LayerItems.Get(point);
             return layer != null;
@@ -191,7 +189,13 @@ namespace ZoDream.PixelStudio.ViewModels
 
         public IEnumerable<IImageLayer> Get(Rect rect)
         {
-            throw new NotImplementedException();
+            foreach (var item in LayerItems)
+            {
+                if (item.Source.Bound.IsIntersect(rect))
+                {
+                    yield return item;
+                }
+            }
         }
 
         public void Paint(IImageStyleCanvas canvas)

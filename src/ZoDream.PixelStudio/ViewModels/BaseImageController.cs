@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using SkiaSharp;
 using SkiaSharp.Views.Windows;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.Storage;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
@@ -26,6 +27,7 @@ namespace ZoDream.PixelStudio.ViewModels
             RedoCommand = new RelayCommand(TapRedo);
 
             ModeCommand = new RelayCommand<string>(TapMode);
+            SelectionChangedCommand = new RelayCommand<IReadOnlyList<object>>(OnSelectionChanged);
 
             CutCommand = new RelayCommand(TapCut);
             PasteCommand = new RelayCommand(TapPaste);
@@ -66,10 +68,35 @@ namespace ZoDream.PixelStudio.ViewModels
         }
 
         private readonly Size _thumbnailSize = new(60, 60);
+        
         public CommandManager UndoRedo { get; private set; } = new();
         public IImageEditor? Instance { get; set; }
 
         protected string FileName { get; set; } = string.Empty;
+
+        private IImageLayer[] _selectedItems = [];
+
+        public IImageLayer? SelectedItem {
+            get => _selectedItems.FirstOrDefault();
+            set {
+                SelectedItems = value is null ? [] : [value];
+            }
+        }
+        public IImageLayer[] SelectedItems { 
+            get => _selectedItems; 
+            set {
+                foreach (var item in _selectedItems)
+                {
+                    item.IsSelected = false;
+                }
+                _selectedItems = value;
+                foreach (var item in value)
+                {
+                    item.IsSelected = true;
+                }
+                OnPropertyChanged(nameof(IsSelectedLayer));
+            }
+        }
 
 
         private bool _undoEnabled;
@@ -111,12 +138,7 @@ namespace ZoDream.PixelStudio.ViewModels
             _ => "\uF271",
         };
 
-        private bool _isSelectedLayer;
-
-        public bool IsSelectedLayer {
-            get => _isSelectedLayer;
-            set => SetProperty(ref _isSelectedLayer, value);
-        }
+        public bool IsSelectedLayer => _selectedItems.Length > 0;
 
 
         private void UndoRedo_ReverseUndoStateChanged(bool value)

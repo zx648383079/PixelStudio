@@ -17,7 +17,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
         public SKImage Source => image;
 
 
-        public override Rect Bound => new(0, 0, Source.Width, Source.Height);
+        public override Rect Bound => new(X, Y, Source.Width, Source.Height);
 
         public override void Paint(IImageCanvas canvas)
         {

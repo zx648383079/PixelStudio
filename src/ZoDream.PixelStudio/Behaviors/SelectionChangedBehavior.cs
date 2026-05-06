@@ -1,12 +1,13 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.Xaml.Interactivity;
-using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace ZoDream.PixelStudio.Behaviors
 {
-    public class SelectionChangedBehavior: Behavior<TreeView>
+    public class SelectionChangedBehavior: Behavior<Control>
     {
         public ICommand Command {
             get { return (ICommand)GetValue(CommandProperty); }
@@ -20,18 +21,44 @@ namespace ZoDream.PixelStudio.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
-            AssociatedObject.SelectionChanged += AssociatedObject_SelectionChanged;
+            if (AssociatedObject is TreeView tree)
+            {
+                tree.SelectionChanged += TreeView_SelectionChanged;
+            } else if (AssociatedObject is Selector s)
+            {
+                s.SelectionChanged += Selector_SelectionChanged; ;
+            }
         }
 
-        private void AssociatedObject_SelectionChanged(TreeView sender, TreeViewSelectionChangedEventArgs args)
+        private void Selector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Command?.Execute(args.AddedItems.FirstOrDefault());
+            if (sender is ListViewBase v)
+            {
+                Command?.Execute(v.SelectedItems.AsReadOnly());
+                return;
+            }
+            if (sender is Selector o)
+            {
+                Command?.Execute(new object[] { o.SelectedItem });
+            }
+        }
+
+        private void TreeView_SelectionChanged(TreeView sender, TreeViewSelectionChangedEventArgs args)
+        {
+            Command?.Execute(args.AddedItems.AsReadOnly());
         }
 
         protected override void OnDetaching()
         {
             base.OnDetaching();
-            AssociatedObject.SelectionChanged -= AssociatedObject_SelectionChanged;
+            if (AssociatedObject is TreeView tree)
+            {
+                tree.SelectionChanged -= TreeView_SelectionChanged;
+            }
+            else if (AssociatedObject is Selector s)
+            {
+                s.SelectionChanged -= Selector_SelectionChanged; ;
+            }
         }
     }
 }

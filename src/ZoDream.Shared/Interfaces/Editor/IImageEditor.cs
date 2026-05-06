@@ -33,9 +33,9 @@ namespace ZoDream.Shared.Interfaces
         /// </summary>
         public Thickness Padding { get; set; }
 
-        public IImageLayer? Current { get; }
-
-
+        /// <summary>
+        /// 重新绘制请求
+        /// </summary>
         public void Initialize();
 
         /// <summary>

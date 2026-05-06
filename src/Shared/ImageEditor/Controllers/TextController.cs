@@ -10,7 +10,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
         public bool IsEnabled => true;
 
 
-        public void Initialize(IImageLayer? layer)
+        public void Initialize(IImageLayer[] items)
         {
         }
 

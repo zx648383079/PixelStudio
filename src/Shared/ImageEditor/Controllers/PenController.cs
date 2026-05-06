@@ -24,9 +24,9 @@ namespace ZoDream.Shared.ImageEditor.Controllers
         private PathImageSource? _layer;
 
 
-        public void Initialize(IImageLayer? layer)
+        public void Initialize(IImageLayer[] items)
         {
-            if (layer?.Source is PathImageSource p)
+            if (items.Length > 0 && items[0].Source is PathImageSource p)
             {
                 _layer = p;
                 return;

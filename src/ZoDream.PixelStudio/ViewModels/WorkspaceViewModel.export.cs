@@ -92,11 +92,11 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private void ExportSelected(IStorageItem file)
         {
-            if (SelectedLayer is null)
+            if (SelectedItem is null)
             {
                 return;
             }
-            var layer = LayerItems.Get(SelectedLayer.Id);
+            var layer = LayerItems.Get(SelectedItem.Id);
             if (layer == null) 
             {
                 return;
@@ -104,7 +104,7 @@ namespace ZoDream.PixelStudio.ViewModels
             var fileName = file.Path;
             if (file is StorageFolder) 
             {
-                fileName = CombineLayerPath(file.Path, SelectedLayer.Name);
+                fileName = CombineLayerPath(file.Path, SelectedItem.Name);
             }
             Instance?.SaveAs(layer, fileName);
             _app.Toast.Show("导出完成");

@@ -12,7 +12,6 @@ namespace ZoDream.PixelStudio.ViewModels
     public partial class WorkspaceViewModel
     {
         public ICommand EditorSelectedCommand { get; private set; }
-        public ICommand LayerSelectedCommand { get; private set; }
 
 
         public ICommand SeparateCommand { get; private set; }
@@ -93,8 +92,6 @@ namespace ZoDream.PixelStudio.ViewModels
             TapImportFile();
         }
 
-
-
         protected override async void TapProperty()
         {
             var dialog = new PropertyDialog();
@@ -126,7 +123,7 @@ namespace ZoDream.PixelStudio.ViewModels
                 return;
             }
             var cmd = arg is string str ? str : "Auto";
-            var layer = arg is IImageLayer ai ? ai : SelectedLayer;
+            var layer = arg is IImageLayer ai ? ai : SelectedItem;
             if (layer is null)
             {
                 foreach (var item in LayerItems)
@@ -178,23 +175,6 @@ namespace ZoDream.PixelStudio.ViewModels
             IsLoading = false;
         }
 
-        
-
-        private void OnEditorSelected(IImageLayer? layer)
-        {
-            SelectedLayer = layer;
-        }
-
-        private void OnLayerSelected(IImageLayer? layer)
-        {
-            if (layer is null)
-            {
-                return;
-            }
-            Instance?.Select(layer);
-        }
-
-
 
         protected override void TapSelectTop()
         {
@@ -202,15 +182,15 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return;
             }
-            var layer = SelectedLayer;
+            var layer = SelectedItem;
             if (layer is null || layer.Parent is null)
             {
-                SelectedLayer = LayerItems[0];
+                SelectedItem = LayerItems[0];
             } else
             {
-                SelectedLayer = layer.Parent.Children[0];
+                SelectedItem = layer.Parent.Children[0];
             }
-            Instance?.Select(SelectedLayer);
+            Instance?.Select(SelectedItem);
         }
 
         protected override void TapSelectBottom()
@@ -219,40 +199,40 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return;
             }
-            var layer = SelectedLayer;
+            var layer = SelectedItem;
             if (layer is null || layer.Parent is null)
             {
-                SelectedLayer = LayerItems.Last();
+                SelectedItem = LayerItems.Last();
             }
             else
             {
-                SelectedLayer = layer.Parent.Children.Last();
+                SelectedItem = layer.Parent.Children.Last();
             }
-            Instance?.Select(SelectedLayer);
+            Instance?.Select(SelectedItem);
         }
 
         private void TapSelectParent()
         {
-            if (LayerItems.Count == 0 || SelectedLayer is null)
+            if (LayerItems.Count == 0 || SelectedItem is null)
             {
                 return;
             }
-            var layer = SelectedLayer.Parent;
+            var layer = SelectedItem.Parent;
             if (layer is null)
             {
                 return;
             }
-            SelectedLayer = layer;
+            SelectedItem = layer;
             Instance?.Select(layer);
         }
 
         protected override void TapSelectPrevious()
         {
-            if (LayerItems.Count == 0 || SelectedLayer is null)
+            if (LayerItems.Count == 0 || SelectedItem is null)
             {
                 return;
             }
-            var layer = SelectedLayer;
+            var layer = SelectedItem;
             if (layer.Parent is null)
             {
                 SelectLayer(LayerItems.IndexOf(layer) - 1, LayerItems);
@@ -264,11 +244,11 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapSelectNext()
         {
-            if (LayerItems.Count == 0 || SelectedLayer is null)
+            if (LayerItems.Count == 0 || SelectedItem is null)
             {
                 return;
             }
-            var layer = SelectedLayer;
+            var layer = SelectedItem;
             if (layer.Parent is null)
             {
                 SelectLayer(LayerItems.IndexOf(layer) + 1, LayerItems);
@@ -285,8 +265,8 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return;
             }
-            SelectedLayer = items[i];
-            Instance?.Select(SelectedLayer);
+            SelectedItem = items[i];
+            Instance?.Select(SelectedItem);
         }
     }
 }

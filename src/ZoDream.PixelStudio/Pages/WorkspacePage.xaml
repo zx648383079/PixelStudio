@@ -22,6 +22,7 @@
             <TreeViewItem
                 AutomationProperties.Name="{Binding Name}"
                 IsExpanded="True"
+                IsSelected="{Binding IsSelected, Mode=TwoWay}"
                 ItemsSource="{Binding Children}">
                 <TreeViewItem.ContextFlyout>
                     <MenuFlyout>
@@ -264,12 +265,9 @@
 
             <Pivot Grid.Column="1">
                 <PivotItem Header="图层">
-                    <TreeView
-                        ItemTemplateSelector="{StaticResource LayerItemTemplateSelector}"
-                        ItemsSource="{Binding LayerItems}"
-                        SelectedItem="{Binding SelectedLayer, Mode=TwoWay}">
+                    <TreeView ItemTemplateSelector="{StaticResource LayerItemTemplateSelector}" ItemsSource="{Binding LayerItems}">
                         <ivy:Interaction.Behaviors>
-                            <bhv:SelectionChangedBehavior Command="{Binding LayerSelectedCommand}" />
+                            <bhv:SelectionChangedBehavior Command="{Binding SelectionChangedCommand}" />
                         </ivy:Interaction.Behaviors>
                     </TreeView>
                 </PivotItem>

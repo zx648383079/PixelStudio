@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using ZoDream.Shared.ImageEditor.Layers;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
@@ -15,31 +15,35 @@ namespace ZoDream.Shared.ImageEditor.Controllers
 
         public bool IsEnabled => true;
 
-        public void Initialize(IImageLayer? layer)
+        public void Initialize(IImageLayer[] items)
         {
-            if (layer is null)
+            if (items.Length == 0)
             {
+                Dispose();
                 return;
             }
             if (_currentState is not ResizeLayer)
             {
-                if (_currentState is IDisposable d)
-                {
-                    d.Dispose();
-                }
-                _currentState = null;
+                Dispose();
             }
             _currentState ??= new ResizeLayer(editor);
             if (_currentState is ICommandLayer l)
             {
-                l.With(layer);
+                l.Initialize(items);
             }
             editor.Invalidate();
         }
 
         public void Touch(Point point)
         {
-
+            if (editor.Layer.TryGet(point, out var layer))
+            {
+                Dispose();
+                var next = new ResizeLayer(editor);
+                _currentState = next;
+                next.Initialize([layer]);
+                editor.Invalidate();
+            }
         }
 
         public void PointerMoved(IMouseRoutedArgs args)
@@ -70,6 +74,17 @@ namespace ZoDream.Shared.ImageEditor.Controllers
                 return;
             }
             _currentState?.PointerReleased(args);
+            if (_currentState is SelectLayer layer)
+            {
+                var items = editor.Layer.Get(layer.Bound).ToArray();
+                if (items.Length > 0)
+                {
+                    Dispose();
+                    var next = new ResizeLayer(editor);
+                    _currentState = next;
+                    next.Initialize(items);
+                }
+            }
             editor.Invalidate();
         }
 
@@ -87,6 +102,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
             {
                 layer?.Dispose();
             }
+            _currentState = null;
         }
 
 

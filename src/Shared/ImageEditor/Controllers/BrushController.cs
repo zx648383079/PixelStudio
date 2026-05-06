@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ZoDream.Shared.Interfaces;
+﻿using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.Shared.ImageEditor.Controllers
 {
@@ -14,7 +11,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
 
 
 
-        public void Initialize(IImageLayer? layer)
+        public void Initialize(IImageLayer[] items)
         {
         }
 

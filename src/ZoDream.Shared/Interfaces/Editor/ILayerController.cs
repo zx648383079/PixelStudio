@@ -1,11 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
     public interface ILayerController
     {
-        public IImageLayer? Current { get; }
+        /// <summary>
+        /// 只更新图层列表的选中
+        /// </summary>
+        public IImageLayer? SelectedItem { get; set; }
+        /// <summary>
+        /// 只更新图层列表的选中
+        /// </summary>
+        public IImageLayer[] SelectedItems { get; set; }
 
         public IImageLayerTree Items { get; }
 
@@ -27,7 +35,7 @@ namespace ZoDream.Shared.Interfaces
         /// 清除全部图层
         /// </summary>
         public void Clear();
-        public bool TryGet(Point point, out IImageLayer? layer);
+        public bool TryGet(Point point, [NotNullWhen(true)] out IImageLayer? layer);
 
         public IEnumerable<IImageLayer> Get(Rect rect);
 

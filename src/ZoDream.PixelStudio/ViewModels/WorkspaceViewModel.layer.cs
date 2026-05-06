@@ -10,7 +10,7 @@ namespace ZoDream.PixelStudio.ViewModels
     {
         private void TapUngroup(IImageLayer? arg)
         {
-            var layer = arg is not null ? arg : SelectedLayer;
+            var layer = arg is not null ? arg : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -23,7 +23,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private async void TapLayerApply(IImageLayer? arg)
         {
-            var layer = arg is not null ? arg : SelectedLayer;
+            var layer = arg is not null ? arg : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -59,11 +59,11 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 _ = int.TryParse(s, out deg);
             }
-            if (deg == 0 || SelectedLayer is null)
+            if (deg == 0 || SelectedItem is null)
             {
                 return;
             }
-            if (SelectedLayer.Source is IImageStyle st)
+            if (SelectedItem.Source is IImageStyle st)
             {
                 st.Rotate += deg;
             }
@@ -88,15 +88,15 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapDeleteLayer(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
             }
             Instance?.Layer.Remove(layer);
-            if (SelectedLayer == layer)
+            if (SelectedItem == layer)
             {
-                SelectedLayer = null;
+                SelectedItem = null;
                 Instance?.Unselect();
             }
             Instance?.Invalidate();
@@ -104,7 +104,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapLayerVisible(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -115,7 +115,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapLayerHidden(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -135,7 +135,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapOtherHidden(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -153,7 +153,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapOtherVisible(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -171,7 +171,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapLayerVisibleToggle(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -182,7 +182,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapLayerLockToggle(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -192,7 +192,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapLayerLock(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -202,7 +202,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapLayerUnlock(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -222,7 +222,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private void TapLayerHorizontalLeft(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -235,7 +235,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private void TapLayerHorizontalCenter(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -274,7 +274,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private void TapLayerHorizontalRight(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -289,7 +289,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private void TapLayerVerticalTop(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -303,7 +303,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private void TapLayerVerticalMid(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -318,7 +318,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private void TapLayerVerticalBottom(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -332,7 +332,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private void TapLayerHorizontalFlip(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -345,7 +345,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private void TapLayerVerticalFlip(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -359,7 +359,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapLayerMoveTop(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -370,7 +370,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapLayerMoveUp(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -381,7 +381,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override void TapLayerMoveDown(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -391,7 +391,7 @@ namespace ZoDream.PixelStudio.ViewModels
         }
         protected override void TapLayerMoveBottom(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -402,7 +402,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private void TapLayerMoveParent(object? arg)
         {
-            var layer = arg is IImageLayer o ? o : SelectedLayer;
+            var layer = arg is IImageLayer o ? o : SelectedItem;
             if (layer is null)
             {
                 return;

@@ -7,7 +7,7 @@ namespace ZoDream.Shared.Interfaces
 
         public bool IsEnabled { get; }
 
-        public void Initialize(IImageLayer? layer);
+        public void Initialize(IImageLayer[] items);
 
         public void Paint(IImageCanvas canvas);
     }

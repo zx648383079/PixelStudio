@@ -1,4 +1,4 @@
-﻿using SkiaSharp;
+﻿using System.Linq;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
@@ -9,6 +9,8 @@ namespace ZoDream.Shared.ImageEditor.Layers
 
 
         private ImageBuffer? _surface;
+        private IImageLayer[] _items = [];
+        private Point _lastPoint = new();
 
         public bool IsVisible { get; set; } = false;
         public Rect Bound { get; private set; } = new();
@@ -60,13 +62,15 @@ namespace ZoDream.Shared.ImageEditor.Layers
                 _surface.Resize(editor.Size);
             }
             _surface.Clear();
-            _surface.DrawRect(bound, options.JointStrokePaint);
+            var borderPaint = options.JointStrokePaint;
+            _surface.DrawRect(bound, borderPaint);
             var jointHalf = options.JointSize / 2;
             var jointX = bound.Left - jointHalf;
             var jointY = bound.Top - jointHalf;
             var widthHalf = bound.Width / 2;
             var heightHalf = bound.Height / 2;
             var paint = options.JointPaint;
+            
             for (int i = 0; i < 3; i++)
             {
                 for (var j = 0; j < 3; j++)
@@ -75,8 +79,10 @@ namespace ZoDream.Shared.ImageEditor.Layers
                     {
                         continue;
                     }
-                    _surface.DrawRect(new Rect(jointX + i * widthHalf, 
-                        jointY + j * heightHalf, options.JointSize, options.JointSize), paint);
+                    var rect = new Rect(jointX + i * widthHalf,
+                        jointY + j * heightHalf, options.JointSize, options.JointSize);
+                    _surface.DrawRect(rect, paint);
+                    _surface.DrawRect(rect, borderPaint);
                 }
             }
         }
@@ -85,10 +91,29 @@ namespace ZoDream.Shared.ImageEditor.Layers
 
         public void PointerPressed(IMouseRoutedArgs args)
         {
+            if (!Bound.Contains(args.Position))
+            {
+                return;
+            }
+            _lastPoint = args.Position;
         }
 
         public void PointerMoved(IMouseRoutedArgs args)
         {
+            if (_items.Length == 0 || args.State.HasFlag(PointerState.Released))
+            {
+                return;
+            }
+            var current = args.Position;
+            var offset = current - _lastPoint;
+            foreach (var item in _items)
+            {
+                item.Move(offset);
+            }
+            Bound += offset;
+            _lastPoint = current;
+            RenderSurface();
+            editor.Initialize();
         }
 
         public void PointerReleased(IMouseRoutedArgs args)
@@ -99,9 +124,11 @@ namespace ZoDream.Shared.ImageEditor.Layers
         {
         }
 
-        public void With(IImageLayer layer)
+        public void Initialize(IImageLayer[] items)
         {
-            Bound = layer.Source.Bound;
+            editor.Layer.SelectedItems = items;
+            _items = items;
+            Bound = Rect.Create(items.Select(i => i.Source.Bound));
         }
 
         public void Dispose()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
@@ -10,25 +11,12 @@ namespace ZoDream.PixelStudio.ViewModels
     {
 
 
-        private IImageLayer? _selectedLayer;
-
-        public IImageLayer? SelectedLayer {
-            get => _selectedLayer;
-            set {
-                SetProperty(ref _selectedLayer, value);
-                OnPropertyChanged(nameof(IsSelectedLayer));
-            }
-        }
-
-
         private LayerTree _layerItems = [];
 
         public LayerTree LayerItems {
             get => _layerItems;
             set => SetProperty(ref _layerItems, value);
         }
-
-        public IImageLayer? Current => SelectedLayer;
 
         public IImageLayerTree Items => LayerItems;
 
@@ -126,7 +114,7 @@ namespace ZoDream.PixelStudio.ViewModels
             layer.Dispose();
         }
 
-        public bool TryGet(Point point, out IImageLayer? layer)
+        public bool TryGet(Point point, [NotNullWhen(true)] out IImageLayer? layer)
         {
             foreach (var item in LayerItems)
             {

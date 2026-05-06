@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Windows.Storage;
 using ZoDream.PixelStudio.Dialogs;
 using ZoDream.Shared.ImageEditor.Controllers;
+using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
 namespace ZoDream.PixelStudio.ViewModels
@@ -33,6 +34,8 @@ namespace ZoDream.PixelStudio.ViewModels
 
         public ICommand PropertyCommand { get; private set; }
         public ICommand UnselectCommand { get; private set; }
+
+        public ICommand SelectionChangedCommand { get; private set; }
         public ICommand SelectTopCommand { get; private set; }
         public ICommand SelectBottomCommand { get; private set; }
 
@@ -109,6 +112,20 @@ namespace ZoDream.PixelStudio.ViewModels
 
         }
 
+        private void OnSelectionChanged(IReadOnlyList<object>? items)
+        {
+            if (items is null)
+            {
+                return;
+            }
+            var first = items.Count > 0 ? items[0] : null;
+            if (first is IImageLayer layer)
+            {
+                SelectedItem = layer;
+                Instance!.Select(layer);
+            }
+        }
+
         private void TapSaveAs()
         {
             TapSaveAs(string.Empty);
@@ -154,8 +171,9 @@ namespace ZoDream.PixelStudio.ViewModels
         {
 
         }
-        private void TapUnselect()
+        protected virtual void TapUnselect()
         {
+            SelectedItems = [];
             Instance!.Unselect();
         }
         protected virtual void TapProperty()

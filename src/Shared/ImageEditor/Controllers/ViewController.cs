@@ -11,14 +11,14 @@ namespace ZoDream.Shared.ImageEditor.Controllers
         };
         public bool IsEnabled => true;
 
-        public void Initialize(IImageLayer? layer)
+        public void Initialize(IImageLayer[] items)
         {
-            _layer.IsVisible = layer is not null;
-            if (layer is null)
+            _layer.IsVisible = items.Length > 0;
+            if (items.Length == 0)
             {
                 return;
             }
-            _layer.With(layer);
+            _layer.Initialize(items);
         }
 
 

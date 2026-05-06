@@ -8,7 +8,7 @@ namespace ZoDream.PixelStudio.ViewModels
     {
         protected override async void TapLayerRename(object? arg)
         {
-            var layer = arg is LayerViewModel o ? o : SelectedLayer;
+            var layer = arg is LayerViewModel o ? o : SelectedItem;
             if (layer is null)
             {
                 return;
@@ -25,7 +25,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         protected override async void TapLayerProperty(object? arg)
         {
-            var layer = arg is LayerViewModel o ? o : SelectedLayer;
+            var layer = arg is LayerViewModel o ? o : SelectedItem;
             if (layer is null)
             {
                 return;

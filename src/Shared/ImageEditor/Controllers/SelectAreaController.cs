@@ -9,7 +9,7 @@ namespace ZoDream.Shared.ImageEditor.Controllers
 
 
 
-        public void Initialize(IImageLayer? layer)
+        public void Initialize(IImageLayer[] items)
         {
         }
 
