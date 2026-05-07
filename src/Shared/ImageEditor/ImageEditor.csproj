@@ -21,6 +21,7 @@
 	  <ProjectReference Include="..\..\ZoDream.Shared\ZoDream.Shared.csproj" />
 	  <ProjectReference Include="..\Document\Document.csproj" />
 	  <ProjectReference Include="..\Drawing\Drawing.csproj" />
+	  <ProjectReference Include="..\UndoRedo\UndoRedo.csproj" />
 	</ItemGroup>
 
 </Project>

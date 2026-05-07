@@ -114,7 +114,7 @@ namespace ZoDream.Shared.ImageEditor
         }
     }
 
-    public class FontImagePaint(SKFont font, SKTextAlign align,  SKPaint paint) : ImagePaint(paint)
+    public class FontImagePaint(SKFont font, SKTextAlign align,  SKPaint paint) : ImagePaint(paint), IFontPaint
     {
 
         public void Paint(SKCanvas canvas, string text, SKPoint point)
@@ -122,10 +122,23 @@ namespace ZoDream.Shared.ImageEditor
             canvas.DrawText(text, point, align, font, paint);
         }
 
+        public Rect MeasureText(string text)
+        {
+            font.MeasureText(text, out var rect, paint);
+            return rect.ToRect();
+        }
+
+        public int BreakText(string text, float maxWidth)
+        {
+            return font.BreakText(text, maxWidth, paint);
+        }
+
         public override void Dispose()
         {
             base.Dispose();
             font.Dispose();
         }
+
+
     }
 }

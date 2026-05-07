@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZoDream.Shared.UndoRedo
+﻿namespace ZoDream.Shared.UndoRedo
 {
     public interface ICommandManager
     {

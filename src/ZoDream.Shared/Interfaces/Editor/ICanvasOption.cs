@@ -12,5 +12,9 @@ namespace ZoDream.Shared.Interfaces
         public Color Background { get; }
 
         public int StrokeWidth { get; }
+
+        public IImagePaint CreateBorder(Color color, float strokeWidth = 1);
+        public IImagePaint CreateFill(Color color);
+        public IFontPaint CreateFont(Color color, int fontSize);
     }
 }
