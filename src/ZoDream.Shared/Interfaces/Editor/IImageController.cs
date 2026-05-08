@@ -1,4 +1,6 @@
-﻿namespace ZoDream.Shared.Interfaces
+﻿using ZoDream.Shared.UndoRedo;
+
+namespace ZoDream.Shared.Interfaces
 {
     public interface IImageController
     {
@@ -11,6 +13,8 @@
         /// 一个实时的
         /// </summary>
         public IImageStyler RealStyler { get; }
+
+        public ICommandManager UndoRedo { get; }
         public void Initialize(IImageShell shell);
     }
 }

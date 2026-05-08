@@ -69,7 +69,7 @@ namespace ZoDream.PixelStudio.ViewModels
 
         private readonly Size _thumbnailSize = new(60, 60);
         
-        public CommandManager UndoRedo { get; private set; } = new();
+        public ICommandManager UndoRedo { get; private set; } = new CommandManager();
         public IImageEditor? Instance { get; set; }
 
         protected string FileName { get; set; } = string.Empty;

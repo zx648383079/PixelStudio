@@ -1,11 +1,13 @@
 ﻿namespace ZoDream.Tests
 {
     [TestClass]
-    public sealed class Test1
+    public sealed class CanvasTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestCommand()
         {
+
+
         }
     }
 }

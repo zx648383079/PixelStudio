@@ -21,7 +21,7 @@ namespace ZoDream.Shared.ImageEditor
 
         public IImageLayer AddFolder(string name)
         {
-            return Layer.Add(new FolderImageSource(this), name);
+            return Layer.Add(new FolderImageSource(), name);
         }
         public IImageBuffer Create(string name)
         {

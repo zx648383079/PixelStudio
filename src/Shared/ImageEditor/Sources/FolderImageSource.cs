@@ -3,7 +3,7 @@ using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
-    public class FolderImageSource(IImageEditor editor) : BaseImageSource(editor)
+    public class FolderImageSource : BaseImageSource
     {
         public IImageLayer? Host {  get; set; }
 

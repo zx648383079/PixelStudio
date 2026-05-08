@@ -69,6 +69,31 @@ namespace ZoDream.Shared.ImageEditor
 
         public IImagePaint TextPaint => new FontImagePaint(_font, SKTextAlign.Left, _foregroundPaint);
 
+
+        public IImagePaint CreateBorder(Color color, float strokeWidth = 1)
+        {
+            return ImagePaint.CreateBorder(color, strokeWidth);
+        }
+        public IImagePaint CreateFill(Color color)
+        {
+            return ImagePaint.CreateFill(color);
+        }
+        public IFontPaint CreateFont(Color color, int fontSize)
+        {
+            return new FontImagePaint(new(SKTypeface.Default, fontSize), 
+                SKTextAlign.Left, new()
+                {
+                    IsStroke = false,
+                    ColorF = color.ToColor(),
+                    IsAntialias = true,
+                });
+        }
+
+        public IThumbnailBuilder CreateThumbnail()
+        {
+            return new BitmapBuilder();
+        }
+
         public void Dispose()
         {
             _font.Dispose();

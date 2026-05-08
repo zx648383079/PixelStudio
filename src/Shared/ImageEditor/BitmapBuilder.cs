@@ -5,7 +5,7 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
-    public class BitmapBuilder : IDisposable
+    public class BitmapBuilder : IThumbnailBuilder
     {
         private SKBitmap? _instance;
 
@@ -67,5 +67,11 @@ namespace ZoDream.Shared.ImageEditor
         {
             _instance?.Dispose();
         }
+
+        object IThumbnailBuilder.Mutate(Size size, Action<IImageCanvas> action)
+        {
+            return Mutate(size, action);
+        }
+
     }
 }

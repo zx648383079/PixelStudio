@@ -7,7 +7,7 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
-    public class EllipseImageSource(IImageEditor editor) : BaseImageSource(editor)
+    public class EllipseImageSource : BaseImageSource
     {
         private readonly ImagePaint _paint = ImagePaint.CreateBorder(Color.Black);
         public bool IsFill { get; set; }

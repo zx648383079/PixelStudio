@@ -33,8 +33,7 @@ namespace ZoDream.PixelStudio.ViewModels
                     return null;
                 }
                 var kidLayer = new BitmapImageSource(
-                    kid
-                    , Instance!)
+                    kid)
                 {
                     X = (int)bound.Left,
                     Y = (int)bound.Top
@@ -162,9 +161,9 @@ namespace ZoDream.PixelStudio.ViewModels
         {
             return data switch
             {
-                AsyncImageBuffer buffer => Add(new SKImageSource(buffer.Source, Instance)),
-                BitmapBuffer bitmap => Add(new BitmapImageSource(bitmap.Source, Instance)),
-                SurfaceBuffer surface => Add(new SurfaceImageSource(surface.Source, Instance)),
+                AsyncImageBuffer buffer => Add(new SKImageSource(buffer.Source)),
+                BitmapBuffer bitmap => Add(new BitmapImageSource(bitmap.Source)),
+                SurfaceBuffer surface => Add(new SurfaceImageSource(surface.Source)),
                 _ => null,
             };
         }

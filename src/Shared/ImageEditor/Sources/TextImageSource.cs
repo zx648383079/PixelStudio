@@ -6,7 +6,7 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
-    public class TextImageSource(string text, IImageEditor editor) : BaseImageSource(editor)
+    public class TextImageSource(string text) : BaseImageSource
     {
         private readonly SKPaint _paint = new()
         {

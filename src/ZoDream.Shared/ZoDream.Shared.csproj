@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\Numerics\Numerics.csproj" />
+    <ProjectReference Include="..\Shared\UndoRedo\UndoRedo.csproj" />
   </ItemGroup>
 
 </Project>

@@ -18,5 +18,15 @@ namespace ZoDream.Shared.Interfaces
         public IImagePaint ForegroundPaint {  get; }
         public IImagePaint TitlePaint {  get; }
         public IImagePaint TextPaint {  get; }
+
+
+        public IImagePaint CreateBorder(Color color, float strokeWidth = 1);
+        public IImagePaint CreateFill(Color color);
+        public IFontPaint CreateFont(Color color, int fontSize);
+        /// <summary>
+        /// 生成缩略图创建器
+        /// </summary>
+        /// <returns></returns>
+        public IThumbnailBuilder CreateThumbnail();
     }
 }

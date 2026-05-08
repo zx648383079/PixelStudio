@@ -149,7 +149,7 @@ namespace ZoDream.Shared.ImageEditor
             {
                 return null;
             }
-            return new BitmapImageSource(bitmap, editor);
+            return new BitmapImageSource(bitmap);
         }
 
         public static Rect ToRect(this IImageBound bound)
@@ -205,6 +205,11 @@ namespace ZoDream.Shared.ImageEditor
         public static SKPoint[] ConvertTo(IEnumerable<Point> items)
         {
             return items.Select(i => new SKPoint(i.X, i.Y)).ToArray();
+        }
+
+        public static SKSizeI ToSizeI(this Size source)
+        {
+            return new((int)source.Width, (int)source.Height);
         }
     }
 }

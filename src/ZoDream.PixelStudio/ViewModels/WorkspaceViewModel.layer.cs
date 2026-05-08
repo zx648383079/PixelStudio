@@ -44,7 +44,7 @@ namespace ZoDream.PixelStudio.ViewModels
             layer.Paint(c);
             layer.Dispose();
             layer.Children.Clear();
-            layer.Source = new BitmapImageSource(bitmap, Instance);
+            layer.Source = new BitmapImageSource(bitmap);
             layer.Resample();
             Instance?.Invalidate();
         }

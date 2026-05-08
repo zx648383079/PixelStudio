@@ -73,7 +73,7 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return false;
             }
-            editor.Layer.Add(new TextImageSource(Text, editor)
+            editor.Layer.Add(new TextImageSource(Text)
             {
                 FontFamily = SKFontManager.Default.MatchFamily(FamilyName),
                 FontSize = Size,

@@ -3,11 +3,10 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
-    public abstract class BaseImageSource(IImageEditor editor) : 
+    public abstract class BaseImageSource : 
         IImageStyleSource, IReadOnlyStyle
     {
         protected readonly BitmapBuilder Thumbnail = new();
-        protected IImageEditor Editor { get; private set; } = editor;
         public float X { get; set; }
         public float Y { get; set; }
         public float Width { get; set; }
@@ -25,9 +24,9 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
         public float Opacity { get; set; }
 
-        public virtual Rect Bound => new(X, Y, Width, Height);
+        public Point Origin { get; set; }
 
-        
+        public virtual Rect Bound => new(X, Y, Width, Height);
 
         public virtual object? CreateThumbnail(Size size)
         {

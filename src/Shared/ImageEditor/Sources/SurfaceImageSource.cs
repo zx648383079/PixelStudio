@@ -5,7 +5,7 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
-    public class SurfaceImageSource(SKSurface image, IImageEditor editor) : BaseImageSource(editor)
+    public class SurfaceImageSource(SKSurface image) : BaseImageSource
     {
 
 

@@ -6,7 +6,7 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
-    public class RectImageSource(IImageEditor editor) : BaseImageSource(editor)
+    public class RectImageSource : BaseImageSource
     {
         private readonly ImagePaint _paint = ImagePaint.CreateBorder(Color.Black);
 

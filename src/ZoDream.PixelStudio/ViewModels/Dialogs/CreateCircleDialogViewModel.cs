@@ -65,7 +65,7 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 return false;
             }
-            editor.Layer.Add(new EllipseImageSource(editor)
+            editor.Layer.Add(new EllipseImageSource()
             {
                 X = X,
                 Y = Y,

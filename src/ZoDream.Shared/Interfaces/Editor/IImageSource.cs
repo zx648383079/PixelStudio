@@ -23,6 +23,8 @@ namespace ZoDream.Shared.Interfaces
     public interface IImageStyleSource : IImageSource, IImageStyle
     {
 
+        public Point Origin { get; set; }
+
         public void Paint(IImageStyleCanvas canvas, IImageStyle computedStyle);
     }
 }

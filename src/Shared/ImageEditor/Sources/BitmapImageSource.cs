@@ -9,7 +9,7 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
-    public class BitmapImageSource(SKBitmap bitmap, IImageEditor editor) : BaseImageSource(editor)
+    public class BitmapImageSource(SKBitmap bitmap) : BaseImageSource
     {
 
 
@@ -31,7 +31,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
                 using var canvas = new SKCanvas(bitmap);
                 // canvas.Clear(SKColors.Transparent);
                 canvas.DrawBitmap(Source, SKRect.Create(item.X, item.Y, item.Width, item.Height), SKRect.Create(0, 0, item.Width, item.Height), paint);
-                return new BitmapImageSource(bitmap, Editor)
+                return new BitmapImageSource(bitmap)
                 {
                     X = item.X,
                     Y = item.Y,
@@ -54,7 +54,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
             {
                 return null;
             }
-            return new BitmapImageSource(bitmap, Editor)
+            return new BitmapImageSource(bitmap)
             {
                 X = item.X,
                 Y = item.Y,

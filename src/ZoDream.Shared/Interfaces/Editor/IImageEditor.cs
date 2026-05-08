@@ -4,9 +4,8 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.Interfaces
 {
-    public interface IImageEditor: IDisposable
+    public interface IImageEditor: IImageProperty, IDisposable
     {
-        public IImageOptions Options { get; }
         /// <summary>
         /// 背景工具层，显示在最底层
         /// </summary>
@@ -21,17 +20,11 @@ namespace ZoDream.Shared.Interfaces
         public ILayerController Layer { get; }
         public IImageController Controller { get; }
 
-        public Color? BackgroundColor { get; set; }
         /// <summary>
         /// 当前计算的样式
         /// </summary>
         public IImageComputedStyler ComputedStyler { get; }
 
-        public Size Size { get; }
-        /// <summary>
-        /// 内边距
-        /// </summary>
-        public Thickness Padding { get; set; }
 
         /// <summary>
         /// 重新绘制请求

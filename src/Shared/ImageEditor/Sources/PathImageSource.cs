@@ -7,15 +7,18 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
-    public class PathImageSource(IImageEditor editor) : BaseImageSource(editor)
+    public class PathImageSource : BaseImageSource
     {
+        public PathImageSource()
+        {
+            
+        }
         public PathImageSource(SKPath path, IImageEditor editor)
-            : this(editor)
         {
             _path = PathBuilder.FromPath(path);
         }
 
-        public PathImageSource(PathBuilder path, IImageEditor editor) : this(editor)
+        public PathImageSource(PathBuilder path, IImageEditor editor)
         {
             _path = path;
         }
