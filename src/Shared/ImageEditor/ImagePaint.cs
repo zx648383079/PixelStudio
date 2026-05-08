@@ -8,10 +8,22 @@ namespace ZoDream.Shared.ImageEditor
 {
     public class ImagePaint(SKPaint paint) : IImagePaint
     {
+        public float StrokeWidth {
+            get => paint.StrokeWidth;
+            set => paint.StrokeWidth = value;
+        }
 
-        public SKColor Color {
+        public Color Color { 
+            get => paint.IsStroke ? paint.Color.ToColor() : paint.ColorF.ToColor(); 
             set {
-                paint.Color = value;
+                if (paint.IsStroke)
+                {
+                    paint.Color = value.ToColor();
+                }
+                else
+                {
+                    paint.ColorF = value.ToColor();
+                }
             }
         }
 

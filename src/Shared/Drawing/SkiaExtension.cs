@@ -295,6 +295,11 @@ namespace ZoDream.Shared.Drawing
         {
             return new Color(source.Red, source.Green, source.Blue, source.Alpha);
         }
+
+        public static Color ToColor(this SKColorF source)
+        {
+            return new Color(source.Red, source.Green, source.Blue, source.Alpha);
+        }
         public static SKPoint ToPoint(this Point source)
         {
             return new SKPoint(source.X, source.Y);

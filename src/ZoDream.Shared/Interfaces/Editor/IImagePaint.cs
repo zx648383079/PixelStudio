@@ -8,6 +8,8 @@ namespace ZoDream.Shared.Interfaces
     /// </summary>
     public interface IImagePaint : IDisposable
     {
+        public float StrokeWidth { get; set; }
+        public Color Color { get; set; }
     }
 
     public interface IFontPaint : IImagePaint
