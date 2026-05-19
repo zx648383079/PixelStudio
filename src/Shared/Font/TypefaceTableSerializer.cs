@@ -33,7 +33,7 @@ namespace ZoDream.Shared.Font
 
         public bool TryGet(Type targetType, [NotNullWhen(true)] out object? result)
         {
-            var property = targetType.GetProperty("TableName", BindingFlags.Static | BindingFlags.Public);
+            var property = targetType.GetField("TableName", BindingFlags.Static | BindingFlags.Public);
             var name = property?.GetValue(null)?.ToString();
             if (property is null || string.IsNullOrEmpty(name))
             {

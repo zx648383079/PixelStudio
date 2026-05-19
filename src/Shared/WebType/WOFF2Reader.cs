@@ -92,7 +92,10 @@ namespace ZoDream.Shared.WebType
             var serializer = new TypefaceTableSerializer(ms, new TypefaceSerializer(OTFReader.Converters), data);
             foreach (var item in entries)
             {
-                serializer.TryGet(item, out _);
+                if (serializer.TryGet(item, out var next))
+                {
+                    res.Items.Add(next);
+                }
             }
             return new TypefaceCollection
             {

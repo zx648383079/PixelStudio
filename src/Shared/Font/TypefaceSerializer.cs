@@ -38,7 +38,8 @@ namespace ZoDream.Shared.Font
                     {
                         continue;
                     }
-                    var property = targetType.GetProperty("TableName", BindingFlags.Static | BindingFlags.Public);
+                    var property = targetType.GetField("TableName", 
+                        BindingFlags.Static | BindingFlags.Public);
                     var name = property?.GetValue(null)?.ToString();
                     if (string.IsNullOrEmpty(name))
                     {

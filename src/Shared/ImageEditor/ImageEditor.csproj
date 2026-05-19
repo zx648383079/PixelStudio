@@ -14,7 +14,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="BitmapToVector.SkiaSharp" Version="1.16.3" />
-	  <PackageReference Include="Svg.Skia" Version="4.6.0" />
+	  <PackageReference Include="Svg.Skia" Version="4.9.0" />
 	</ItemGroup>
 
 	<ItemGroup>

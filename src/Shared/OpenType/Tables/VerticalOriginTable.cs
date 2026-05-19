@@ -1,5 +1,4 @@
 ﻿using ZoDream.Shared.Font;
-using ZoDream.Shared.OpenType.Tables.Models;
 
 namespace ZoDream.Shared.OpenType.Tables
 {

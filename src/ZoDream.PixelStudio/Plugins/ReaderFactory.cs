@@ -19,6 +19,7 @@ namespace ZoDream.PixelStudio.Plugins
         private static readonly string[] LayerFilterItems = [".json", ".tres", 
             ".moc3", ".atlas", ".txt", ".plist", ".asset", ".xml"];
         public static string[] FileFilterItems = [..ImageFilterItems, ..LayerFilterItems];
+        public static string[] FontFilterItems = [".woff", ".woff2", ".ttf", ".otf", ".ttc", ".otc"];
 
 
         public static bool IsImageFile(string fileName)

@@ -6,6 +6,8 @@ namespace ZoDream.Shared.Font
     public interface ITypeface
     {
 
+        public ITypefaceTableCollection Items { get; }
+
         public bool Contains(char character);
 
         public void TryGet(char character, [NotNullWhen(true)] Glyph? result);

@@ -8,7 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 using ZoDream.PixelStudio.Dialogs;
+using ZoDream.PixelStudio.Plugins;
 using ZoDream.Shared.Font;
 using ZoDream.Shared.ImageEditor.Sources;
 using ZoDream.Shared.OpenType;
@@ -69,21 +71,55 @@ namespace ZoDream.PixelStudio.ViewModels
                 }
                 else if (IsSupport(file.FileType))
                 {
-                    using var reader = await OpenRead(file);
-                    if (reader is null)
-                    {
-                        continue;
-                    }
-                    var data = reader.Read();
+                    LoadFont(file);
                 }
             }
             Instance?.Invalidate();
             IsLoading = false;
         }
 
+        protected override void TapNew()
+        {
+            foreach (var item in GlyphItems)
+            {
+                item.Items.Clear();
+            }
+            LayerItems.Clear();
+            Instance?.Unselect();
+            Instance?.Invalidate();
+        }
+
+        protected async override void TapOpen()
+        {
+            TapNew();
+            var picker = new FileOpenPicker();
+            foreach (var ext in ReaderFactory.FontFilterItems)
+            {
+                picker.FileTypeFilter.Add(ext);
+            }
+            _app.InitializePicker(picker);
+            var res = await picker.PickSingleFileAsync();
+            if (res is null)
+            {
+                return;
+            }
+            LoadFont(res);
+        }
+
+        private async void LoadFont(IStorageFile file)
+        {
+            using var reader = await OpenRead(file);
+            if (reader is null)
+            {
+                return;
+            }
+            var data = reader.Read();
+
+        }
+
         public static bool IsSupport(string extension)
         {
-            return extension is ".woff" or ".woff2" or ".ttf" or ".otf" or ".ttc" or ".otc";
+            return ReaderFactory.FontFilterItems.Contains(extension);
         }
 
         public async Task<ITypefaceReader?> OpenRead(IStorageFile file)

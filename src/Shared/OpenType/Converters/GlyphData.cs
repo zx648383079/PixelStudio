@@ -26,7 +26,7 @@ namespace ZoDream.Shared.OpenType.Converters
             for (int i = 0; i < glyphCount; i++)
             {
                 reader.BaseStream.Seek(tableOffset + locations.Offsets[i], SeekOrigin.Begin);//reset                  
-                uint length = locations.Offsets[i + 1] - locations.Offsets[i];
+                uint length = (i < glyphCount - 1 ? locations.Offsets[i + 1] : (uint)reader.Length) - locations.Offsets[i];
                 if (length > 0)
                 {
                     //https://www.microsoft.com/typography/OTSPEC/glyf.htm

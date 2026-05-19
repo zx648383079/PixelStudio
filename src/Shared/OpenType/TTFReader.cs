@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using ZoDream.Shared.Font;
 using ZoDream.Shared.IO;
@@ -28,9 +29,12 @@ namespace ZoDream.Shared.OpenType
         {
             var res = new Typeface();
             var tableCount = reader.ReadUInt16();
-            var searchRange = reader.ReadUInt16(); // (2 ^ (int)Math.Floor(Math.Log2(tableCount))) * 16;
-            var entrySelector = reader.ReadUInt16(); // Math.Log2(searchRange/16)
-            var rangeShift = reader.ReadUInt16(); // tableCount * 16 - searchRange
+            var searchRange = reader.ReadUInt16();
+            Debug.Assert(searchRange == (2 ^ (int)Math.Floor(Math.Log2(tableCount))) * 16);
+            var entrySelector = reader.ReadUInt16();
+            Debug.Assert(entrySelector == Math.Log2(searchRange / 16));
+            var rangeShift = reader.ReadUInt16();
+            Debug.Assert(rangeShift == tableCount * 16 - searchRange);
             var entries = new TypefaceTableEntry[tableCount];
             for (int i = 0; i < tableCount; i++)
             {
@@ -40,7 +44,10 @@ namespace ZoDream.Shared.OpenType
             var serializer = new TypefaceTableSerializer(reader.BaseStream, new TypefaceSerializer(OTFReader.Converters), data);
             foreach (var item in entries)
             {
-                serializer.TryGet(item, out _);
+                if (serializer.TryGet(item, out var next))
+                {
+                    res.Items.Add(next);
+                }
             }
             return res;
         }

@@ -29,7 +29,10 @@ namespace ZoDream.Shared.WebType
                 new TypefaceSerializer(OTFReader.Converters), data, this);
             foreach (var item in entries)
             {
-                serializer.TryGet(item, out _);
+                if (serializer.TryGet(item, out var next))
+                {
+                    res.Items.Add(next);
+                }
             }
             return new TypefaceCollection
             {
@@ -55,7 +58,7 @@ namespace ZoDream.Shared.WebType
                 return source;
             }
             var ms = new MemoryStream((int)item.Length);
-            new DeflateStream(source, CompressionMode.Decompress).CopyTo(ms);
+            new ZLibStream(source, CompressionMode.Decompress).CopyTo(ms);
             ms.Position = 0;
             return ms;
         }
