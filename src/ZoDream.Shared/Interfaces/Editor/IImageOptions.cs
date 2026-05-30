@@ -9,6 +9,10 @@ namespace ZoDream.Shared.Interfaces
         public IImagePaint JointPaint { get; }
         public IImagePaint JointHoveredPaint { get; }
         public float JointSize { get; }
+        /// <summary>
+        /// 在像素画中可以调整每一个像素的实际大小，单位为像素
+        /// </summary>
+        public float PixelSize { get; }
 
         public Color Hovered {  get; }
         public Color Activated {  get; }

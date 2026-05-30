@@ -22,14 +22,21 @@ namespace ZoDream.PixelStudio.Plugins
             Add(group, items);
         }
 
-        public PluginMenuItem[] Get(string group)
+        public PluginMenuItem[] Get(params string[] groups)
         {
-            group = group.ToUpper();
-            if (TryGetValue(group, out var items))
+            var items = new List<PluginMenuItem>();
+            foreach (var group in groups)
             {
-                return [..items];
+                if (TryGetValue(group.ToUpper(), out var res))
+                {
+                    if (items.Count > 0)
+                    {
+                        items.Add(null);
+                    }
+                    items.AddRange(res);
+                }
             }
-            return [];
+            return [.. items];
         }
 
         public string GetGroupName(string group)
@@ -38,6 +45,7 @@ namespace ZoDream.PixelStudio.Plugins
             return group switch
             {
                 PluginMenuItem.ImportName => "导入",
+                PluginMenuItem.PaintName => "绘制",
                 PluginMenuItem.ExportName => "导出",
                 _ => group,
             };

@@ -14,7 +14,7 @@ namespace ZoDream.PixelStudio.ViewModels
             : base()
         {
             AddGlyphCommand = new RelayCommand(TapAddGlyph);
-            PluginMenuItems = _app.Plugin.Get("import");
+            PluginMenuItems = _app.Plugin.Get(PluginMenuItem.ImportName);
             var items = typeof(UnicodeRanges).GetFields(BindingFlags.Public | BindingFlags.Static);
             foreach (var item in items)
             {

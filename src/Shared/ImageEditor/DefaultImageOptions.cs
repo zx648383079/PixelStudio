@@ -54,6 +54,8 @@ namespace ZoDream.Shared.ImageEditor
 
         public float JointSize => 16;
 
+        public float PixelSize => 1;
+
         public Color Hovered => _hovered;
         public Color Activated => _activated;
 

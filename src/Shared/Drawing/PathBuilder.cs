@@ -12,6 +12,7 @@ namespace ZoDream.Shared.Drawing
 
         private SKPath? _cachedPath = null;
         private bool _isDirty = true;
+        private Point _last = new();
         public Point Begin { get; private set; } = new();
         public Point End { get; private set; } = new();
 
@@ -88,6 +89,34 @@ namespace ZoDream.Shared.Drawing
             Items.RemoveAt(index);
             _isDirty = true;
         }
+
+        /// <summary>
+        /// 基于上一个点的坐标，根据距离及角度计算出新的坐标
+        /// </summary>
+        /// <param name="distance">距离</param>
+        /// <param name="angle">角度45°</param>
+        /// <param name="isNormalCoordinate">是否是基于最后一点的法线</param>
+        /// <returns></returns>
+        public Point CalculateNext(float distance, float angle, bool isNormalCoordinate = false)
+        {
+            if (isNormalCoordinate && Items.Count > 1)
+            {
+                angle += End.AngleTo(_last);
+            }
+            // 将度数转换为弧度
+            var angleRadians = angle * Math.PI / 180;
+            // 计算新坐标
+            var newX = End.X + distance * Math.Cos(angleRadians);
+            var newY = End.Y + distance * Math.Sin(angleRadians);
+            return new Point((float)newX, (float)newY);
+        }
+
+        private void UpdateLast(Point point)
+        {
+            _last = End;
+            End = point;
+        }
+
         #endregion
 
 
@@ -106,7 +135,7 @@ namespace ZoDream.Shared.Drawing
                 Begin = point;
             }
             Items.Add(new(SKPathVerb.Move, point));
-            End = point;
+            UpdateLast(point);
             _isDirty = true;
             return this;
         }
@@ -123,7 +152,7 @@ namespace ZoDream.Shared.Drawing
                 return this;
             }
             Items.Add(new(SKPathVerb.Line, point));
-            End = point;
+            UpdateLast(point);
             _isDirty = true;
             return this;
         }
@@ -148,7 +177,7 @@ namespace ZoDream.Shared.Drawing
         public PathBuilder QuadTo(Point controlPoint, Point endPoint)
         {
             Items.Add(new(SKPathVerb.Quad, controlPoint, endPoint));
-            End = endPoint;
+            UpdateLast(endPoint);
             _isDirty = true;
             return this;
         }
@@ -170,7 +199,7 @@ namespace ZoDream.Shared.Drawing
         public PathBuilder CubicTo(Point controlPoint1, Point controlPoint2, Point endPoint)
         {
             Items.Add(new(SKPathVerb.Cubic, controlPoint1, controlPoint2, endPoint));
-            End = endPoint;
+            UpdateLast(endPoint);
             _isDirty = true;
             return this;
         }
@@ -242,7 +271,7 @@ namespace ZoDream.Shared.Drawing
         public PathBuilder Close()
         {
             Items.Add(new(SKPathVerb.Close));
-            End = Begin;
+            UpdateLast(Begin);
             _isDirty = true;
             return this;
         }

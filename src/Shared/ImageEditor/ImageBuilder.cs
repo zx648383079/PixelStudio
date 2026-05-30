@@ -7,7 +7,7 @@ using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor
 {
-    public class ImageBuilder : IImageProperty, IDisposable
+    public class ImageBuilder : IImageBuilder
     {
 
         public ImageBuilder()
@@ -20,10 +20,18 @@ namespace ZoDream.Shared.ImageEditor
             _canvasSize = size;
         }
 
+        public ImageBuilder(IImageEditor editor)
+        {
+            _leaveOpen = true;
+            _canvasSize = editor.Size;
+            Options = editor.Options;
+        }
+
+        private readonly bool _leaveOpen = false;
         private readonly Size _canvasSize;
         private SKBitmap? _image;
 
-        public IImageOptions Options { get; } = new DefaultImageOptions();
+        public IImageOptions Options { get; private set; } = new DefaultImageOptions();
 
         public Color? BackgroundColor { get; set; }
 
@@ -93,6 +101,10 @@ namespace ZoDream.Shared.ImageEditor
                 item.Dispose();
             }
             _image?.Dispose();
+            if (_leaveOpen)
+            {
+                return;
+            }
             Options.Dispose();
         }
     }

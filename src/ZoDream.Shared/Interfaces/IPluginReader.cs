@@ -9,4 +9,9 @@ namespace ZoDream.Shared.Interfaces
 
         public Task WriteAsync(string fileName, T data);
     }
+
+    public interface IPluginPainter
+    {
+        public Task PaintAsync(IImageBuilder builder);
+    }
 }

@@ -44,6 +44,11 @@ namespace ZoDream.PixelStudio.Controls
 
                 foreach (object item in itemsSource)
                 {
+                    if (item is null)
+                    {
+                        menuFlyoutEx.Items.Add(new MenuFlyoutSeparator());
+                        continue;
+                    }
                     // 这里根据你的需要创建 MenuFlyoutItem
                     var flyoutItem = item is PluginMenuItem p ? new MenuFlyoutItem
                     {

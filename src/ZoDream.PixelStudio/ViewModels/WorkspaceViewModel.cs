@@ -39,7 +39,10 @@ namespace ZoDream.PixelStudio.ViewModels
             LayerMoveParentCommand = new RelayCommand<object?>(TapLayerMoveParent);
             UndoRedo.UndoStateChanged += UndoRedo_UndoStateChanged;
             UndoRedo.ReverseUndoStateChanged += UndoRedo_ReverseUndoStateChanged;
-            PluginMenuItems = _app.Plugin.Get("import");
+            PluginMenuItems = _app.Plugin.Get(
+                PluginMenuItem.PaintName,
+                PluginMenuItem.ImportName,
+                PluginMenuItem.ExportName);
         }
 
 

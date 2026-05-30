@@ -347,5 +347,21 @@ namespace ZoDream.Shared.Drawing
         {
             return new Size(source.Width, source.Height);
         }
+        /// <summary>
+        /// 计算两点之间的角度，返回值范围为 0-360 度
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public static float AngleTo(this Point from, Point to)
+        {
+            var dx = to.X - from.X;
+            var dy = to.Y - from.Y;
+            var radians = Math.Atan2(dy, dx);
+            var degrees = radians * 180 / Math.PI;
+
+            // 返回 0-360 度
+            return (float)(degrees + 360) % 360;
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace ZoDream.PixelStudio.ViewModels
     public class PluginMenuItem(string group, string name, Type instanceType)
     {
 
+        public const string PaintName = "PAINT";
         public const string ImportName = "IMPORT";
         public const string ExportName = "EXPORT";
         public const string EditName = "";
