@@ -28,11 +28,20 @@ namespace ZoDream.Shared.PixelArt
 
         public void Paint(IImageCanvas canvas)
         {
-            canvas.DrawLine(From, To, option.Options.ForegroundPaint);
+            DrawLine(canvas, From, To, option.Options.ForegroundPaint);
         }
 
         public void Dispose()
         {
+        }
+
+
+        public static void DrawLine(IImageCanvas canvas,
+            Point from,
+            Point to,
+            IImagePaint paint)
+        {
+            canvas.DrawLine(from, to, paint);
         }
     }
 }

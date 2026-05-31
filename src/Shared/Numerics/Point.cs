@@ -5,6 +5,8 @@ namespace ZoDream.Shared.Numerics
 {
     public readonly struct Point : IEquatable<Point>
     {
+        public static readonly Point Empty;
+
         public readonly float X;
         public readonly float Y;
 

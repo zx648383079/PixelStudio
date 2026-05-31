@@ -24,6 +24,7 @@ namespace ZoDream.Shared.PixelArt
 
         public void Paint(IImageCanvas canvas)
         {
+
         }
 
         public void Dispose()

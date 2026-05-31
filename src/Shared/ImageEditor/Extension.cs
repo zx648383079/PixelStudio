@@ -185,7 +185,6 @@ namespace ZoDream.Shared.ImageEditor
             var m = SKMatrix.CreateScale(bound.ScaleX * bound.Width, bound.ScaleY * bound.Height);
             m = m.PostConcat(SKMatrix.CreateRotationDegrees(bound.Rotate, bound.Width / 2, bound.Height / 2));
             // var p = m.MapPoint(bound.Width, bound.Height);
-
             return items.Select(i => m.MapPoint(i.X, i.Y)).ToArray();
         }
         /// <summary>

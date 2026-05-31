@@ -9,6 +9,8 @@ namespace ZoDream.Shared.Interfaces
     public interface IImagePaint : IDisposable
     {
         public float StrokeWidth { get; set; }
+
+        public bool IsStroke { get; set; }
         public Color Color { get; set; }
     }
 

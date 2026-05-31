@@ -13,6 +13,24 @@ namespace ZoDream.Shared.ImageEditor
             set => paint.StrokeWidth = value;
         }
 
+        public bool IsStroke {
+            get => paint.IsStroke;
+            set {
+                if (paint.IsStroke == value)
+                {
+                    return;
+                }
+                paint.IsStroke = value;
+                if (value)
+                {
+                    paint.Color = (SKColor)paint.ColorF;
+                } else
+                {
+                    paint.ColorF = paint.Color;
+                }
+            }
+        }
+
         public Color Color { 
             get => paint.IsStroke ? paint.Color.ToColor() : paint.ColorF.ToColor(); 
             set {
