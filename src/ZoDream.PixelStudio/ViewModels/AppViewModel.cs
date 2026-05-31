@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using WinRT.Interop;
 using ZoDream.PixelStudio.Pages;
+using ZoDream.Plugin.Case;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
@@ -54,6 +55,7 @@ namespace ZoDream.PixelStudio.ViewModels
         public async Task InitializeAsync()
         {
             Plugin.AddUnity();
+            Plugin.AddCase();
         }
 
         public void Dispose()

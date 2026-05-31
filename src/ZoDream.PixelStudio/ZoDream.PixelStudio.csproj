@@ -78,6 +78,8 @@
   <ItemGroup>
     <ProjectReference Include="..\plugins\Adobe\Adobe.csproj" />
     <ProjectReference Include="..\plugins\Affinity\Affinity.csproj" />
+    <ProjectReference Include="..\plugins\Aseprite\Aseprite.csproj" />
+    <ProjectReference Include="..\plugins\Case\Case.csproj" />
     <ProjectReference Include="..\plugins\Cocos\Cocos.csproj" />
     <ProjectReference Include="..\plugins\DragonBones\DragonBones.csproj" />
     <ProjectReference Include="..\plugins\Egret\Egret.csproj" />

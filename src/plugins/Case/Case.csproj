@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<LangVersion>14</LangVersion>
+		<Nullable>enable</Nullable>
+		<Version>2.0</Version>
+		<Authors>zodream</Authors>
+		<Copyright>© 2026 zodream.cn</Copyright>
+		<BaseOutputPath>..\..\bin</BaseOutputPath>
+		<RootNamespace>ZoDream.Plugin.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<AssemblyName>ZoDream.Plugin.$(MSBuildProjectName)</AssemblyName>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Shared\Document\Document.csproj" />
+		<ProjectReference Include="..\..\Shared\ImageEditor\ImageEditor.csproj" />
+		<ProjectReference Include="..\..\Shared\PixelArt\PixelArt.csproj" />
+		<ProjectReference Include="..\..\ZoDream.Shared\ZoDream.Shared.csproj" />
+	</ItemGroup>
+
+</Project>

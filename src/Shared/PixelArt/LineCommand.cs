@@ -6,7 +6,11 @@ namespace ZoDream.Shared.PixelArt
     public class LineCommand(IImageProperty option) : IImageSource
     {
         private readonly IThumbnailBuilder _thumbnail = option.Options.CreateThumbnail();
-        public Rect Bound => throw new System.NotImplementedException();
+
+        public Rect Bound => Rect.Create(From, To);
+
+        public Point From { get; set; }
+        public Point To { get; set; }
 
         public bool Contains(Point point)
         {
@@ -24,6 +28,7 @@ namespace ZoDream.Shared.PixelArt
 
         public void Paint(IImageCanvas canvas)
         {
+            canvas.DrawLine(From, To, option.Options.ForegroundPaint);
         }
 
         public void Dispose()

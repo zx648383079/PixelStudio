@@ -8,6 +8,7 @@
     <Project Path="plugins/Adobe/Adobe.csproj" Id="7c63e4f3-ef2c-4e75-8281-893e8fde3997" />
     <Project Path="plugins/Affinity/Affinity.csproj" Id="1624435d-5291-4d1c-b0e1-2ade36c565d8" />
     <Project Path="plugins/Aseprite/Aseprite.csproj" Id="4409e38e-13a5-4935-ba6f-52d0e32f5802" />
+    <Project Path="plugins/Case/Case.csproj" Id="f6bceab8-faa8-4831-932b-cb400a7ed09f" />
     <Project Path="plugins/Cocos/Cocos.csproj" Id="97fd0762-9526-47a1-8793-9a90e219dc7b" />
     <Project Path="plugins/DragonBones/DragonBones.csproj" Id="ca79535b-89d5-4e4e-b302-d5e966a37c3f" />
     <Project Path="plugins/Egret/Egret.csproj" Id="df505ee6-f40b-4621-a81e-4c07a2fffaca" />
