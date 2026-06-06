@@ -36,6 +36,10 @@ namespace ZoDream.Shared.Drawing
         public async Task<SKPath[]> GetContourAsync(SKBitmap image, CancellationToken token = default)
         {
             using var imagePixMap = image.PeekPixels();
+            if (imagePixMap is null)
+            {
+                return [];
+            }
             return await GetContourAsync(imagePixMap, token);
         }
 
@@ -47,6 +51,10 @@ namespace ZoDream.Shared.Drawing
         public async Task<SKPath[]> GetContourAsync(SKImage image, CancellationToken token = default)
         {
             using var imagePixMap = image.PeekPixels();
+            if (imagePixMap is null)
+            {
+                return [];
+            }
             return await GetContourAsync(imagePixMap, token);
         }
 
