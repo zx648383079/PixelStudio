@@ -24,21 +24,15 @@ namespace ZoDream.PixelStudio.ViewModels
         /// <param name="layer"></param>
         private async void SeparateImage(IImageLayer layer, IEnumerable<SKPath> items)
         {
-            var image = (BitmapImageSource)layer.Source;
+            var image = (ISplittableImage)layer.Source;
             Add(items.Select(path => {
                 var bound = path.Bounds;
-                var kid = image.Source.Clip(path);
+                var kid = image.Split(path);
                 if (kid is null)
                 {
                     return null;
                 }
-                var kidLayer = new BitmapImageSource(
-                    kid)
-                {
-                    X = (int)bound.Left,
-                    Y = (int)bound.Top
-                };
-                return Create(kidLayer);
+                return Create(kid);
             }).Where(i => i is not null).Select(i => i!), layer);
             layer.IsVisible = false;
         }
@@ -48,7 +42,7 @@ namespace ZoDream.PixelStudio.ViewModels
         /// <param name="layer"></param>
         private async void SeparateImageAndMerge(IImageLayer layer, IEnumerable<SKPath> items)
         {
-            var image = (BitmapImageSource)layer.Source;
+            var image = (ISplittableImage)layer.Source;
             using var paint = new SKPaint();
             foreach (var item in layer.Children)
             {
@@ -64,7 +58,7 @@ namespace ZoDream.PixelStudio.ViewModels
                 using var canvas = new SKCanvas(i.Source);
                 var rect = path.Bounds;
                 canvas.Clear(SKColors.Transparent);
-                canvas.DrawBitmap(image.Source, rect, 
+                image.CopyTo(canvas, rect,
                     SKRect.Create(rect.Left - i.X, rect.Top - i.Y, rect.Width, rect.Height), paint);
                 path.Offset(-i.X, -i.Y);
                 canvas.ClipPath(path, SKClipOperation.Difference);

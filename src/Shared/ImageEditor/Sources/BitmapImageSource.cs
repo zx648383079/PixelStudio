@@ -3,13 +3,15 @@ using BitmapToVector.SkiaSharp;
 using SkiaSharp;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
-    public class BitmapImageSource(SKBitmap bitmap) : BaseImageSource
+    public class BitmapImageSource(SKBitmap bitmap) : BaseImageSource, ISplittableImage
     {
 
 
@@ -61,6 +63,34 @@ namespace ZoDream.Shared.ImageEditor.Sources
                 Rotate = item.Rotate
             };
         }
+
+        public async Task<SKPath[]> GetContourAsync(CancellationToken token = default)
+        {
+            return await new ImageContourTrace(true).GetContourAsync(Source, token);
+        }
+
+        public IImageSource? Split(SKPath path)
+        {
+            var bound = path.Bounds;
+            var kid = Source.Clip(path);
+            if (kid is null)
+            {
+                return null;
+            }
+            return new BitmapImageSource(
+                kid)
+            {
+                X = (int)bound.Left,
+                Y = (int)bound.Top
+            };
+            
+        }
+
+        public void CopyTo(SKCanvas canvas, SKRect source, SKRect dest, SKPaint? paint = null)
+        {
+            canvas.DrawBitmap(Source, source, dest, paint);
+        }
+
 
         public override void Paint(IImageCanvas canvas)
         {

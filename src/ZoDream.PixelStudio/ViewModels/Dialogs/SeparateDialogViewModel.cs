@@ -4,6 +4,7 @@ using SkiaSharp;
 using System;
 using System.Threading.Tasks;
 using ZoDream.Shared.Drawing;
+using ZoDream.Shared.ImageEditor;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
@@ -71,9 +72,9 @@ namespace ZoDream.PixelStudio.ViewModels
         public string WidthLabel => SelectedIndex == 1 ? "水平数量" : "宽度(px)";
         public string HeightLabel => SelectedIndex == 1 ? "垂直数量" : "高度(px)";
 
-        public bool IsValid => Width > 0 && Height > 0;
+        public bool IsValid => SelectedIndex < 1 || (Width > 0 && Height > 0);
 
-        public async Task<SKPath[]> SplitAsync(SKBitmap source)
+        public async Task<SKPath[]> SplitAsync(ISplittableImage source)
         {
             switch (SelectedIndex)
             {
@@ -116,7 +117,7 @@ namespace ZoDream.PixelStudio.ViewModels
                         return res;
                     }
                 default:
-                    return await new ImageContourTrace(true).GetContourAsync(source);
+                    return await source.GetContourAsync();
             }
         }
     }

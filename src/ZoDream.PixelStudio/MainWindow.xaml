@@ -94,7 +94,7 @@
                         IsChecked="True"
                         Text="透明背景" />
                     <MenuFlyoutSeparator />
-                    <MenuFlyoutSubItem Text="拆分">
+                    <MenuFlyoutSubItem Text="拆分" Visibility="{Binding IsAdvanceMode, Converter={StaticResource ToggleCvt}}">
                         <MenuFlyoutItem
                             Command="{Binding SeparateCommand}"
                             CommandParameter="Auto"
@@ -113,7 +113,7 @@
                             Text="单个拆分" />
                     </MenuFlyoutSubItem>
 
-                    <MenuFlyoutSubItem Text="排列">
+                    <MenuFlyoutSubItem Text="排列" Visibility="{Binding IsAdvanceMode, Converter={StaticResource ToggleCvt}}">
                         <MenuFlyoutItem
                             Command="{Binding OrderCommand}"
                             CommandParameter="TopDown"

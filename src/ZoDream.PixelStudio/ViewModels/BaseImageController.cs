@@ -140,6 +140,8 @@ namespace ZoDream.PixelStudio.ViewModels
 
         public bool IsSelectedLayer => _selectedItems.Length > 0;
 
+        public bool IsAdvanceMode => this is WorkspaceViewModel;
+
 
         private void UndoRedo_ReverseUndoStateChanged(bool value)
         {

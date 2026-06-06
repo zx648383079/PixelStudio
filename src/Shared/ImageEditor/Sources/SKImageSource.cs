@@ -1,11 +1,13 @@
 ﻿using SkiaSharp;
+using System.Threading;
+using System.Threading.Tasks;
 using ZoDream.Shared.Drawing;
 using ZoDream.Shared.Interfaces;
 using ZoDream.Shared.Numerics;
 
 namespace ZoDream.Shared.ImageEditor.Sources
 {
-    public class SKImageSource(SKImage image) : BaseImageSource
+    public class SKImageSource(SKImage image) : BaseImageSource, ISplittableImage
     {
 
 
@@ -18,6 +20,42 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
 
         public override Rect Bound => new(X, Y, Source.Width, Source.Height);
+
+        public async Task<SKPath[]> GetContourAsync(CancellationToken token = default)
+        {
+            return await new ImageContourTrace(true).GetContourAsync(Source, token);
+        }
+
+        public IImageSource? Split(SKPath path)
+        {
+            var bound = path.Bounds;
+            if (bound.IsEmpty || bound.Width < 1 || bound.Height < 1)
+            {
+                return null;
+            }
+            var kid = SkiaExtension.Mutate((int)bound.Width, (int)bound.Height, canvas => {
+                canvas.DrawImage(image, bound,
+                   SKRect.Create(0, 0, bound.Width, bound.Height));
+                path.Offset(-bound.Left, -bound.Top);
+                canvas.ClipPath(path, SKClipOperation.Difference);
+                canvas.Clear();
+            }); ;
+            if (kid is null)
+            {
+                return null;
+            }
+            return new BitmapImageSource(
+                kid)
+            {
+                X = (int)bound.Left,
+                Y = (int)bound.Top
+            };
+        }
+
+        public void CopyTo(SKCanvas canvas, SKRect source, SKRect dest, SKPaint? paint = null)
+        {
+            canvas.DrawImage(Source, source, dest, paint);
+        }
 
         public override void Paint(IImageCanvas canvas)
         {

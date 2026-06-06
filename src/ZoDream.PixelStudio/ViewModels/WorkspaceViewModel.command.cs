@@ -4,8 +4,9 @@ using System.Linq;
 using System.Windows.Input;
 using ZoDream.PixelStudio.Dialogs;
 using ZoDream.PixelStudio.Plugins;
-using ZoDream.Shared.Interfaces;
+using ZoDream.Shared.ImageEditor;
 using ZoDream.Shared.ImageEditor.Sources;
+using ZoDream.Shared.Interfaces;
 
 namespace ZoDream.PixelStudio.ViewModels
 {
@@ -132,7 +133,7 @@ namespace ZoDream.PixelStudio.ViewModels
                     {
                         continue;
                     }
-                    if (item.Source is not BitmapImageSource)
+                    if (item.Source is not ISplittableImage)
                     {
                         continue;
                     }
@@ -140,7 +141,7 @@ namespace ZoDream.PixelStudio.ViewModels
                     break;
                 }
             }
-            if(layer is null || layer.Source is not BitmapImageSource image)
+            if(layer is null || layer.Source is not ISplittableImage image)
             {
                 return;
             }
@@ -158,7 +159,7 @@ namespace ZoDream.PixelStudio.ViewModels
                 return;
             }
             IsLoading = true;
-            var partItems = await model.SplitAsync(image.Source);
+            var partItems = await model.SplitAsync(image);
             if (partItems.Length == 0)
             {
                 IsLoading = false;
