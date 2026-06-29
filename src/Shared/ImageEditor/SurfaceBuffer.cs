@@ -21,7 +21,7 @@ namespace ZoDream.Shared.ImageEditor
                 var rect = SKRect.Create(0, 0, image.Width, image.Height);
                 var recorderCanvas = recorder.BeginRecording(rect);
 
-                recorderCanvas.DrawImage(image, 0, 0);
+                recorderCanvas.DrawImage(image, 0, 0, SKSamplingOptions.Default);
 
                 var picture = recorder.EndRecording();
 

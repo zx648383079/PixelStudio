@@ -32,7 +32,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
                 var bitmap = new SKBitmap((int)item.Width, (int)item.Height);
                 using var canvas = new SKCanvas(bitmap);
                 // canvas.Clear(SKColors.Transparent);
-                canvas.DrawBitmap(Source, SKRect.Create(item.X, item.Y, item.Width, item.Height), SKRect.Create(0, 0, item.Width, item.Height), paint);
+                canvas.DrawBitmap(Source, SKRect.Create(item.X, item.Y, item.Width, item.Height), SKRect.Create(0, 0, item.Width, item.Height), SKSamplingOptions.Default, paint);
                 return new BitmapImageSource(bitmap)
                 {
                     X = item.X,
@@ -88,7 +88,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
         public void CopyTo(SKCanvas canvas, SKRect source, SKRect dest, SKPaint? paint = null)
         {
-            canvas.DrawBitmap(Source, source, dest, paint);
+            canvas.DrawBitmap(Source, source, dest, SKSamplingOptions.Default, paint);
         }
 
 

@@ -161,11 +161,11 @@ namespace ZoDream.Shared.ImageEditor
 
         public void Draw(SKBitmap source, SKPoint point)
         {
-            canvas.DrawBitmap(source, point);
+            canvas.DrawBitmap(source, point, SKSamplingOptions.Default);
         }
         public void Draw(SKBitmap source, SKRect rect, SKPaint paint)
         {
-            canvas.DrawBitmap(source, rect, paint);
+            canvas.DrawBitmap(source, rect, SKSamplingOptions.Default, paint);
         }
 
         public void Draw(SKBitmap source, IImageStyle style)
@@ -191,11 +191,11 @@ namespace ZoDream.Shared.ImageEditor
 
         public void Draw(SKImage source, SKPoint point)
         {
-            canvas.DrawImage(source, point);
+            canvas.DrawImage(source, point, SKSamplingOptions.Default);
         }
         public void Draw(SKImage source, SKRect rect, SKPaint paint)
         {
-            canvas.DrawImage(source, rect, paint);
+            canvas.DrawImage(source, rect, SKSamplingOptions.Default, paint);
         }
         public void Draw(SKImage source, IImageStyle style)
         {

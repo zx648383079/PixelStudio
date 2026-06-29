@@ -80,9 +80,9 @@ namespace ZoDream.PixelStudio.ViewModels
             {
                 case 3:
                     {
-                        var path = new SKPath();
+                        using var path = new SKPathBuilder();
                         path.AddRect(SKRect.Create(X, Y, Width, Height));
-                        return [path];
+                        return [path.Snapshot()];
                     }
                 case 2:
                     {
@@ -93,9 +93,9 @@ namespace ZoDream.PixelStudio.ViewModels
                         {
                             for (int j = 0; j < countY; j++)
                             {
-                                var path = new SKPath();
+                                using var path = new SKPathBuilder();
                                 path.AddRect(SKRect.Create(i * Width, j * Height, Width, Height));
-                                res[i * countY + j] = path;
+                                res[i * countY + j] = path.Snapshot();
                             }
                         }
                         return res;
@@ -109,9 +109,9 @@ namespace ZoDream.PixelStudio.ViewModels
                         {
                             for (int j = 0; j < Height; j++)
                             {
-                                var path = new SKPath();
+                                using var path = new SKPathBuilder();
                                 path.AddRect(SKRect.Create(i * chunkX, j * chunkY, chunkX, chunkY));
-                                res[i * Height + j] = path;
+                                res[i * Height + j] = path.Snapshot();
                             }
                         }
                         return res;

@@ -18,7 +18,7 @@ namespace ZoDream.Shared.ImageEditor
         {
             using var stream = File.OpenWrite(fileName);
             using var canvas = SKSvgCanvas.Create(SKRect.Create(0, 0, 100, 100), stream);
-            canvas.DrawBitmap(data.ToBitmap(), 0, 0);
+            canvas.DrawBitmap(data.ToBitmap(), 0, 0, SKSamplingOptions.Default);
             canvas.Flush();
             return Task.CompletedTask;
         }

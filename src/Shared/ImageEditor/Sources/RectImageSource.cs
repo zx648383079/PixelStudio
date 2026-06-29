@@ -31,7 +31,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
 
 
-        public void Paint(IImageCanvas canvas)
+        public override void Paint(IImageCanvas canvas)
         {
             _paint.Mutate(paint => {
                 paint.StrokeWidth = StrokeWidth;

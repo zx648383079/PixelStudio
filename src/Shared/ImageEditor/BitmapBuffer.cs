@@ -25,7 +25,7 @@ namespace ZoDream.Shared.ImageEditor
             get {
                 var recorder = new SKPictureRecorder();
                 var canvas = recorder.BeginRecording(SKRect.Create(0, 0, bitmap.Width, bitmap.Height));
-                canvas.DrawBitmap(bitmap, 0, 0);
+                canvas.DrawBitmap(bitmap, 0, 0, SKSamplingOptions.Default);
                 var picture = recorder.EndRecording();
                 recorder.Dispose();
                 return picture;
@@ -131,12 +131,12 @@ namespace ZoDream.Shared.ImageEditor
 
         public void Paint(SKCanvas canvas, SKPoint point, SKPaint? paint = null)
         {
-            canvas.DrawBitmap(bitmap, point, paint);
+            canvas.DrawBitmap(bitmap, point, SKSamplingOptions.Default, paint);
         }
 
         public void Paint(SKCanvas canvas, SKRect rect, SKPaint? paint = null)
         {
-            canvas.DrawBitmap(bitmap, rect, paint);
+            canvas.DrawBitmap(bitmap, rect, SKSamplingOptions.Default, paint);
         }
 
         public void Paint(SKCanvas canvas, SKPoint[] sourceVertices, SKPoint[] vertices)

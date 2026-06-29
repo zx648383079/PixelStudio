@@ -41,7 +41,7 @@ namespace ZoDream.Shared.ImageEditor
                 var scale = Math.Min((float)size.Width / source.Width, (float)size.Height / source.Height);
                 var w = source.Width * scale;
                 var h = source.Height * scale;
-                canvas.DrawBitmap(source, SKRect.Create((size.Width - w) / 2, (size.Height - h) / 2, w, h));
+                canvas.DrawBitmap(source, SKRect.Create((size.Width - w) / 2, (size.Height - h) / 2, w, h), SKSamplingOptions.Default);
             });
         }
 
@@ -64,7 +64,7 @@ namespace ZoDream.Shared.ImageEditor
             imageWidth -= 1;
             imageHeight -= 1;
             var pointItems = uv.VertexItems.Select(v => new SKPoint(v.X * imageWidth, v.Y * imageHeight)).ToArray();
-            var path = new SKPath();
+            using var path = new SKPathBuilder();
             for (var i = 0; i < pointItems.Length; i++)
             {
                 var point = pointItems[i];
@@ -89,7 +89,7 @@ namespace ZoDream.Shared.ImageEditor
             //        }
             //    }
             //}
-            return path;
+            return path.Snapshot();
         }
 
         public static SKBitmap? Clip(this SKBitmap source, ISpriteLayer layer)
@@ -107,7 +107,7 @@ namespace ZoDream.Shared.ImageEditor
             // canvas.Clear(SKColors.Transparent);
             canvas.DrawBitmap(source, SKRect.Create(layer.X, layer.Y,
                 layer.Width, layer.Height),
-                SKRect.Create(0, 0, layer.Width, layer.Height), new SKPaint());
+                SKRect.Create(0, 0, layer.Width, layer.Height), SKSamplingOptions.Default, new SKPaint());
             return bitmap;
         }
 
@@ -124,7 +124,7 @@ namespace ZoDream.Shared.ImageEditor
             var bitmap = new SKBitmap((int)rect.Width, (int)rect.Height);
             using var canvas = new SKCanvas(bitmap);
             canvas.DrawBitmap(source, rect,
-                SKRect.Create(0, 0, bitmap.Width, bitmap.Height), new SKPaint());
+                SKRect.Create(0, 0, bitmap.Width, bitmap.Height), SKSamplingOptions.Default, new SKPaint());
             path.Offset(-rect.Left, -rect.Top);
             //canvas.DrawPath(path, new SKPaint()
             //{

@@ -35,7 +35,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
             }
             var kid = SkiaExtension.Mutate((int)bound.Width, (int)bound.Height, canvas => {
                 canvas.DrawImage(image, bound,
-                   SKRect.Create(0, 0, bound.Width, bound.Height));
+                   SKRect.Create(0, 0, bound.Width, bound.Height), SKSamplingOptions.Default);
                 path.Offset(-bound.Left, -bound.Top);
                 canvas.ClipPath(path, SKClipOperation.Difference);
                 canvas.Clear();
@@ -54,7 +54,7 @@ namespace ZoDream.Shared.ImageEditor.Sources
 
         public void CopyTo(SKCanvas canvas, SKRect source, SKRect dest, SKPaint? paint = null)
         {
-            canvas.DrawImage(Source, source, dest, paint);
+            canvas.DrawImage(Source, source, dest, SKSamplingOptions.Default, paint);
         }
 
         public override void Paint(IImageCanvas canvas)

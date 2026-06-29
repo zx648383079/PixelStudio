@@ -22,7 +22,7 @@ namespace ZoDream.Plugin.TexturePacker
         {
             input.Seek(0, SeekOrigin.Begin);
             var buffer = new byte[4];
-            input.Read(buffer, 0, buffer.Length);
+            input.ReadExactly(buffer);
             if (buffer[0] == 0x1F && buffer[1] == 0x8B)
             {
                 return PVRFileType.GZIP;
@@ -50,7 +50,7 @@ namespace ZoDream.Plugin.TexturePacker
         {
             stream.Seek(0, SeekOrigin.Begin);
             var buffer = new byte[2];
-            stream.Read(buffer, 0, buffer.Length);
+            stream.ReadExactly(buffer);
             return buffer.SequenceEqual(new byte[] { 0x1F, 0x8B });
         }
 
@@ -90,7 +90,7 @@ namespace ZoDream.Plugin.TexturePacker
         {
             input.Seek(12, SeekOrigin.Begin);
             var buffer = new byte[input.Length - 12];
-            input.Read(buffer, 0, buffer.Length);
+            input.ReadExactly(buffer);
             var key = new PvrKey("");
             key.Decrypt(ref buffer);
             return DecodeCCZ(buffer);
@@ -100,7 +100,7 @@ namespace ZoDream.Plugin.TexturePacker
         {
             input.Seek(12, SeekOrigin.Begin);
             var buffer = new byte[input.Length - 12];
-            input.Read(buffer, 0, buffer.Length);
+            input.ReadExactly(buffer);
             return DecodeCCZ(buffer);
         }
 
@@ -112,7 +112,7 @@ namespace ZoDream.Plugin.TexturePacker
         private IImageData? DecodePVR(Stream input)
         {
             var buffer = new byte[input.Length];
-            input.Read(buffer, 0, buffer.Length);
+            input.ReadExactly(buffer);
             return DecodePVR(buffer);
         }
         private IImageData? DecodePVR(byte[] buffer)

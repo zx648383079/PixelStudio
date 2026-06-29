@@ -109,7 +109,7 @@ namespace ZoDream.Shared.Drawing
         /// <returns></returns>
         public SKPath? GetContour(SKPixmap pixMap, int beginX, int beginY)
         {
-            var path = new SKPath();
+            using var path = new SKPathBuilder();
             path.MoveTo(beginX, beginY - (IsOutline ? 1 : 0));
             var directItems = new int[][] {
                 [0, -1], [1, -1],
@@ -159,13 +159,13 @@ namespace ZoDream.Shared.Drawing
                     if (IsOutline)
                     {
                         path.Close();
-                        return path;
+                        return path.Snapshot();
                     }
                     // 所有方向都没有结束，就是一个点
-                    return IsAllowDot ? path : null;
+                    return IsAllowDot ? path.Snapshot() : null;
                 }
             }
-            return path;
+            return path.Snapshot();
         }
 
         private static bool Contains(IEnumerable<SKPath> items, int x, int y)

@@ -59,7 +59,7 @@ namespace ZoDream.Shared.Drawing
                     surface.Translate(rotatedWidth / 2, rotatedHeight / 2);
                     surface.RotateDegrees(angle);
                     surface.Translate(-bitmap.Width / 2, -bitmap.Height / 2);
-                    surface.DrawBitmap(bitmap, new SKPoint());
+                    surface.DrawBitmap(bitmap, new SKPoint(), SKSamplingOptions.Default);
                 });
             }
             public void SaveAs(string fileName)
@@ -80,7 +80,8 @@ namespace ZoDream.Shared.Drawing
                     var scale = (float)size / Math.Max(bitmap.Width, bitmap.Height);
                     var w = bitmap.Width * scale;
                     var h = bitmap.Height * scale;
-                    canvas.DrawBitmap(bitmap, SKRect.Create((size - w) / 2, (size - h) / 2, w, h));
+                    canvas.DrawBitmap(bitmap, 
+                        SKRect.Create((size - w) / 2, (size - h) / 2, w, h), SKSamplingOptions.Default);
                 });
             }
 
@@ -89,7 +90,7 @@ namespace ZoDream.Shared.Drawing
                 return Mutate(rect.Width, rect.Height, canvas => {
                     // canvas.Clear(SKColors.Transparent);
                     canvas.DrawBitmap(bitmap, rect,
-                        SKRect.Create(0, 0, rect.Width, rect.Height));
+                        SKRect.Create(0, 0, rect.Width, rect.Height), SKSamplingOptions.Default);
                 });
             }
 
@@ -102,7 +103,7 @@ namespace ZoDream.Shared.Drawing
                 }
                 return Mutate((int)rect.Width, (int)rect.Height, canvas => {
                     canvas.DrawBitmap(bitmap, rect,
-                       SKRect.Create(0, 0, rect.Width, rect.Height));
+                       SKRect.Create(0, 0, rect.Width, rect.Height), SKSamplingOptions.Default);
                     path.Offset(-rect.Left, -rect.Top);
                     canvas.ClipPath(path, SKClipOperation.Difference);
                     canvas.Clear();
@@ -132,7 +133,7 @@ namespace ZoDream.Shared.Drawing
                 }
                 return MutateImage((int)rect.Width, (int)rect.Height, canvas => {
                     canvas.DrawImage(image, rect,
-                       SKRect.Create(0, 0, rect.Width, rect.Height));
+                       SKRect.Create(0, 0, rect.Width, rect.Height), SKSamplingOptions.Default);
                     path.Offset(-rect.Left, -rect.Top);
                     canvas.ClipPath(path, SKClipOperation.Difference);
                     canvas.Clear();
@@ -152,7 +153,7 @@ namespace ZoDream.Shared.Drawing
                     surface.Translate(cx, cy);
                     surface.Flip(isHorizontal);
                     surface.Translate(-cx, -cy);
-                    surface.DrawImage(image, 0, 0);
+                    surface.DrawImage(image, 0, 0, SKSamplingOptions.Default);
                 });
             }
             public SKImage Rotate(float angle)
@@ -162,7 +163,7 @@ namespace ZoDream.Shared.Drawing
                     surface.Translate(rotatedWidth / 2, rotatedHeight / 2);
                     surface.RotateDegrees(angle);
                     surface.Translate(-image.Width / 2, -image.Height / 2);
-                    surface.DrawImage(image, new SKPoint());
+                    surface.DrawImage(image, new SKPoint(), SKSamplingOptions.Default);
                 });
             }
 

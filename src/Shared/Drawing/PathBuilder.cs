@@ -420,7 +420,7 @@ namespace ZoDream.Shared.Drawing
             }
 
             _cachedPath?.Dispose();
-            _cachedPath = new SKPath();
+            using var builder = new SKPathBuilder();
 
             foreach (var cmd in Items)
             {
@@ -429,38 +429,43 @@ namespace ZoDream.Shared.Drawing
                     case SKPathVerb.Move:
                         if (cmd.Points.Count >= 1)
                         {
-                            _cachedPath.MoveTo(cmd.Points[0].ToPoint());
+                            builder.MoveTo(cmd.Points[0].ToPoint());
                         }
                         break;
                     case SKPathVerb.Line:
                         if (cmd.Points.Count >= 1)
                         {
-                            _cachedPath.LineTo(cmd.Points[0].ToPoint());
+                            builder.LineTo(cmd.Points[0].ToPoint());
                         }
                         break;
                     case SKPathVerb.Quad:
                         if (cmd.Points.Count >= 2)
                         {
-                            _cachedPath.QuadTo(cmd.Points[0].ToPoint(), cmd.Points[1].ToPoint());
+                            builder.QuadTo(cmd.Points[0].ToPoint(), cmd.Points[1].ToPoint());
                         }
                         break;
                     case SKPathVerb.Cubic:
                         if (cmd.Points.Count >= 3)
                         {
-                            _cachedPath.CubicTo(cmd.Points[0].ToPoint(), 
+                            builder.CubicTo(cmd.Points[0].ToPoint(), 
                                 cmd.Points[1].ToPoint(), cmd.Points[2].ToPoint());
                         }
                         break;
                     case SKPathVerb.Close:
-                        _cachedPath.Close();
+                        builder.Close();
                         break;
                 }
             }
-
+            _cachedPath = builder.Snapshot();
             _isDirty = false;
             return _cachedPath;
         }
 
+        public static PathBuilder FromPath(SKPathBuilder path)
+        {
+            using var p = path.Snapshot();
+            return FromPath(p);
+        }
         public static PathBuilder FromPath(SKPath path)
         {
             var builder = new PathBuilder();
